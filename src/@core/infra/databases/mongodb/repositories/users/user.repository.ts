@@ -5,11 +5,16 @@ import { UserResponseDto } from 'src/@core/application/dto/responses/users/user.
 import { User } from 'src/@core/domain/entities/users/user.entity';
 
 const columns = {
+  _id: true,
   name: true,
   lastname: true,
   email: true,
-  created_at: true,
-  updated_at: true,
+  roleId: true,
+  confirmed: true,
+  document: true,
+  documentName: true,
+  createdAt: true,
+  deletedAt: true,
 };
 
 @Injectable()
@@ -19,11 +24,18 @@ export class UserRepository {
   ) {}
 
   async getAll() {
-    return await this.user.find().select(columns).exec();
+    return await this.user.find()
+      .select(columns)
+      .where({deletedAt: null})
+      .exec();
   }
 
   async findById(id: string) {
-    return await this.user.findById(id).select(columns).exec();
+    return await this.user
+      .findById(id)
+      .select(columns)
+      .where({deletedAt: null})
+      .exec();
   }
 
   async findByEmail(email: string) {
@@ -32,6 +44,7 @@ export class UserRepository {
         email,
       })
       .select(columns)
+      .where({deletedAt: null})
       .exec();
   }
 
@@ -40,10 +53,10 @@ export class UserRepository {
   }
 
   async update(id: string, data: User) {
-    return this.user.updateOne({ _id: id }, data);
+    return this.user.updateOne({ _id: id, deletedAt: null }, data);
   }
 
   async destroy(id: string) {
-    return this.user.deleteOne({ _id: id });
+    return this.user.deleteMany({ _id: id, deletedAt: null });
   }
 }
