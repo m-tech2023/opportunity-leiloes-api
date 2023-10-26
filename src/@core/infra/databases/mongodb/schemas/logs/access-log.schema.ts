@@ -26,6 +26,15 @@ const accessLogSchema = new Schema({
     type: String,
     required: true,
   },
+  createdAt: {
+    type: Date,
+    required: false,
+    default: Date.now
+  },
+  updatedAt: {
+    type: Date,
+    required: false,
+  },
 });
 
 export default accessLogSchema;

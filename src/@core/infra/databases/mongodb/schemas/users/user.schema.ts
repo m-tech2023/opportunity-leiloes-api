@@ -1,10 +1,10 @@
-import { Schema } from 'mongoose';
-import { hash } from 'src/@core/infra/utils/uuid/uuid.util';
+import mongoose, { Schema } from 'mongoose';
 
 const userSchema = new Schema({
-  id: {
-    type: String,
-    default: () => hash(),
+  _id: { 
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    default: new mongoose.Types.ObjectId()
   },
   name: {
     type: String,
@@ -31,19 +31,36 @@ const userSchema = new Schema({
     type: String,
     required: true,
     trim: true,
-    documentType: String,
   },
-  role: {
+  documentName: {
     type: String,
     required: true,
+    trim: true,
+  },
+  roleId: {
+    type: String,
+    required: true,
+    trim: true,
+  },
+  confirmed: {
+    type: Date,
+    required: false,
   },
   createdAt: {
     type: Date,
-    required: true,
+    required: false,
+    default: Date.now,
   },
-  confirmed: Date,
-  updatedAt: Date,
-  deleteAt: Date,
+  updatedAt: {
+    type: Date,
+    required: false,
+    default: null,
+  },
+  deletedAt: {
+    type: Date,
+    required: false,
+    default: null,
+  },
 });
 
 export default userSchema;

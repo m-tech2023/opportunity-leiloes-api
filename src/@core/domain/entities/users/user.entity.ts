@@ -1,4 +1,4 @@
-import { hash } from 'src/@core/infra/utils/uuid/uuid.util';
+import mongoose from 'mongoose';
 import { passwordHash } from 'src/@core/infra/utils/password-hash/password-hash.util';
 
 type UserProps = {
@@ -8,12 +8,12 @@ type UserProps = {
   email: string;
   password: string;
   document: string;
-  documentType?: string;
-  role: string;
-  createdAt: Date;
+  documentName: string;
+  roleId: string;
+  createdAt?: Date;
   confirmed?: Date;
   updatedAt?: Date;
-  deleteAt?: Date;
+  deletedAt?: Date;
 };
 
 export class User {
@@ -28,8 +28,8 @@ export class User {
   }
 
   get id() {
-    if (!this.props.id) {
-      return hash();
+    if (this.props.id) {
+      return new mongoose.Types.ObjectId().toString();
     }
 
     return this.props.id;
@@ -61,12 +61,12 @@ export class User {
     return this.props.document;
   }
 
-  get documentType() {
-    return this.props.documentType;
+  get documentName() {
+    return this.props.documentName;
   }
 
-  get role() {
-    return this.props.role;
+  get roleId() {
+    return this.props.roleId;
   }
 
   get createdAt() {
@@ -81,8 +81,8 @@ export class User {
     return this.props.updatedAt;
   }
 
-  get deleteAt() {
-    return this.props.deleteAt;
+  get deletedAt() {
+    return this.props.deletedAt;
   }
 
   getUser() {
@@ -93,12 +93,12 @@ export class User {
       email: this.email,
       password: this.password,
       document: this.document,
-      documentType: this.documentType,
-      role: this.role,
+      documentName: this.documentName,
+      roleId: this.roleId,
       createdAt: this.createdAt,
       confirmed: this.confirmed,
       updatedAt: this.updatedAt,
-      deleteAt: this.deleteAt,
+      deletedAt: this.deletedAt,
     } as User;
   }
 

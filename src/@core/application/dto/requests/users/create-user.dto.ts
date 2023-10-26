@@ -1,9 +1,10 @@
 import {
-  IsString,
-  MinLength,
   IsEmail,
   IsNotEmpty,
+  IsOptional,
+  IsString,
   MaxLength,
+  MinLength
 } from 'class-validator';
 import { EmailAlreadyUsed } from 'src/@core/infra/validations/decorators/email-already-used';
 
@@ -33,4 +34,25 @@ export class CreateUserDto {
   @MinLength(8)
   @MaxLength(255)
   password: string;
+
+  @IsString()
+  @IsNotEmpty()
+  document: string;
+
+  @IsString()
+  @IsNotEmpty()
+  documentName: string;
+
+  @IsString()
+  @IsNotEmpty()
+  roleId: String;
+
+  @IsOptional()
+  confirmed?: Date;
+
+  @IsOptional()
+  updatedAt?: Date;
+
+  @IsOptional()
+  deletedAt?: Date;
 }
