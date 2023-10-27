@@ -4,6 +4,10 @@ export class UserResponseDto {
   lastname: string;
   email: string;
   password?: string;
+  document?: string;
+  documentName?: string;
+  roleId?: string;
+  confirmed?: Date;
   iat?: number;
   exp?: number;
 }

@@ -1,5 +1,5 @@
-import { v4 } from 'uuid';
+import mongoose from 'mongoose';
 
-export function hash() {
-  return v4();
+export function objectId() {
+  return new mongoose.Types.ObjectId().toString();
 }
