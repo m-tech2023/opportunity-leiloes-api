@@ -15,7 +15,6 @@ import { LoginUseCase } from 'src/@core/application/use-cases/login/login.usecas
 import { AuthenticationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authentication/authentication.guard';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 import { User } from 'src/@core/infra/frameworks/nestjs/modules/users/decorators/user.decorator';
-import { AccessLogProps } from './../../../domain/entities/access-log/access-log.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -35,15 +34,13 @@ export class AuthController {
       password: userLoginDto.password
     });
     
-    const accessLogProps: AccessLogProps = {
-      userId: (req.user as any).id,
-      ip: req.ip,
-      geolocalization: 'A DEFINIR',
-      accessedAt: new Date(),
-      browser: headers['user-agent'],
-    };
-
-    console.log(accessLogProps)
+    // const accessLogProps: AccessLogProps = {
+    //   userId: (req.user as any).id,
+    //   ip: req.ip,
+    //   geolocalization: 'A DEFINIR',
+    //   accessedAt: new Date(),
+    //   browser: headers['user-agent'],
+    // };
 
     return login;
   }

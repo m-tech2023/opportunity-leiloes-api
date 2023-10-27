@@ -23,7 +23,6 @@ import { AccessLogService } from '../../../application/services/access-log/acces
 // import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 import { AccessLogService } from '../../../application/services/access-log/access-log.service';
-
 // import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 
 @Controller('users')
