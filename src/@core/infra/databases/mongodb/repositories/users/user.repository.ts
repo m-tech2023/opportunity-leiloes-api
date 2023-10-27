@@ -24,9 +24,10 @@ export class UserRepository {
   ) {}
 
   async getAll() {
-    return await this.user.find()
+    return await this.user
+      .find()
       .select(columns)
-      .where({deletedAt: null})
+      .where({ deletedAt: null })
       .exec();
   }
 
@@ -34,7 +35,7 @@ export class UserRepository {
     return await this.user
       .findById(id)
       .select(columns)
-      .where({deletedAt: null})
+      .where({ deletedAt: null })
       .exec();
   }
 
@@ -44,7 +45,7 @@ export class UserRepository {
         email,
       })
       .select(columns)
-      .where({deletedAt: null})
+      .where({ deletedAt: null })
       .exec();
   }
 

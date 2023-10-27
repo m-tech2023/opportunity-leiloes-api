@@ -14,45 +14,45 @@ import { MongooseModule } from '@nestjs/mongoose';
 import User from 'src/@core/infra/databases/mongodb/schemas/users/user.schema';
 
 @Module({
-	imports: [
-		MongooseModule.forFeature([
-			{
-				name: 'User',
-				schema: User,
-			},
-		]),
-		PassportModule,
-		JwtModule.register({
-			secret: env.JWT_SECRET,
-			signOptions: { expiresIn: env.JWT_EXPIRES_IN },
-		}),
-	],
-	controllers: [AuthController],
-	providers: [
-		AuthenticationStrategy,
-		AuthorizationStrategy,
-		UserRepository,
-		{
-			provide: UserService,
-			useFactory: (userRepository: UserRepository) => {
-				return new UserService(userRepository);
-			},
-			inject: [UserRepository],
-		},
-		{
-			provide: LoginUseCase,
-			useFactory: (userService: UserService, jwtService: JwtService) => {
-				return new LoginUseCase(userService, jwtService);
-			},
-			inject: [UserService, JwtService],
-		},
-		{
-			provide: FindByEmailUseCase,
-			useFactory: (userService: UserService) => {
-				return new FindByEmailUseCase(userService);
-			},
-			inject: [UserService],
-		},
-	],
+  imports: [
+    MongooseModule.forFeature([
+      {
+        name: 'User',
+        schema: User,
+      },
+    ]),
+    PassportModule,
+    JwtModule.register({
+      secret: env.JWT_SECRET,
+      signOptions: { expiresIn: env.JWT_EXPIRES_IN },
+    }),
+  ],
+  controllers: [AuthController],
+  providers: [
+    AuthenticationStrategy,
+    AuthorizationStrategy,
+    UserRepository,
+    {
+      provide: UserService,
+      useFactory: (userRepository: UserRepository) => {
+        return new UserService(userRepository);
+      },
+      inject: [UserRepository],
+    },
+    {
+      provide: LoginUseCase,
+      useFactory: (userService: UserService, jwtService: JwtService) => {
+        return new LoginUseCase(userService, jwtService);
+      },
+      inject: [UserService, JwtService],
+    },
+    {
+      provide: FindByEmailUseCase,
+      useFactory: (userService: UserService) => {
+        return new FindByEmailUseCase(userService);
+      },
+      inject: [UserService],
+    },
+  ],
 })
 export class AuthModule {}
