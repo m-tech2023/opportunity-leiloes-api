@@ -7,10 +7,10 @@ import { UsersModule } from './@core/infra/frameworks/nestjs/modules/users/users
 
 @Module({
   imports: [
+    MongooseModule.forRoot(process.env.MONGO_URI),
     AccessLogModule,
     UsersModule,
     AuthModule,
-    MongooseModule.forRoot(process.env.MONGO_URI),
   ],
   controllers: [],
   providers: [],
