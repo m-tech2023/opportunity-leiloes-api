@@ -1,6 +1,11 @@
-import { Schema } from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 
 const accessLogSchema = new Schema({
+  _id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    default: new mongoose.Types.ObjectId(),
+  },
   userId: {
     type: String,
     required: true,
@@ -24,7 +29,7 @@ const accessLogSchema = new Schema({
   createdAt: {
     type: Date,
     required: false,
-    default: Date.now
+    default: Date.now,
   },
   updatedAt: {
     type: Date,

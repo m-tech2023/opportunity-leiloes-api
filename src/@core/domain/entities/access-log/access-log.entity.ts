@@ -1,7 +1,7 @@
-import { objectId } from "src/@core/infra/utils/uuid/uuid.util";
+import mongoose from 'mongoose';
 
-type AccessLogProps = {
-  uuid?: string;
+export type AccessLogProps = {
+  id?: string;
   userId: string;
   ip: string;
   geolocalization: string;
@@ -20,12 +20,12 @@ export class AccessLog {
     return new AccessLog(props);
   }
 
-  get uuid() {
-    if (!this.props.uuid) {
-      return objectId();
+  get id() {
+    if (!this.props.id) {
+      return new mongoose.Types.ObjectId().toString();
     }
 
-    return this.props.uuid;
+    return this.props.id;
   }
 
   get userId() {
@@ -47,9 +47,10 @@ export class AccessLog {
   get browser() {
     return this.props.browser;
   }
+
   getLog() {
     return {
-      uuid: this.uuid,
+      id: this.id,
       userId: this.userId,
       ip: this.ip,
       geolocalization: this.geolocalization,
