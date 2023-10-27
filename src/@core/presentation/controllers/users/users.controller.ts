@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Req } from '@nestjs/common';
 import {
   Body,
   Delete,
@@ -10,7 +10,7 @@ import {
   Res,
 } from '@nestjs/common/decorators';
 import { HttpStatus } from '@nestjs/common/enums';
-import { Response } from 'express';
+import { Response, Request } from 'express';
 import { CreateUserDto } from 'src/@core/application/dto/requests/users/create-user.dto';
 import { UpdateUserDto } from 'src/@core/application/dto/requests/users/update-user.dto';
 import { CreateUserUseCase } from 'src/@core/application/use-cases/users/create-user.usecase';
@@ -18,6 +18,12 @@ import { DestroyUserUseCase } from 'src/@core/application/use-cases/users/destro
 import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-id.usecase';
 import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.usecase';
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
+import { AccessLogService } from '../../../application/services/access-log/access-log.service';
+import {
+  AccessLog,
+  AccessLogProps,
+} from '../../../domain/entities/access-log/access-log.entity';
+
 // import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 
 @Controller('users')
@@ -28,13 +34,25 @@ export class UsersController {
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly updateUserUseCase: UpdateUserUseCase,
     private readonly destroyUserUseCase: DestroyUserUseCase,
+    private readonly accessLog: AccessLogService,
   ) {}
 
   @Get()
   // @UseGuards(AuthorizationGuard)
-  async index(@Res() res: Response) {
+  async index(@Res() res: Response, @Req() req: Request) {
     try {
       const data = await this.getAllUseCase.execute();
+      ///////////////////////////////
+      const accessLogPropsTeste: AccessLogProps = {
+        userId: '',
+        ip: '',
+        geolocalization: '',
+        accessedAt: new Date(),
+        browser: '',
+      };
+      const accessLog = AccessLog.create(accessLogPropsTeste);
+      await this.accessLog.createLog(accessLog); // remover
+      ////////////////////////////
       return res.status(HttpStatus.OK).json({
         data,
       });
@@ -66,12 +84,11 @@ export class UsersController {
     try {
       await this.createUserUseCase.execute(createUserDto);
       return res.status(HttpStatus.CREATED).json({
-        message: 'User created successfully!'
+        message: 'User created successfully!',
       });
     } catch ({ message }) {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message,
-        
       });
     }
   }
@@ -86,7 +103,7 @@ export class UsersController {
     try {
       await this.updateUserUseCase.execute(id, updateUserDto);
       return res.status(HttpStatus.OK).json({
-        message: 'User updated successfully!'
+        message: 'User updated successfully!',
       });
     } catch ({ message }) {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
@@ -101,7 +118,7 @@ export class UsersController {
     try {
       await this.destroyUserUseCase.execute(id);
       return res.status(HttpStatus.OK).json({
-        message: 'User deleted successfully!'
+        message: 'User deleted successfully!',
       });
     } catch ({ message }) {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
