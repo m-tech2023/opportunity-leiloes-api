@@ -5,6 +5,6 @@ export class DestroyUserUseCase {
   constructor(private readonly userService: UserService) {}
 
   async execute(id: string) {
-    return await this.userService.destroy(id);
+    return await this.userService.deleteById(id);
   }
 }

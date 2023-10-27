@@ -33,7 +33,7 @@ export class UserService {
     return await this.userRepository.update(id, data);
   }
 
-  async destroy(id: string) {
-    return await this.userRepository.destroy(id);
+  async deleteById(id: string) {
+    return await this.userRepository.deleteById(id);
   }
 }

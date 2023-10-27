@@ -59,10 +59,12 @@ export class UserRepository {
   }
 
   async update(id: string, data: User) {
-    return this.user.updateOne({ _id: id, deletedAt: null }, data);
+    return await this.user.updateOne({ _id: id, deletedAt: null }, data);
   }
 
-  async destroy(id: string) {
-    return this.user.deleteMany({ _id: id, deletedAt: null });
+  async deleteById(id: string) {
+    return await this.update(id, {
+      deletedAt: Date.now(),
+    } as any);
   }
 }
