@@ -3,10 +3,12 @@ import {
   Controller,
   Get,
   Headers,
+  HttpCode,
   Post,
   Req,
-  UseGuards,
+  UseGuards
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { UserLoginDto } from 'src/@core/application/dto/requests/auth/user-login.dto';
 import { LoginUseCase } from 'src/@core/application/use-cases/login/login.usecase';
@@ -21,9 +23,13 @@ export class AuthController {
   constructor(
     private readonly loginUseCase: LoginUseCase,
   ) {}
-
-  @UseGuards(AuthenticationGuard)
+  
   @Post('login')
+  @ApiTags('Auth')
+  @HttpCode(200)
+  @UseGuards(AuthenticationGuard)
+  @ApiBody({ type: UserLoginDto })
+  @ApiOperation({ summary: 'Login by E-mail, CNPJ, CPF or PASSPORT number.' })
   async login(
     @Body() userLoginDto: UserLoginDto,
     @Req() req: Request,
@@ -45,8 +51,11 @@ export class AuthController {
     return login;
   }
 
-  @UseGuards(AuthorizationGuard)
   @Get('user')
+  @UseGuards(AuthorizationGuard)
+  @ApiOperation({ summary: 'Get the authenticated user.' })
+  @ApiTags('Auth')
+  @ApiBearerAuth()
   async getAuthUser(@User() user) {
     return user;
   }

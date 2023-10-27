@@ -10,7 +10,7 @@ import {
   UseGuards,
 } from '@nestjs/common/decorators';
 import { HttpStatus } from '@nestjs/common/enums';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
 import { Response } from 'express';
 import { CreateUserDto } from 'src/@core/application/dto/requests/users/create-user.dto';
 import { UpdateUserDto } from 'src/@core/application/dto/requests/users/update-user.dto';
@@ -38,6 +38,7 @@ export class UsersController {
   @Get()
   @ApiOperation({ summary: 'Get list users' })
   @ApiBearerAuth()
+  @ApiTags('Users')
   @UseGuards(AuthorizationGuard)
   async index(@Res() res: Response) {
     try {
@@ -56,6 +57,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Get user by ID' })
   @ApiParam({ name: 'id', type: 'string', description: 'User ID' })
   @ApiBearerAuth()
+  @ApiTags('Users')
   @UseGuards(AuthorizationGuard)
   async show(@Param('id') id: string, @Res() res: Response) {
     try {
@@ -74,6 +76,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Create a new user' })
   @ApiBearerAuth()
   @ApiBody({ type: CreateUserDto })
+  @ApiTags('Users')
   @UseGuards(AuthorizationGuard)
   async store(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
     try {
@@ -93,6 +96,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Update user by ID' })
   @ApiParam({ name: 'id', type: 'string', description: 'User ID' })
   @ApiBearerAuth()
+  @ApiTags('Users')
   @ApiBody({ type: UpdateUserDto })
   async update(
     @Param('id') id: string,
@@ -115,6 +119,7 @@ export class UsersController {
   @ApiOperation({ summary: 'Destroy an user by ID' })
   @ApiParam({ name: 'id', type: 'string', description: 'User ID' })
   @ApiBearerAuth()
+  @ApiTags('Users')
   @UseGuards(AuthorizationGuard)
   async destroy(@Param('id') id: string, @Res() res: Response) {
     try {

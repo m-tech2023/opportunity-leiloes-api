@@ -7,10 +7,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
-    .setTitle('NestJS Passport Example')
+    .setTitle('Opportunity Leilões')
     .setDescription('Opportunity Leilões RESTFul API')
     .setVersion('1.0')
-    .addTag('auth')
     .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' })
     .build();
 
