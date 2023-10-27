@@ -10,7 +10,7 @@ import {
   Res,
 } from '@nestjs/common/decorators';
 import { HttpStatus } from '@nestjs/common/enums';
-import { Response, Request } from 'express';
+import { Response } from 'express';
 import { CreateUserDto } from 'src/@core/application/dto/requests/users/create-user.dto';
 import { UpdateUserDto } from 'src/@core/application/dto/requests/users/update-user.dto';
 import { CreateUserUseCase } from 'src/@core/application/use-cases/users/create-user.usecase';
@@ -19,11 +19,6 @@ import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-i
 import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.usecase';
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
 import { AccessLogService } from '../../../application/services/access-log/access-log.service';
-import {
-  AccessLog,
-  AccessLogProps,
-} from '../../../domain/entities/access-log/access-log.entity';
-
 // import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 
 @Controller('users')
@@ -39,20 +34,9 @@ export class UsersController {
 
   @Get()
   // @UseGuards(AuthorizationGuard)
-  async index(@Res() res: Response, @Req() req: Request) {
+  async index(@Res() res: Response) {
     try {
       const data = await this.getAllUseCase.execute();
-      ///////////////////////////////
-      const accessLogPropsTeste: AccessLogProps = {
-        userId: '',
-        ip: '',
-        geolocalization: '',
-        accessedAt: new Date(),
-        browser: '',
-      };
-      const accessLog = AccessLog.create(accessLogPropsTeste);
-      await this.accessLog.createLog(accessLog); // remover
-      ////////////////////////////
       return res.status(HttpStatus.OK).json({
         data,
       });

@@ -19,7 +19,6 @@ import { UsersController } from 'src/@core/presentation/controllers/users/users.
 import { FindUserMiddleware } from './middlewares/find-user/find-user.middleware';
 import { AccessLogService } from 'src/@core/application/services/access-log/access-log.service';
 import { AccessLogRepository } from '../../../../databases/mongodb/repositories/access-logs/access-log.repository';
-//import { AccessLogModule } from '../access-log/access-log.module';
 import { CreateAccessLogUsecase } from '../../../../../application/use-cases/access-log/create-access-log.usecase';
 import AccessLog from '../../../../databases/mongodb/schemas/access-logs/access-log.schema';
 
