@@ -17,6 +17,8 @@ import { UsersModule } from './@core/infra/frameworks/nestjs/modules/users/users
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(DeletedAtMiddleware).forRoutes('*');
+    consumer
+      .apply(DeletedAtMiddleware)
+      .forRoutes('*');
   }
 }
