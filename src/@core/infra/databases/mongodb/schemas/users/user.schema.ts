@@ -20,17 +20,15 @@ const userSchema = new Schema({
     type: String,
     required: true,
     unique: true,
-    trim: true,
   },
   password: {
     type: String,
     required: true,
-    trim: true,
   },
   document: {
     type: String,
     required: true,
-    trim: true,
+    unique: true,
   },
   documentName: {
     type: String,

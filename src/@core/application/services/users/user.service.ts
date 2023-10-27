@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/@core/domain/entities/users/user.entity';
 import { UserRepository } from 'src/@core/infra/databases/mongodb/repositories/users/user.repository';
+import { Document } from '../../use-cases/login/types/document.type';
 
 @Injectable()
 export class UserService {
@@ -20,15 +21,19 @@ export class UserService {
     return await this.userRepository.findByEmail(email);
   }
 
-    async create(data: User) {
-      return await this.userRepository.create(data);
-    }
+  async findByDocument(document: Document) {
+    return await this.userRepository.findByDocument(document);
+  }
 
-    async update(id: string, data: User) {
-      return await this.userRepository.update(id, data);
-    }
+  async create(data: User) {
+    return await this.userRepository.create(data);
+  }
 
-    async destroy(id: string) {
-      return await this.userRepository.destroy(id);
-    }
+  async update(id: string, data: User) {
+    return await this.userRepository.update(id, data);
+  }
+
+  async destroy(id: string) {
+    return await this.userRepository.destroy(id);
+  }
 }

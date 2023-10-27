@@ -6,10 +6,11 @@ import {
   Param,
   Post,
   Put,
-  // Req,
   Res,
+  UseGuards,
 } from '@nestjs/common/decorators';
 import { HttpStatus } from '@nestjs/common/enums';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam } from '@nestjs/swagger';
 import { Response } from 'express';
 import { CreateUserDto } from 'src/@core/application/dto/requests/users/create-user.dto';
 import { UpdateUserDto } from 'src/@core/application/dto/requests/users/update-user.dto';
@@ -18,7 +19,7 @@ import { DestroyUserUseCase } from 'src/@core/application/use-cases/users/destro
 import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-id.usecase';
 import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.usecase';
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
-// import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
+import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 
 @Controller('users')
 export class UsersController {
@@ -31,7 +32,9 @@ export class UsersController {
   ) {}
 
   @Get()
-  // @UseGuards(AuthorizationGuard)
+  @ApiOperation({ summary: 'Get list users' })
+  @ApiBearerAuth()
+  @UseGuards(AuthorizationGuard)
   async index(@Res() res: Response) {
     try {
       const data = await this.getAllUseCase.execute();
@@ -46,7 +49,10 @@ export class UsersController {
   }
 
   @Get(':id')
-  // @UseGuards(AuthorizationGuard)
+  @ApiOperation({ summary: 'Get user by ID' })
+  @ApiParam({ name: 'id', type: 'string', description: 'User ID' })
+  @ApiBearerAuth()
+  @UseGuards(AuthorizationGuard)
   async show(@Param('id') id: string, @Res() res: Response) {
     try {
       const data = await this.findByIdUseCase.execute(id);
@@ -61,7 +67,10 @@ export class UsersController {
   }
 
   @Post()
-  // @UseGuards(AuthorizationGuard)
+  @ApiOperation({ summary: 'Create a new user' })
+  @ApiBearerAuth()
+  @ApiBody({ type: CreateUserDto })
+  @UseGuards(AuthorizationGuard)
   async store(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
     try {
       await this.createUserUseCase.execute(createUserDto);
@@ -71,13 +80,16 @@ export class UsersController {
     } catch ({ message }) {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         message,
-        
       });
     }
   }
 
   @Put(':id')
-  // @UseGuards(AuthorizationGuard)
+  @UseGuards(AuthorizationGuard)
+  @ApiOperation({ summary: 'Update user by ID' })
+  @ApiParam({ name: 'id', type: 'string', description: 'User ID' })
+  @ApiBearerAuth()
+  @ApiBody({ type: UpdateUserDto })
   async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
@@ -96,7 +108,10 @@ export class UsersController {
   }
 
   @Delete(':id')
-  // @UseGuards(AuthorizationGuard)
+  @ApiOperation({ summary: 'Destroy an user by ID' })
+  @ApiParam({ name: 'id', type: 'string', description: 'User ID' })
+  @ApiBearerAuth()
+  @UseGuards(AuthorizationGuard)
   async destroy(@Param('id') id: string, @Res() res: Response) {
     try {
       await this.destroyUserUseCase.execute(id);

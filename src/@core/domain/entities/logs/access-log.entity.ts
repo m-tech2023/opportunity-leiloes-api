@@ -1,4 +1,4 @@
-import { hash } from 'src/@core/infra/utils/uuid/uuid.util';
+import { objectId } from "src/@core/infra/utils/uuid/uuid.util";
 
 type AccessLogProps = {
   uuid?: string;
@@ -22,7 +22,7 @@ export class AccessLog {
 
   get uuid() {
     if (!this.props.uuid) {
-      return hash();
+      return objectId();
     }
 
     return this.props.uuid;

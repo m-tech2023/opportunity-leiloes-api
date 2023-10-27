@@ -1,11 +1,6 @@
 import { Schema } from 'mongoose';
-import { hash } from 'src/@core/infra/utils/uuid/uuid.util';
 
 const accessLogSchema = new Schema({
-  uuid: {
-    type: String,
-    default: () => hash(),
-  },
   userId: {
     type: String,
     required: true,

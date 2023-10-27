@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
 import { passwordHash } from 'src/@core/infra/utils/password-hash/password-hash.util';
+import { objectId } from 'src/@core/infra/utils/uuid/uuid.util';
 
 type UserProps = {
   id?: string;
@@ -28,8 +28,8 @@ export class User {
   }
 
   get id() {
-    if (this.props.id) {
-      return new mongoose.Types.ObjectId().toString();
+    if (!this.props.id) {
+      return objectId();
     }
 
     return this.props.id;
