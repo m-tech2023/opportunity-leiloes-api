@@ -21,10 +21,6 @@ import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.use
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 import { AccessLogService } from '../../../application/services/access-log/access-log.service';
-import {
-  AccessLog,
-  AccessLogProps,
-} from '../../../domain/entities/access-log/access-log.entity';
 
 // import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 
@@ -46,17 +42,6 @@ export class UsersController {
   async index(@Res() res: Response) {
     try {
       const data = await this.getAllUseCase.execute();
-      ///////////////////////////////
-      const accessLogPropsTeste: AccessLogProps = {
-        userId: '',
-        ip: '',
-        geolocalization: '',
-        accessedAt: new Date(),
-        browser: '',
-      };
-      const accessLog = AccessLog.create(accessLogPropsTeste);
-      await this.accessLog.createLog(accessLog); // remover
-      ////////////////////////////
       return res.status(HttpStatus.OK).json({
         data,
       });

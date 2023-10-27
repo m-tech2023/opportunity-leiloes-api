@@ -30,19 +30,22 @@ export class LoginByDocumentUseCase {
 		}
 
 		delete user.password;
+		
 		return this.getAccessToken(user);
 	}
 
 	private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
+		user = {
+			_id: user._id,
+			name: user.name,
+			lastname: user.lastname,
+			email: user.email,
+			roleId: user.roleId,
+			confirmed: user.confirmed,
+		}
+
 		return {
-			access_token: this.jwtService.sign({
-				_id: user._id,
-				name: user.name,
-				lastname: user.lastname,
-				email: user.email,
-				roleId: user.roleId,
-				confirmed: user.confirmed,
-			}),
+			access_token: this.jwtService.sign(user),
 			expires_in: env.JWT_EXPIRES_IN,
 		};
 	}

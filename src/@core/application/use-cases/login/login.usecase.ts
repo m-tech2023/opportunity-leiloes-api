@@ -12,8 +12,6 @@ export class LoginUseCase {
 	) {}
 
 	async execute(userLoginDto: UserLoginDto): Promise<AccessTokenResponseDto> {
-    let user: AccessTokenResponseDto;
-
     const data = {
       username: userLoginDto.username, 
       password: userLoginDto.password,
@@ -31,6 +29,6 @@ export class LoginUseCase {
 		}
 
     // passaporte
-    return user = await this.loginByDocumentUseCase.execute(data);
+    return await this.loginByDocumentUseCase.execute(data);
 	}
 }

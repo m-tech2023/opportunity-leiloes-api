@@ -5,6 +5,7 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { AccessLogService } from 'src/@core/application/services/access-log/access-log.service';
 import { UserService } from 'src/@core/application/services/users/user.service';
 import { CreateUserUseCase } from 'src/@core/application/use-cases/users/create-user.usecase';
 import { DestroyUserUseCase } from 'src/@core/application/use-cases/users/destroy-user.usecase';
@@ -16,9 +17,8 @@ import { UserRepository } from 'src/@core/infra/databases/mongodb/repositories/u
 import User from 'src/@core/infra/databases/mongodb/schemas/users/user.schema';
 import { EmailAlreadyUsedRule } from 'src/@core/infra/validations/rules/email-already-used';
 import { UsersController } from 'src/@core/presentation/controllers/users/users.controller';
-import { FindUserMiddleware } from './middlewares/find-user/find-user.middleware';
-import { AccessLogService } from 'src/@core/application/services/access-log/access-log.service';
 import { AccessLogRepository } from '../../../../databases/mongodb/repositories/access-logs/access-log.repository';
+import { FindUserMiddleware } from './middlewares/find-user/find-user.middleware';
 //import { AccessLogModule } from '../access-log/access-log.module';
 import { CreateAccessLogUsecase } from '../../../../../application/use-cases/access-log/create-access-log.usecase';
 import AccessLog from '../../../../databases/mongodb/schemas/access-logs/access-log.schema';
