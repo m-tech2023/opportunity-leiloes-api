@@ -1,6 +1,6 @@
-import { AccessLogService } from '../../services/access-log/access-log.service';
-import { AccessLogDto } from '../../dto/requests/access-log/access-log.dto';
 import { AccessLog } from '../../../domain/entities/access-log/access-log.entity';
+import { AccessLogDto } from '../../dto/requests/access-log/access-log.dto';
+import { AccessLogService } from '../../services/access-log/access-log.service';
 
 export class CreateAccessLogUsecase {
   constructor(private readonly accessLogService: AccessLogService) {}
