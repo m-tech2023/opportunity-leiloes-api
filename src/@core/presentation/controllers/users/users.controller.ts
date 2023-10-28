@@ -10,7 +10,13 @@ import {
   UseGuards,
 } from '@nestjs/common/decorators';
 import { HttpStatus } from '@nestjs/common/enums';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Response } from 'express';
 import { CreateUserDto } from 'src/@core/application/dto/requests/users/create-user.dto';
 import { UpdateUserDto } from 'src/@core/application/dto/requests/users/update-user.dto';
@@ -31,8 +37,7 @@ export class UsersController {
     private readonly findByIdUseCase: FindByIdUseCase,
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly updateUserUseCase: UpdateUserUseCase,
-    private readonly destroyUserUseCase: DestroyUserUseCase,
-    private readonly accessLog: AccessLogService,
+    private readonly destroyUserUseCase: DestroyUserUseCase, // private readonly accessLog: AccessLogService,
   ) {}
 
   @Get()

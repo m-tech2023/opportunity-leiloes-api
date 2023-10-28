@@ -16,21 +16,23 @@ const accessLogSchema = new Schema({
   },
   geolocalization: {
     type: String,
-    required: true,
+    required: false,
+    default: null,
   },
   accessedAt: {
     type: Date,
     required: true,
+    default: Date.now,
   },
   browser: {
     type: String,
     required: true,
   },
-  createdAt: {
-    type: Date,
-    required: false,
-    default: Date.now,
-  },
+  // createdAt: {
+  //   type: Date,
+  //   required: false,
+  //   default: Date.now,
+  // },
   updatedAt: {
     type: Date,
     required: false,

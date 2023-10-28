@@ -4,7 +4,7 @@ export type AccessLogProps = {
   id?: string;
   userId: string;
   ip: string;
-  geolocalization: string;
+  geolocalization?: string;
   accessedAt: Date;
   browser: string;
 };

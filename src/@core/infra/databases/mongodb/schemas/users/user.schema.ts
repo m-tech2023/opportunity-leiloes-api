@@ -1,10 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
 const userSchema = new Schema({
-  _id: { 
+  _id: {
     type: mongoose.Schema.Types.ObjectId,
     required: false,
-    default: new mongoose.Types.ObjectId()
+    default: new mongoose.Types.ObjectId(),
   },
   name: {
     type: String,

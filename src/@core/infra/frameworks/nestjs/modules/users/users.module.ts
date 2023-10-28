@@ -30,17 +30,17 @@ import AccessLog from '../../../../databases/mongodb/schemas/access-logs/access-
         name: 'User',
         schema: User,
       },
-      {
-        name: 'AccessLog',
-        schema: AccessLog,
-      },
+      // {
+      //   name: 'AccessLog',
+      //   schema: AccessLog,
+      // },
     ]),
   ],
   controllers: [UsersController],
   providers: [
     FindUserMiddleware,
-    AccessLogService,
-    AccessLogRepository,
+    // AccessLogService,
+    // AccessLogRepository,
     {
       provide: GetAllUseCase,
       useFactory: (userRepository: UserRepository) => {
@@ -83,15 +83,15 @@ import AccessLog from '../../../../databases/mongodb/schemas/access-logs/access-
       },
       inject: [UserRepository],
     },
-    {
-      provide: CreateAccessLogUsecase,
-      useFactory: (accessLogRepository: AccessLogRepository) => {
-        return new CreateAccessLogUsecase(
-          new AccessLogService(accessLogRepository),
-        );
-      },
-      inject: [AccessLogRepository],
-    },
+    // {
+    //   provide: CreateAccessLogUsecase,
+    //   useFactory: (accessLogRepository: AccessLogRepository) => {
+    //     return new CreateAccessLogUsecase(
+    //       new AccessLogService(accessLogRepository),
+    //     );
+    //   },
+    //   inject: [AccessLogRepository],
+    // },
     UserRepository,
     EmailAlreadyUsedRule,
   ],

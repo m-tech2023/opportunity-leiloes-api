@@ -41,17 +41,11 @@ export class UserRepository {
   }
 
   async findByEmail(email: string) {
-    return await this.user
-      .findOne({email})
-      .where({deletedAt: null})
-      .exec();
+    return await this.user.findOne({ email }).where({ deletedAt: null }).exec();
   }
 
   async findByDocument(document: Document) {
-    return await this.user
-      .findOne(document)
-      .where({deletedAt: null})
-      .exec();
+    return await this.user.findOne(document).where({ deletedAt: null }).exec();
   }
 
   async create(data: User) {

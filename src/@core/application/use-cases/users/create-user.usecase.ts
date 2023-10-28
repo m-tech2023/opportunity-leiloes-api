@@ -12,10 +12,12 @@ export class CreateUserUseCase {
 
     const findUserByEmail = await this.userService.findByEmail(user.email);
     if (findUserByEmail) {
-      throw new Error('User already registered with this e-mail address.')
+      throw new Error('User already registered with this e-mail address.');
     }
-    
-    const validDocument = cpf.isValid(createUserDto.document) || cnpj.isValid(createUserDto.document);
+
+    const validDocument =
+      cpf.isValid(createUserDto.document) ||
+      cnpj.isValid(createUserDto.document);
     let data = {
       document: user.document,
     };
@@ -23,12 +25,12 @@ export class CreateUserUseCase {
     if (validDocument) {
       data = {
         document: onlyNumbers(user.document),
-      }
+      };
     }
 
     const findUserByDocument = await this.userService.findByDocument(data);
     if (findUserByDocument) {
-      throw new Error('User already registered with this document.')
+      throw new Error('User already registered with this document.');
     }
 
     return await this.userService.create(user);
