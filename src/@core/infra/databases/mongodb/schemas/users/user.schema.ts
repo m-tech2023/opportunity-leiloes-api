@@ -1,4 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
+import { PersonalData } from '../../../../../domain/entities/account/personal-data.entity';
 
 const userSchema = new Schema({
   _id: {
@@ -61,4 +62,25 @@ const userSchema = new Schema({
   },
 });
 
+userSchema.pre('save', async function (next) {
+  const user = this;
+
+  if (!user.isNew) {
+    return next();
+  }
+
+  const personalData = PersonalData.create({
+    userId: user._id.toString(),
+    registrationData: {
+      fullName: user.name,
+    },
+  });
+
+  try {
+    await personalData.save();
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
 export default userSchema;
