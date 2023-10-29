@@ -11,7 +11,7 @@ type UserProps = {
   documentName: string;
   roleId: string;
   createdAt?: Date;
-  confirmed?: Date;
+  confirmedAt?: Date;
   updatedAt?: Date;
   deletedAt?: Date;
 };
@@ -73,8 +73,8 @@ export class User {
     return this.props.createdAt;
   }
 
-  get confirmed() {
-    return this.props.confirmed;
+  get confirmedAt() {
+    return this.props.confirmedAt;
   }
 
   get updatedAt() {
@@ -96,7 +96,7 @@ export class User {
       documentName: this.documentName,
       roleId: this.roleId,
       createdAt: this.createdAt,
-      confirmed: this.confirmed,
+      confirmedAt: this.confirmedAt,
       updatedAt: this.updatedAt,
       deletedAt: this.deletedAt,
     } as User;

@@ -9,7 +9,7 @@ import {
 } from 'class-validator';
 import { EmailAlreadyUsed } from 'src/@core/infra/validations/decorators/email-already-used';
 
-export class UpdateUserDto {
+export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(2)
@@ -37,8 +37,8 @@ export class UpdateUserDto {
   @IsNotEmpty()
   @MinLength(8)
   @MaxLength(255)
-  @ApiProperty({ example: '12345678', required: false, description: 'password' })
-  password?: string;
+  @ApiProperty({ example: '12345678', description: 'password' })
+  password: string;
 
   @IsString()
   @IsNotEmpty()
@@ -52,7 +52,7 @@ export class UpdateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: '653be12f48b886867f464758', description: 'roleId' })
+  @ApiProperty({ example: '653be12f48b886867f4647589', description: 'roleId' })
   roleId: String;
 
   @IsOptional()
@@ -60,7 +60,7 @@ export class UpdateUserDto {
   confirmedAt?: Date;
 
   @IsOptional()
-  @ApiProperty({ example: Date.now(), required: false, description: 'Optional' })
+  @ApiProperty({ example: true, required: false, description: 'Optional' })
   updatedAt?: Date;
 
   @IsOptional()

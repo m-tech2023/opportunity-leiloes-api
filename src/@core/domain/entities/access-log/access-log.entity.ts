@@ -5,7 +5,6 @@ export type AccessLogProps = {
   userId: string;
   ip: string;
   geolocalization: string;
-  accessedAt: Date;
   browser: string;
 };
 
@@ -40,10 +39,6 @@ export class AccessLog {
     return this.props.geolocalization;
   }
 
-  get accessedAt() {
-    return this.props.accessedAt;
-  }
-
   get browser() {
     return this.props.browser;
   }
@@ -54,7 +49,6 @@ export class AccessLog {
       userId: this.userId,
       ip: this.ip,
       geolocalization: this.geolocalization,
-      accessedAt: this.accessedAt,
       browser: this.browser,
     } as AccessLog;
   }

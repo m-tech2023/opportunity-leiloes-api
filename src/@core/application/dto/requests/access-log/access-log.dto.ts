@@ -3,6 +3,5 @@ export class AccessLogDto {
   userId: string;
   ip: string;
   geolocalization: string;
-  accessedAt: Date;
   browser: string;
 }

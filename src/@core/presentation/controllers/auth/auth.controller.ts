@@ -48,6 +48,8 @@ export class AuthController {
     //   browser: headers['user-agent'],
     // };
 
+    // Código de inserção de log
+
     return login;
   }
 

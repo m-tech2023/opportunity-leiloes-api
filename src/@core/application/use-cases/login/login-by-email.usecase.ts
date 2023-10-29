@@ -36,7 +36,7 @@ export class LoginByEmailUseCase {
 				lastname: user.lastname,
 				email: user.email,
 				roleId: user.roleId,
-				confirmed: user.confirmed,
+				confirmedAt: user.confirmedAt,
 			}),
 			expires_in: env.JWT_EXPIRES_IN,
 		};

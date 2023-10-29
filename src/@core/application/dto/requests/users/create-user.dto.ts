@@ -56,8 +56,8 @@ export class CreateUserDto {
   roleId: String;
 
   @IsOptional()
-  @ApiProperty({ example: true, required: false, description: 'Optional' })
-  confirmed?: Date;
+  @ApiProperty({ example: Date.now(), required: false, description: 'Optional' })
+  confirmedAt?: Date;
 
   @IsOptional()
   @ApiProperty({ example: Date.now(), required: false, description: 'Optional' })
