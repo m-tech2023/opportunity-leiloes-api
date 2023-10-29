@@ -40,7 +40,7 @@ const userSchema = new Schema({
     required: true,
     trim: true,
   },
-  confirmed: {
+  confirmedAt: {
     type: Date,
     required: false,
   },

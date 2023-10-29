@@ -11,7 +11,7 @@ const columns = {
   lastname: true,
   email: true,
   roleId: true,
-  confirmed: true,
+  confirmedAt: true,
   document: true,
   documentName: true,
   createdAt: true,

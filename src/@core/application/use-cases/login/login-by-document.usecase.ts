@@ -41,7 +41,7 @@ export class LoginByDocumentUseCase {
 			lastname: user.lastname,
 			email: user.email,
 			roleId: user.roleId,
-			confirmed: user.confirmed,
+			confirmedAt: user.confirmedAt,
 		}
 
 		return {

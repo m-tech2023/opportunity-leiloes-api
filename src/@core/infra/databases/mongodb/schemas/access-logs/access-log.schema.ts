@@ -20,20 +20,12 @@ const accessLogSchema = new Schema({
   },
   accessedAt: {
     type: Date,
-    required: true,
+    required: false,
+    default: Date.now,
   },
   browser: {
     type: String,
     required: true,
-  },
-  createdAt: {
-    type: Date,
-    required: false,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    required: false,
   },
 });
 
