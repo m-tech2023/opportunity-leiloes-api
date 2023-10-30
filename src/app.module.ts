@@ -17,7 +17,14 @@ import { UsersModule } from './@core/infra/frameworks/nestjs/modules/users/users
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer
+    consumer.apply((req, res, next) => {
+      // Isso permite todas as origens, mas pode ser configurado para origens específicas
+      // REMOVER DEPOIS
+      res.header('Access-Control-Allow-Origin', '*');
+      res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
+      res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+      next();
+    }).forRoutes('*')
       .apply(DeletedAtMiddleware)
       .forRoutes('*');
   }
