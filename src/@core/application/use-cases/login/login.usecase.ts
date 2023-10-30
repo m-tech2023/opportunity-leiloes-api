@@ -28,7 +28,7 @@ export class LoginUseCase {
 			return await this.loginByDocumentUseCase.execute(data);
 		}
 
-    // passaporte
+    // passporte
     return await this.loginByDocumentUseCase.execute(data);
 	}
 }

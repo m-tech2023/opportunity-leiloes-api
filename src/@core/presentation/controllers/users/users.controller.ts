@@ -1,3 +1,4 @@
+import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/account/pre-save-personal-data.usercase';
 import { Controller } from '@nestjs/common';
 import {
   Body,
@@ -10,7 +11,13 @@ import {
   UseGuards,
 } from '@nestjs/common/decorators';
 import { HttpStatus } from '@nestjs/common/enums';
-import { ApiBearerAuth, ApiBody, ApiOperation, ApiParam, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiOperation,
+  ApiParam,
+  ApiTags,
+} from '@nestjs/swagger';
 import { Response } from 'express';
 import { CreateUserDto } from 'src/@core/application/dto/requests/users/create-user.dto';
 import { UpdateUserDto } from 'src/@core/application/dto/requests/users/update-user.dto';
@@ -20,9 +27,9 @@ import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-i
 import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.usecase';
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
 // import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
-import { AccessLogService } from '../../../application/services/access-log/access-log.service';
 // import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
+import { PreSavePersonalDataDto } from 'src/@core/application/dto/requests/account/pre-save-personal-data.dto';
 
 @Controller('users')
 export class UsersController {
@@ -32,7 +39,7 @@ export class UsersController {
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly updateUserUseCase: UpdateUserUseCase,
     private readonly destroyUserUseCase: DestroyUserUseCase,
-    private readonly accessLog: AccessLogService,
+    private readonly preSavePersonalDataUsecase: PreSavePersonalDataUsecase,
   ) {}
 
   @Get()
@@ -77,10 +84,30 @@ export class UsersController {
   @ApiBearerAuth()
   @ApiBody({ type: CreateUserDto })
   @ApiTags('Users')
-  @UseGuards(AuthorizationGuard)
+  //@UseGuards(AuthorizationGuard)
   async store(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
     try {
-      await this.createUserUseCase.execute(createUserDto);
+      const userCreated = await this.createUserUseCase.execute(createUserDto);
+      const preSavePersonalData: PreSavePersonalDataDto = {
+        userId: userCreated._id,
+        registrationData: {
+          fullName: userCreated.name,
+          document: {
+            cpf:
+              userCreated.documentName == 'CPF' ? userCreated.document : null,
+            rg: userCreated.documentName == 'RG' ? userCreated.document : null,
+            passport:
+              userCreated.documentName == 'passport'
+                ? userCreated.document
+                : null,
+          },
+        },
+        contactDetails: {
+          email: userCreated.email,
+        },
+      };
+      await this.preSavePersonalDataUsecase.execute(preSavePersonalData);
+
       return res.status(HttpStatus.CREATED).json({
         message: 'User created successfully!',
       });

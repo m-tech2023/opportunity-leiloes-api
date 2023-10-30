@@ -1,10 +1,10 @@
 import mongoose, { Schema } from 'mongoose';
 
 const userSchema = new Schema({
-  _id: { 
+  _id: {
     type: mongoose.Schema.Types.ObjectId,
     required: false,
-    default: new mongoose.Types.ObjectId()
+    default: new mongoose.Types.ObjectId(),
   },
   name: {
     type: String,
@@ -61,4 +61,25 @@ const userSchema = new Schema({
   },
 });
 
+// userSchema.pre('save', async function (next) {
+//   const user = this;
+
+//   if (!user.isNew) {
+//     return next();
+//   }
+
+//   const personalData = PersonalData.create({
+//     userId: user._id.toString(),
+//     registrationData: {
+//       fullName: user.name,
+//     },
+//   });
+
+//   try {
+//     await personalData.save();
+//     next();
+//   } catch (error) {
+//     next(error);
+//   }
+// });
 export default userSchema;
