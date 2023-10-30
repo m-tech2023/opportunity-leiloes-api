@@ -2,9 +2,9 @@ import mongoose from 'mongoose';
 
 export type AccessLogProps = {
   id?: string;
-  userId: string;
-  ip: string;
-  geolocalization: string;
+  userId?: string;
+  ip?: string;
+  geolocalization?: string;
   browser: string;
 };
 

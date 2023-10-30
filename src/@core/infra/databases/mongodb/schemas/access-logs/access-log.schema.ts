@@ -16,7 +16,8 @@ const accessLogSchema = new Schema({
   },
   geolocalization: {
     type: String,
-    required: true,
+    required: false,
+    default: null,
   },
   accessedAt: {
     type: Date,
