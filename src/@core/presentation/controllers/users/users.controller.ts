@@ -19,10 +19,8 @@ import { DestroyUserUseCase } from 'src/@core/application/use-cases/users/destro
 import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-id.usecase';
 import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.usecase';
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
-// import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
-import { AccessLogService } from '../../../application/services/access-log/access-log.service';
-// import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
+import { AccessLogService } from '../../../application/services/access-log/access-log.service';
 
 @Controller('users')
 export class UsersController {
@@ -77,7 +75,6 @@ export class UsersController {
   @ApiBearerAuth()
   @ApiBody({ type: CreateUserDto })
   @ApiTags('Users')
-  @UseGuards(AuthorizationGuard)
   async store(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
     try {
       await this.createUserUseCase.execute(createUserDto);
