@@ -5,9 +5,7 @@ import { Document } from '../../use-cases/login/types/document.type';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private readonly userRepository: UserRepository,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async getAll() {
     return await this.userRepository.getAll();

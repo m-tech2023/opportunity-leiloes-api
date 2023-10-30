@@ -6,7 +6,9 @@ export class CreateAccessLogUsecase {
   constructor(private readonly accessLogService: AccessLogService) {}
 
   async execute(createAccessLogDto: AccessLogDto) {
-    const accessLog = AccessLog.create(createAccessLogDto as any).getLog();
+    const accessLog = AccessLog.create(
+      createAccessLogDto as AccessLog,
+    ).getLog();
     return await this.accessLogService.createLog(accessLog);
   }
 }

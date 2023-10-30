@@ -7,26 +7,29 @@ import { UserResponseDto } from '../../dto/responses/users/user.dto';
 import { UserService } from '../../services/users/user.service';
 
 export class LoginByEmailUseCase {
-	constructor(
-		private readonly userService: UserService,
-		private readonly jwtService: JwtService,
-	) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
 
-	async execute(userLoginDto: UserLoginDto): Promise<AccessTokenResponseDto> {
-		const user = await this.userService.findByEmail(userLoginDto.username);
-		if (!user) {
-			return null;
-		}
+  async execute(userLoginDto: UserLoginDto): Promise<AccessTokenResponseDto> {
+    const user = await this.userService.findByEmail(userLoginDto.username);
+    if (!user) {
+      return null;
+    }
 
-		const validatedPassword = comparePassword(userLoginDto.password, user.password);
-		if (!validatedPassword) {
-			return null;
-		}
+    const validatedPassword = comparePassword(
+      userLoginDto.password,
+      user.password,
+    );
+    if (!validatedPassword) {
+      return null;
+    }
 
-		user.password = null;
-		user.document = null;
-		return this.getAccessToken(user);
-	}
+    user.password = null;
+    user.document = null;
+    return this.getAccessToken(user);
+  }
 
 	private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
 		return {

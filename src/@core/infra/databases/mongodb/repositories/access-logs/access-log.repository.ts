@@ -10,7 +10,7 @@ export class AccessLogRepository {
     @InjectModel('AccessLog') private readonly accessLog: Model<AccessLogDto>,
   ) {}
 
-  async create(dto: AccessLog) {
-    return await this.accessLog.create(dto);
+  async create(accessLog: AccessLog) {
+    return await this.accessLog.create(accessLog);
   }
 }
