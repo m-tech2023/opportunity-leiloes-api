@@ -10,4 +10,8 @@ export class PersonalDataService {
   async createPreSave(dto: PreSavePersonalDataDto) {
     return await this.personalDataRepository.create(dto);
   }
+
+  async get(userId: string) {
+    return await this.personalDataRepository.get(userId);
+  }
 }

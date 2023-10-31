@@ -27,7 +27,6 @@ import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-i
 import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.usecase';
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
-import { AccessLogService } from '../../../application/services/access-log/access-log.service';
 import { PreSavePersonalDataDto } from 'src/@core/application/dto/requests/account/pre-save-personal-data.dto';
 
 @Controller('users')

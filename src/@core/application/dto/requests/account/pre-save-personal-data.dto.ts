@@ -8,25 +8,25 @@ export class PreSavePersonalDataDto {
       rg?: string;
       passport?: string;
     };
-    nationality?: string;
-    maritalStatus?: string;
-    motherName?: string;
-    fatherName?: string;
-    occupation?: string;
-    company?: string;
-    companyWebsite?: string;
+    // nationality?: string;
+    // maritalStatus?: string;
+    // motherName?: string;
+    // fatherName?: string;
+    // occupation?: string;
+    // company?: string;
+    // companyWebsite?: string;
   };
   contactDetails?: {
-    telephone?: string;
-    cellPhone?: string;
+    // telephone?: string;
+    // cellPhone?: string;
     email?: string;
   };
-  address?: {
-    zipCode?: string;
-    address?: string;
-    number?: string;
-    neighborhood?: string;
-    city?: string;
-    state?: string;
-  };
+  // address?: {
+  //   zipCode?: string;
+  //   address?: string;
+  //   number?: string;
+  //   neighborhood?: string;
+  //   city?: string;
+  //   state?: string;
+  // };
 }
