@@ -9,4 +9,7 @@ export class AccessLogService {
   async createLog(data: AccessLog) {
     return await this.accessLogRepository.create(data);
   }
+  async getAll(userId: string) {
+    return await this.accessLogRepository.getAll(userId);
+  }
 }

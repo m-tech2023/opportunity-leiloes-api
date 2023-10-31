@@ -89,13 +89,18 @@ export class UsersController {
       const preSavePersonalData: PreSavePersonalDataDto = {
         userId: userCreated._id,
         registrationData: {
-          fullName: userCreated.name,
+          fullName: `${userCreated.name} ${userCreated.lastname}`,
           document: {
             cpf:
-              userCreated.documentName == 'CPF' ? userCreated.document : null,
-            rg: userCreated.documentName == 'RG' ? userCreated.document : null,
+              userCreated.documentName.toUpperCase() == 'CPF'
+                ? userCreated.document
+                : null,
+            rg:
+              userCreated.documentName.toUpperCase() == 'RG'
+                ? userCreated.document
+                : null,
             passport:
-              userCreated.documentName == 'passport'
+              userCreated.documentName.toUpperCase() == 'PASSPORT'
                 ? userCreated.document
                 : null,
           },
