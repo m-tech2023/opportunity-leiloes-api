@@ -10,6 +10,8 @@ import { PersonalDataController } from 'src/@core/presentation/controllers/accou
 import { GetPersonalDataUsecase } from 'src/@core/application/use-cases/account/get-personal-data.usecase';
 import { PersonalDataRepository } from 'src/@core/infra/databases/mongodb/repositories/account/personal-data.repository';
 import { PersonalDataService } from 'src/@core/application/services/account/personal-data.service';
+import { UpdatePersonalDataUsecase } from '../../../../../application/use-cases/account/update-personal-data.usecase';
+
 @Module({
   imports: [
     MongooseModule.forFeature([
@@ -40,6 +42,15 @@ import { PersonalDataService } from 'src/@core/application/services/account/pers
       provide: GetPersonalDataUsecase,
       useFactory: (personalDataRepository: PersonalDataRepository) => {
         return new GetPersonalDataUsecase(
+          new PersonalDataService(personalDataRepository),
+        );
+      },
+      inject: [PersonalDataRepository],
+    },
+    {
+      provide: UpdatePersonalDataUsecase,
+      useFactory: (personalDataRepository: PersonalDataRepository) => {
+        return new UpdatePersonalDataUsecase(
           new PersonalDataService(personalDataRepository),
         );
       },

@@ -9,7 +9,13 @@ const personalDataSchema = new Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
+    unique: true, // TESTAR
     required: true,
+  },
+  updatedAt: {
+    type: Date,
+    required: false,
+    default: Date.now,
   },
   registrationData: {
     fullName: {
@@ -21,6 +27,14 @@ const personalDataSchema = new Schema({
       cpf: {
         type: String,
         required: false,
+        unique: true,
+        trim: true,
+        default: null,
+      },
+      cnpj: {
+        type: String,
+        required: false,
+        unique: true,
         trim: true,
         default: null,
       },
@@ -28,11 +42,13 @@ const personalDataSchema = new Schema({
         type: String,
         required: false,
         trim: true,
+        unique: true,
         default: null,
       },
       passport: {
         type: String,
         required: false,
+        unique: true,
         trim: true,
         default: null,
       },
@@ -84,18 +100,21 @@ const personalDataSchema = new Schema({
     telephone: {
       type: String,
       required: false,
+      unique: true,
       trim: true,
       default: null,
     },
     cellPhone: {
       type: String,
       required: false,
+      unique: true,
       trim: true,
       default: null,
     },
     email: {
       type: String,
       required: false,
+      unique: true,
       trim: true,
       default: null,
     },

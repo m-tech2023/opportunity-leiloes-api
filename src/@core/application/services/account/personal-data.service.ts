@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PersonalDataRepository } from 'src/@core/infra/databases/mongodb/repositories/account/personal-data.repository';
 import { PreSavePersonalDataDto } from '../../dto/requests/account/pre-save-personal-data.dto';
+import { UpdatePersonalDataDto } from '../../dto/requests/account/update-personal-data.dto';
 
 @Injectable()
 export class PersonalDataService {
@@ -13,5 +14,9 @@ export class PersonalDataService {
 
   async get(userId: string) {
     return await this.personalDataRepository.get(userId);
+  }
+
+  async update(userId: string, data: UpdatePersonalDataDto) {
+    return await this.personalDataRepository.update(userId, data);
   }
 }

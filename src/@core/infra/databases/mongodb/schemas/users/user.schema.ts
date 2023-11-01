@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import { PersonalData } from '../../../../../domain/entities/account/personal-data.entity';
 
 const userSchema = new Schema({
   _id: {

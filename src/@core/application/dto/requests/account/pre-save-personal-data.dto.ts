@@ -5,6 +5,7 @@ export class PreSavePersonalDataDto {
     fullName?: string;
     document?: {
       cpf?: string;
+      cnpj?: string;
       rg?: string;
       passport?: string;
     };

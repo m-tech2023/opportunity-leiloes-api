@@ -94,6 +94,10 @@ export class UsersController {
               userCreated.documentName.toUpperCase() == 'CPF'
                 ? userCreated.document
                 : null,
+            cnpj:
+              userCreated.documentName.toUpperCase() == 'CNPJ'
+                ? userCreated.document
+                : null,
             rg:
               userCreated.documentName.toUpperCase() == 'RG'
                 ? userCreated.document
