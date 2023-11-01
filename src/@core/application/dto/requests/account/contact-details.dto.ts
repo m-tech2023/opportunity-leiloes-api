@@ -5,8 +5,6 @@ import {
   MaxLength,
   MinLength,
   IsEmail,
-  IsOptional,
-  IsPhoneNumber,
 } from 'class-validator';
 
 export class ContactDetails {
@@ -20,13 +18,11 @@ export class ContactDetails {
 
   @IsString()
   @IsNotEmpty()
-  @IsPhoneNumber()
   @ApiProperty({ example: '(11) 1234-5678', description: 'Telephone' })
   telephone?: string;
 
   @IsString()
   @IsNotEmpty()
-  @IsPhoneNumber()
   @ApiProperty({ example: '(11) 98765-4321', description: 'Cellphone' })
   cellPhone?: string;
 }

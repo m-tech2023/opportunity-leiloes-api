@@ -14,7 +14,6 @@ export class Address {
   @MinLength(5)
   @MaxLength(10)
   @IsOptional()
-  @IsPostalCode()
   @ApiProperty({ example: '12345-678', description: 'Zip Code' })
   zipCode?: string;
 

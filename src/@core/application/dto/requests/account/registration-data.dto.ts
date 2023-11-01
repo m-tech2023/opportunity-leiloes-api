@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 import {
   IsNotEmpty,
@@ -5,7 +6,9 @@ import {
   IsString,
   MaxLength,
   MinLength,
+  ValidateNested,
 } from 'class-validator';
+import { Document } from './document.dto';
 
 export class RegistrationData {
   @IsString()
@@ -15,32 +18,11 @@ export class RegistrationData {
   @ApiProperty({ example: 'John', description: 'Full name' })
   fullName: string;
 
-  @IsString()
-  @MinLength(11)
-  @MaxLength(11)
-  @IsOptional()
-  @ApiProperty({ example: '30081203004', description: 'CPF' })
-  cpf?: string;
-
-  @IsString()
-  @MaxLength(11)
-  @IsOptional()
-  @ApiProperty({ example: '404096633', description: 'RG' })
-  rg?: string;
-
-  @IsString()
-  @MinLength(14)
-  @MaxLength(14)
-  @IsOptional()
-  @ApiProperty({ example: '95108076000141', description: 'CNPJ' })
-  cnpj?: string;
-
-  @IsString()
-  @MinLength(14)
-  @MaxLength(14)
-  @IsOptional()
-  @ApiProperty({ description: 'PASSPORT' })
-  passport?: string;
+  @ValidateNested()
+  @Type(() => Document)
+  @IsNotEmpty()
+  @ApiProperty({ type: Document, description: 'Document data' })
+  document: Document;
 
   @IsString()
   @MinLength(3)

@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { PersonalDataDto } from 'src/@core/application/dto/requests/account/personal-data.dto';
+import { Document } from 'src/@core/application/dto/requests/account/document.dto';
 
 @Injectable()
 export class PersonalDataRepository {
@@ -21,6 +22,17 @@ export class PersonalDataRepository {
     return await this.personalData.updateOne({ userId }, updatedData);
   }
 
-  // async updateByAdmin(){}
+  async findByEmail(email: string) {
+    return await this.personalData
+      .findOne({ 'contactDetails.email': email })
+      .exec();
+  }
+
+  async findByDocument(document: Document) {
+    return await this.personalData
+      .findOne({ 'contactDetails.document': document })
+      .exec();
+  }
+  // async updateByAdmin() {}
   // async deleteByAdmin() {}
 }

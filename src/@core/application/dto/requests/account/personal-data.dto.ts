@@ -1,6 +1,7 @@
 export class PersonalDataDto {
   id?: string;
   userId?: string;
+  updatedAt?: string;
   registrationData?: {
     fullName?: string;
     document?: {

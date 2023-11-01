@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 type PersonalDataProps = {
   id?: string;
   userId?: string;
+  updatedAt?: string;
   registrationData?: {
     fullName?: string;
     document?: {
@@ -54,6 +55,9 @@ export class PersonalData {
   get userId() {
     return this.props.userId;
   }
+  get updatedAt() {
+    return this.props.updatedAt;
+  }
 
   get registrationData() {
     return this.props.registrationData;
@@ -71,6 +75,7 @@ export class PersonalData {
     return {
       id: this.id,
       userId: this.userId,
+      updatedAt: this.updatedAt,
       registrationData: this.registrationData,
       contactDetails: this.contactDetails,
       address: this.address,
