@@ -8,15 +8,15 @@ export class UpdatePersonalDataUsecase {
   constructor(private readonly personalDataService: PersonalDataService) {}
 
   async execute(userId: string, data: UpdatePersonalDataDto) {
-    const personalData = PersonalData.create(data as any).getPersonalData();
+    // const personalData = PersonalData.create(data as any).getPersonalData();
 
-    const findUserByEmail = await this.personalDataService.findByEmail(
-      personalData.contactDetails.email,
-    );
-    if (findUserByEmail) {
-      console.log("XXXXXXXXXXXXXXXXXXXXXX")
-      throw new Error('User already registered with this e-mail address.');
-    }
+    // const findUserByEmail = await this.personalDataService.findByEmail(
+    //   personalData.contactDetails.email,
+    //   userId,
+    // );
+    // if (findUserByEmail) {
+    //   throw new Error('User already registered with this e-mail address.');
+    // }
 
     // const validDocument =
     //   cpf.isValid(data.registrationData.document.cpf) ||
@@ -35,9 +35,10 @@ export class UpdatePersonalDataUsecase {
     //   personalData.registrationData.document,
     // );
     // if (findUserByDocument) {
-    //   console.log("XXXXXXXXXXXXXXXXXXXXXX")
     //   throw new Error('User already registered with this document.');
     // }
+    // console.log(findUserByDocument);
+
     return await this.personalDataService.update(userId, data);
   }
 }

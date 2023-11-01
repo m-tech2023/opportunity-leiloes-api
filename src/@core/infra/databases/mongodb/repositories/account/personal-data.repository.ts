@@ -18,21 +18,23 @@ export class PersonalDataRepository {
     return await this.personalData.findOne().where({ userId });
   }
 
-  async update(userId: string, updatedData: Partial<PersonalDataDto>) {
+  async update(userId: string, updatedData: PersonalDataDto) {
     return await this.personalData.updateOne({ userId }, updatedData);
   }
 
-  async findByEmail(email: string) {
-    return await this.personalData
-      .findOne({ 'contactDetails.email': email })
-      .exec();
-  }
+  // async findByEmail(email: string, userId: string) {
+  //   return await this.personalData
+  //     .findOne({
+  //       $and: [{ 'contactDetails.email': email }, { _id: userId }],
+  //     })
+  //     .exec();
+  // }
 
-  async findByDocument(document: Document) {
-    return await this.personalData
-      .findOne({ 'contactDetails.document': document })
-      .exec();
-  }
+  // async findByDocument(document: Document) {
+  //   return await this.personalData
+  //     .findOne({ 'registrationData.document': document })
+  //     .exec();
+  // }
   // async updateByAdmin() {}
   // async deleteByAdmin() {}
 }

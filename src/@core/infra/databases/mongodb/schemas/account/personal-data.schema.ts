@@ -30,7 +30,6 @@ const personalDataSchema = new Schema({
         unique: true,
         sparse: true, // Permite valores nulos
         trim: true,
-        default: null,
       },
       cnpj: {
         type: String,
@@ -38,7 +37,6 @@ const personalDataSchema = new Schema({
         sparse: true, // Permite valores nulos
         required: false,
         trim: true,
-        default: null,
       },
       rg: {
         type: String,
@@ -46,7 +44,6 @@ const personalDataSchema = new Schema({
         unique: true,
         sparse: true, // Permite valores nulos
         trim: true,
-        default: null,
       },
       passport: {
         sparse: true, // Permite valores nulos
@@ -54,7 +51,6 @@ const personalDataSchema = new Schema({
         unique: true,
         required: false,
         trim: true,
-        default: null,
       },
       ie: {
         sparse: true, // Permite valores nulos
@@ -62,7 +58,6 @@ const personalDataSchema = new Schema({
         required: false,
         unique: true,
         trim: true,
-        default: null,
       },
     },
     nationality: {
@@ -115,7 +110,6 @@ const personalDataSchema = new Schema({
       required: false,
       unique: true,
       trim: true,
-      default: null,
     },
     cellPhone: {
       type: String,
@@ -123,15 +117,13 @@ const personalDataSchema = new Schema({
       required: false,
       unique: true,
       trim: true,
-      default: null,
     },
     email: {
       type: String,
       required: false,
+      unique: true,
       sparse: true, // Permite valores nulos
       trim: true,
-      default: null,
-      unique: true,
     },
   },
   address: {

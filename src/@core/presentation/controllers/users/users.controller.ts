@@ -93,19 +93,19 @@ export class UsersController {
             cpf:
               userCreated.documentName.toUpperCase() == 'CPF'
                 ? userCreated.document
-                : null,
+                : undefined,
             cnpj:
               userCreated.documentName.toUpperCase() == 'CNPJ'
                 ? userCreated.document
-                : null,
+                : undefined,
             rg:
               userCreated.documentName.toUpperCase() == 'RG'
                 ? userCreated.document
-                : null,
+                : undefined,
             passport:
               userCreated.documentName.toUpperCase() == 'PASSPORT'
                 ? userCreated.document
-                : null,
+                : undefined,
           },
         },
         contactDetails: {
