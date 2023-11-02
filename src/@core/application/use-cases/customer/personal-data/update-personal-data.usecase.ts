@@ -11,11 +11,16 @@ export class UpdatePersonalDataUsecase {
     const cpfValue = customerDto.personalData.registrationData.document.cpf;
     const cnpjValue = customerDto.personalData.registrationData.document.cnpj;
 
-    if (cpfValue.length > 0 && !cpf.isValid(cpfValue)) {
-      throw new Error('CPF is invalid');
+    if (cpfValue) {
+      if (cpfValue.length > 0 && !cpf.isValid(cpfValue)) {
+        throw new Error('CPF is invalid');
+      }
     }
-    if (cnpjValue.length > 0 && !cnpj.isValid(cnpjValue)) {
-      throw new Error('CNPJ is invalid');
+
+    if (cnpjValue) {
+      if (cnpjValue.length > 0 && !cnpj.isValid(cnpjValue)) {
+        throw new Error('CNPJ is invalid');
+      }
     }
 
     return await this.personalDataService.update(userId, customer);

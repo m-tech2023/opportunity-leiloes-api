@@ -4,7 +4,7 @@ export class PreSaveCustomerPersonalDataDto {
   personalData: {
     registrationData: {
       fullName: string;
-      document: {
+      document?: {
         cpf?: string;
         cnpj?: string;
         passport?: string;

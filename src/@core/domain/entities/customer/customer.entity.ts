@@ -14,7 +14,7 @@ type CustomerProps = {
       fullName: string;
       document: {
         cnpj?: string;
-        is?: string;
+        ie?: string;
         cpf?: string;
         rg?: string;
         passport?: string;

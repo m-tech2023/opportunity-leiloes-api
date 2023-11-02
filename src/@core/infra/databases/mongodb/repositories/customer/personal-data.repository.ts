@@ -23,24 +23,10 @@ export class PersonalDataRepository {
 
   async update(
     preRegistrationId: string,
-    updatedData: UpdateCustomerPersonalDataDto,
+    updatedData: Partial<UpdateCustomerPersonalDataDto>, // Use Partial<Model> para atualização parcial
   ) {
-    return await this.customer.updateOne({ preRegistrationId }, updatedData);
+    console.log(updatedData);
+    // Use o método updateOne com o operador $set para realizar uma atualização parcial.
+    await this.customer.updateOne({ preRegistrationId }, { $set: updatedData });
   }
-
-  // async findByEmail(email: string, userId: string) {
-  //   return await this.personalData
-  //     .findOne({
-  //       $and: [{ 'contactDetails.email': email }, { _id: userId }],
-  //     })
-  //     .exec();
-  // }
-
-  // async findByDocument(document: Document) {
-  //   return await this.personalData
-  //     .findOne({ 'registrationData.document': document })
-  //     .exec();
-  // }
-  // async updateByAdmin() {}
-  // async deleteByAdmin() {}
 }
