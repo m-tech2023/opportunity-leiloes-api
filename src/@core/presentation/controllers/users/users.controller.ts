@@ -1,4 +1,4 @@
-import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/account/pre-save-personal-data.usercase';
+import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/customer/personal-data/pre-save-personal-data.usercase';
 import { Controller } from '@nestjs/common';
 import {
   Body,
@@ -27,7 +27,7 @@ import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-i
 import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.usecase';
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
-import { PreSavePersonalDataDto } from 'src/@core/application/dto/requests/account/pre-save-personal-data.dto';
+import { PreSaveCustomerPersonalDataDto } from 'src/@core/application/dto/requests/customer/personal-data/pre-save-personal-data.dto';
 
 @Controller('users')
 export class UsersController {
@@ -85,34 +85,37 @@ export class UsersController {
   async store(@Body() createUserDto: CreateUserDto, @Res() res: Response) {
     try {
       const userCreated = await this.createUserUseCase.execute(createUserDto);
-      const preSavePersonalData: PreSavePersonalDataDto = {
-        userId: userCreated._id,
-        registrationData: {
-          fullName: `${userCreated.name} ${userCreated.lastname}`,
-          document: {
-            cpf:
-              userCreated.documentName.toUpperCase() == 'CPF'
-                ? userCreated.document
-                : undefined,
-            cnpj:
-              userCreated.documentName.toUpperCase() == 'CNPJ'
-                ? userCreated.document
-                : undefined,
-            rg:
-              userCreated.documentName.toUpperCase() == 'RG'
-                ? userCreated.document
-                : undefined,
-            passport:
-              userCreated.documentName.toUpperCase() == 'PASSPORT'
-                ? userCreated.document
-                : undefined,
+
+      const preSaveCustomer: PreSaveCustomerPersonalDataDto = {
+        preRegistrationId: userCreated._id,
+        personalData: {
+          registrationData: {
+            fullName: `${userCreated.name} ${userCreated.lastname}`,
+            document: {
+              cpf:
+                userCreated.documentName.toUpperCase() == 'CPF'
+                  ? userCreated.document
+                  : undefined,
+              cnpj:
+                userCreated.documentName.toUpperCase() == 'CNPJ'
+                  ? userCreated.document
+                  : undefined,
+              passport:
+                userCreated.documentName.toUpperCase() == 'PASSPORT'
+                  ? userCreated.document
+                  : undefined,
+            },
+          },
+          contactDetails: {
+            email: userCreated.email,
           },
         },
-        contactDetails: {
+        accessData: {
           email: userCreated.email,
+          password: userCreated.password,
         },
       };
-      await this.preSavePersonalDataUsecase.execute(preSavePersonalData);
+      await this.preSavePersonalDataUsecase.execute(preSaveCustomer);
 
       return res.status(HttpStatus.CREATED).json({
         message: 'User created successfully!',

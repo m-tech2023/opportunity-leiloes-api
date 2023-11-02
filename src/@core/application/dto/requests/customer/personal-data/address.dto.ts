@@ -4,7 +4,6 @@ import {
   MinLength,
   MaxLength,
   IsOptional,
-  IsPostalCode,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 

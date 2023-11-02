@@ -1,14 +1,10 @@
-import { IsNotEmpty, ValidateNested } from 'class-validator';
-import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
+import { ValidateNested, IsNotEmpty } from 'class-validator';
 import { RegistrationData } from './registration-data.dto';
 import { ContactDetails } from './contact-details.dto';
 import { Address } from './address.dto';
-
-export class UpdatePersonalDataDto {
-  id?: string;
-  userId?: string;
-
+export class PersonalDataDto {
   @ValidateNested()
   @Type(() => RegistrationData)
   @IsNotEmpty()

@@ -1,6 +1,6 @@
 import { HttpStatus } from '@nestjs/common/enums';
 import { ApiOperation, ApiTags, ApiBearerAuth } from '@nestjs/swagger';
-import { GetAllLogsAuthenticatedUserUsecase } from './../../../application/use-cases/access-log/get-all-logs-authenticated -user.usecase';
+import { GetAllLogsAuthenticatedUserUsecase } from '../../../application/use-cases/access-log/get-all-logs-authenticated -user.usecase';
 import { Controller, Get, Res, UseGuards } from '@nestjs/common';
 import { User } from 'src/@core/infra/frameworks/nestjs/modules/users/decorators/user.decorator';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';

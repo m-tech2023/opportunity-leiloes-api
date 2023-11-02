@@ -1,12 +1,10 @@
-export class PersonalDataDto {
+export class PreSaveCustomerPersonalDataDto {
   id?: string;
   userId?: string;
-  updatedAt?: string;
   registrationData?: {
     fullName?: string;
     document?: {
       cpf?: string;
-      cnpj?: string;
       rg?: string;
       passport?: string;
     };

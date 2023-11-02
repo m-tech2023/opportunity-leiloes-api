@@ -4,7 +4,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { AuthModule } from './@core/infra/frameworks/nestjs/modules/auth/auth.module';
 import { DeletedAtMiddleware } from './@core/infra/frameworks/nestjs/modules/users/middlewares/deleted-at/deleted-at-middleware';
 import { UsersModule } from './@core/infra/frameworks/nestjs/modules/users/users.module';
-import { PersonalDataModule } from './@core/infra/frameworks/nestjs/modules/account/account.module';
+import { CustomerDataModule } from './@core/infra/frameworks/nestjs/modules/customer/customer.module';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { PersonalDataModule } from './@core/infra/frameworks/nestjs/modules/acco
     // AccessLogModule,
     UsersModule,
     AuthModule,
-    PersonalDataModule,
+    CustomerDataModule,
   ],
   controllers: [],
   providers: [],

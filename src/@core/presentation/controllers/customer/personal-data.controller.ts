@@ -1,6 +1,6 @@
-import { UpdatePersonalDataUsecase } from './../../../application/use-cases/account/update-personal-data.usecase';
+import { UpdatePersonalDataUsecase } from '../../../application/use-cases/customer/personal-data/update-personal-data.usecase';
 import { User } from 'src/@core/infra/frameworks/nestjs/modules/users/decorators/user.decorator';
-import { GetPersonalDataUsecase } from './../../../application/use-cases/account/get-personal-data.usecase';
+import { GetPersonalDataUsecase } from '../../../application/use-cases/customer/personal-data/get-personal-data.usecase';
 import {
   Controller,
   HttpStatus,
@@ -13,7 +13,7 @@ import {
 import { Response } from 'express';
 import { ApiBearerAuth, ApiOperation, ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
-import { UpdatePersonalDataDto } from 'src/@core/application/dto/requests/account/update-personal-data.dto';
+import { UpdateCustomerPersonalDataDto } from 'src/@core/application/dto/requests/customer/personal-data/update-personal-data.dto';
 
 @Controller('account')
 export class PersonalDataController {
@@ -45,9 +45,9 @@ export class PersonalDataController {
   })
   @ApiBearerAuth()
   @ApiTags('Account')
-  @ApiBody({ type: UpdatePersonalDataDto })
+  @ApiBody({ type: UpdateCustomerPersonalDataDto })
   async update(
-    @Body() updatePersonalDataDto: UpdatePersonalDataDto,
+    @Body() updatePersonalDataDto: UpdateCustomerPersonalDataDto,
     @User() { _id },
     @Res() res: Response,
   ) {
