@@ -29,7 +29,7 @@ export class UpdateUserDto {
   @MinLength(4)
   @MaxLength(255)
   @IsEmail()
-  @EmailAlreadyUsed()
+  //@EmailAlreadyUsed()
   @ApiProperty({ example: 'john.doe@any-email.com', description: 'email' })
   email: string;
 

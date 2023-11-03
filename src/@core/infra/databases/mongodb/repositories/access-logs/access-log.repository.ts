@@ -13,4 +13,8 @@ export class AccessLogRepository {
   async create(accessLog: AccessLog) {
     return await this.accessLog.create(accessLog);
   }
+
+  async getAll(userId: string) {
+    return await this.accessLog.find().where({ userId });
+  }
 }

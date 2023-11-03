@@ -1,4 +1,4 @@
-export class PreSavePersonalDataDto {
+export class PreSaveCustomerPersonalDataDto {
   id?: string;
   userId?: string;
   registrationData?: {

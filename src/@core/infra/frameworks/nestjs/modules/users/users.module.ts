@@ -17,10 +17,10 @@ import User from 'src/@core/infra/databases/mongodb/schemas/users/user.schema';
 import { EmailAlreadyUsedRule } from 'src/@core/infra/validations/rules/email-already-used';
 import { UsersController } from 'src/@core/presentation/controllers/users/users.controller';
 import { FindUserMiddleware } from './middlewares/find-user/find-user.middleware';
-import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/account/pre-save-personal-data.usercase';
-import { PersonalDataRepository } from 'src/@core/infra/databases/mongodb/repositories/account/personal-data.repository';
-import { PersonalDataService } from 'src/@core/application/services/account/personal-data.service';
-import personalDataSchema from 'src/@core/infra/databases/mongodb/schemas/account/personal-data.schema';
+import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/customer/personal-data/pre-save-personal-data.usercase';
+import { PersonalDataRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/personal-data.repository';
+import { PersonalDataService } from 'src/@core/application/services/customer/personal-data/personal-data.service';
+import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
 
 @Module({
   imports: [
@@ -30,8 +30,8 @@ import personalDataSchema from 'src/@core/infra/databases/mongodb/schemas/accoun
         schema: User,
       },
       {
-        name: 'PersonalData',
-        schema: personalDataSchema,
+        name: 'Customer',
+        schema: Customer,
       },
     ]),
   ],

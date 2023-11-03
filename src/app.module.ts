@@ -1,30 +1,40 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AccessLogModule } from './@core/infra/frameworks/nestjs/modules/access-log/access-log.module';
+// import { AccessLogModule } from './@core/infra/frameworks/nestjs/modules/access-log/access-log.module';
 import { AuthModule } from './@core/infra/frameworks/nestjs/modules/auth/auth.module';
 import { DeletedAtMiddleware } from './@core/infra/frameworks/nestjs/modules/users/middlewares/deleted-at/deleted-at-middleware';
 import { UsersModule } from './@core/infra/frameworks/nestjs/modules/users/users.module';
+import { CustomerDataModule } from './@core/infra/frameworks/nestjs/modules/customer/customer.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.MONGO_URI),
-    AccessLogModule,
+    // AccessLogModule,
     UsersModule,
     AuthModule,
+    CustomerDataModule,
   ],
   controllers: [],
   providers: [],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply((req, res, next) => {
-      // Isso permite todas as origens, mas pode ser configurado para origens específicas
-      // REMOVER DEPOIS
-      res.header('Access-Control-Allow-Origin', '*');
-      res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
-      res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
-      next();
-    }).forRoutes('*')
+    consumer
+      .apply((req, res, next) => {
+        // Isso permite todas as origens, mas pode ser configurado para origens específicas
+        // REMOVER DEPOIS
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header(
+          'Access-Control-Allow-Methods',
+          'GET, PUT, POST, DELETE, OPTIONS',
+        );
+        res.header(
+          'Access-Control-Allow-Headers',
+          'Origin, X-Requested-With, Content-Type, Accept, Authorization',
+        );
+        next();
+      })
+      .forRoutes('*')
       .apply(DeletedAtMiddleware)
       .forRoutes('*');
   }
