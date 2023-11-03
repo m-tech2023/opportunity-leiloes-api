@@ -18,7 +18,10 @@ export class PersonalDataRepository {
   // TEM QUE VER O APONTAMENTO CERTO DPS
   // QUANDO O USUÁRIO FIZER LOGIN APONTAR O ID DO CUSTOMER PRO TOKEN
   async get(preRegistrationId: string) {
-    return await this.customer.findOne().where({ preRegistrationId });
+    return await this.customer
+      .findOne()
+      .select('personalData')
+      .where({ preRegistrationId });
   }
 
   async update(

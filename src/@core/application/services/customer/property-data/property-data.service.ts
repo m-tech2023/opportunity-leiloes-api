@@ -8,6 +8,9 @@ export class PropertyDataService {
     private readonly propertyDataRepository: PropertyDataRepository,
   ) {}
 
+  async get(id: string) {
+    return await this.propertyDataRepository.get(id);
+  }
   async update(customerId: string, dto: PropertyDataDto) {
     return await this.propertyDataRepository.update(customerId, dto);
   }

@@ -10,12 +10,17 @@ export class PropertyDataRepository {
     private readonly property: Model<Customer>,
   ) {}
 
+  async get(id: string) {
+    return await this.property
+      .findOne({ preRegistrationId: id })
+      .select('propertyData');
+  }
+
   async update(id: string, updateProperty: Partial<PropertyDataDto>) {
-    const teste = await this.property.updateOne(
+    await this.property.updateOne(
       { preRegistrationId: id },
       { propertyData: updateProperty },
     );
     // const teste = await this.property.findOne({ preRegistrationId: id });
-    console.log(teste);
   }
 }

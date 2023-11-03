@@ -15,6 +15,7 @@ import { UpdatePersonalDataUsecase } from '../../../../../application/use-cases/
 import { PropertyDataController } from 'src/@core/presentation/controllers/customer/property-data.controller';
 import { PropertyDataRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/property-data.repository';
 import { PropertyDataService } from 'src/@core/application/services/customer/property-data/property-data.service';
+import { GetPropertyDataUsecase } from 'src/@core/application/use-cases/customer/personal-data/property-data/get-property.usecase';
 
 @Module({
   imports: [
@@ -69,6 +70,15 @@ import { PropertyDataService } from 'src/@core/application/services/customer/pro
       provide: UpdatePropertyDataUsecase,
       useFactory: (propertyDataRepository: PropertyDataRepository) => {
         return new UpdatePropertyDataUsecase(
+          new PropertyDataService(propertyDataRepository),
+        );
+      },
+      inject: [PropertyDataRepository],
+    },
+    {
+      provide: GetPropertyDataUsecase,
+      useFactory: (propertyDataRepository: PropertyDataRepository) => {
+        return new GetPropertyDataUsecase(
           new PropertyDataService(propertyDataRepository),
         );
       },

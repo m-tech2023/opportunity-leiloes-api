@@ -9,7 +9,10 @@ export class PropertyDataDto {
 
   @IsNotEmpty()
   @MaxLength(255)
-  farmName: string;
+  farmName?: string;
+
+  @IsNotEmpty()
+  updatedAt: Date;
 
   @ValidateNested()
   @IsNotEmpty()
