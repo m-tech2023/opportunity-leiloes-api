@@ -25,7 +25,6 @@ export class PersonalDataRepository {
     preRegistrationId: string,
     updatedData: Partial<UpdateCustomerPersonalDataDto>, // Use Partial<Model> para atualização parcial
   ) {
-    console.log(updatedData);
     // Use o método updateOne com o operador $set para realizar uma atualização parcial.
     await this.customer.updateOne({ preRegistrationId }, { $set: updatedData });
   }

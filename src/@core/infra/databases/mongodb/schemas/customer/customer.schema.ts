@@ -211,6 +211,7 @@ const customerSchema = new Schema({
         required: false,
       },
     },
+    default: null,
     required: false,
   },
   accessData: {
@@ -223,10 +224,12 @@ const customerSchema = new Schema({
   myFavorites: {
     type: Object,
     required: false,
+    default: null,
   },
   myBids: {
     type: Object,
     required: false,
+    default: null,
   },
 });
 

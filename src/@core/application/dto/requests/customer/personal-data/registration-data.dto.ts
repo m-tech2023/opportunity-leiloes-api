@@ -13,7 +13,6 @@ import { Document } from './document.dto';
 export class RegistrationData {
   @IsString()
   @IsNotEmpty()
-  @MinLength(2)
   @MaxLength(255)
   @ApiProperty({ example: 'John', description: 'Full name' })
   fullName: string;

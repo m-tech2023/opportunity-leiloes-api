@@ -1,3 +1,4 @@
+import { UpdatePropertyDataUsecase } from './../../../../../application/use-cases/customer/personal-data/property-data/update-property.usecase';
 import { AccessLogRepository } from '../../../../databases/mongodb/repositories/access-logs/access-log.repository';
 import { Module } from '@nestjs/common';
 import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
@@ -11,6 +12,9 @@ import { GetPersonalDataUsecase } from 'src/@core/application/use-cases/customer
 import { PersonalDataRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/personal-data.repository';
 import { PersonalDataService } from 'src/@core/application/services/customer/personal-data/personal-data.service';
 import { UpdatePersonalDataUsecase } from '../../../../../application/use-cases/customer/personal-data/update-personal-data.usecase';
+import { PropertyDataController } from 'src/@core/presentation/controllers/customer/property-data.controller';
+import { PropertyDataRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/property-data.repository';
+import { PropertyDataService } from 'src/@core/application/services/customer/property-data/property-data.service';
 
 @Module({
   imports: [
@@ -25,10 +29,15 @@ import { UpdatePersonalDataUsecase } from '../../../../../application/use-cases/
       },
     ]),
   ],
-  controllers: [AccessLogController, PersonalDataController],
+  controllers: [
+    AccessLogController,
+    PersonalDataController,
+    PropertyDataController,
+  ],
   providers: [
     AccessLogRepository,
     PersonalDataRepository,
+    PropertyDataRepository,
     {
       provide: GetAllLogsAuthenticatedUserUsecase,
       useFactory: (accessLogRepository: AccessLogRepository) => {
@@ -55,6 +64,15 @@ import { UpdatePersonalDataUsecase } from '../../../../../application/use-cases/
         );
       },
       inject: [PersonalDataRepository],
+    },
+    {
+      provide: UpdatePropertyDataUsecase,
+      useFactory: (propertyDataRepository: PropertyDataRepository) => {
+        return new UpdatePropertyDataUsecase(
+          new PropertyDataService(propertyDataRepository),
+        );
+      },
+      inject: [PropertyDataRepository],
     },
   ],
 })
