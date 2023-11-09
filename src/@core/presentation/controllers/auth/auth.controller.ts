@@ -12,8 +12,6 @@ import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { Request } from 'express';
 import { UserLoginDto } from 'src/@core/application/dto/requests/auth/user-login.dto';
 import { LoginUseCase } from 'src/@core/application/use-cases/login/login.usecase';
-// import { AuthenticationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authentication/authentication.guard';
-// import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 import { AuthenticationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authentication/authentication.guard';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 import { User } from 'src/@core/infra/frameworks/nestjs/modules/users/decorators/user.decorator';

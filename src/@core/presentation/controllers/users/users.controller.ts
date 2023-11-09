@@ -86,36 +86,36 @@ export class UsersController {
     try {
       const userCreated = await this.createUserUseCase.execute(createUserDto);
 
-      const preSaveCustomer: PreSaveCustomerPersonalDataDto = {
-        preRegistrationId: userCreated._id,
-        personalData: {
-          registrationData: {
-            fullName: `${userCreated.name} ${userCreated.lastname}`,
-            document: {
-              cpf:
-                userCreated.documentName.toUpperCase() == 'CPF'
-                  ? userCreated.document
-                  : undefined,
-              cnpj:
-                userCreated.documentName.toUpperCase() == 'CNPJ'
-                  ? userCreated.document
-                  : undefined,
-              passport:
-                userCreated.documentName.toUpperCase() == 'PASSPORT'
-                  ? userCreated.document
-                  : undefined,
-            },
-          },
-          contactDetails: {
-            email: userCreated.email,
-          },
-        },
-        accessData: {
-          email: userCreated.email,
-          password: userCreated.password,
-        },
-      };
-      await this.preSavePersonalDataUsecase.execute(preSaveCustomer);
+      // const preSaveCustomer: PreSaveCustomerPersonalDataDto = {
+      //   preRegistrationId: userCreated._id,
+      //   personalData: {
+      //     registrationData: {
+      //       fullName: `${userCreated.name} ${userCreated.lastname}`,
+      //       document: {
+      //         cpf:
+      //           userCreated.documentName.toUpperCase() == 'CPF'
+      //             ? userCreated.document
+      //             : undefined,
+      //         cnpj:
+      //           userCreated.documentName.toUpperCase() == 'CNPJ'
+      //             ? userCreated.document
+      //             : undefined,
+      //         passport:
+      //           userCreated.documentName.toUpperCase() == 'PASSPORT'
+      //             ? userCreated.document
+      //             : undefined,
+      //       },
+      //     },
+      //     contactDetails: {
+      //       email: userCreated.email,
+      //     },
+      //   },
+      //   accessData: {
+      //     email: userCreated.email,
+      //     password: userCreated.password,
+      //   },
+      // };
+      // await this.preSavePersonalDataUsecase.execute(preSaveCustomer);
 
       return res.status(HttpStatus.CREATED).json({
         message: 'User created successfully!',

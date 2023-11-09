@@ -6,13 +6,12 @@ const customerSchema = new Schema({
     required: false,
     default: new mongoose.Types.ObjectId(),
   },
-  preRegistrationId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', // MUDAR PARA PRE CADASTRO
-    unique: true,
-    required: true,
-  },
   isValidCustomer: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  isRestricted: {
     type: Boolean,
     required: false,
     default: false,
@@ -21,7 +20,7 @@ const customerSchema = new Schema({
     type: String,
     ref: 'Roles',
     required: false,
-    default: '2',
+    default: null,
     trim: true,
   },
   confirmedAt: {

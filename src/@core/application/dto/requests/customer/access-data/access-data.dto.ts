@@ -7,17 +7,15 @@ import {
   MinLength,
 } from 'class-validator';
 
-export class UserLoginDto {
+export class AccessDataDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(4)
   @MaxLength(255)
   @IsEmail()
-  @ApiProperty({
-    example: 'john.doe@server.com',
-    description: 'Provide a valid E-mail, CPF, CNPJ or PASSPORT.',
-  })
-  username: string;
+  //@EmailAlreadyUsed()
+  @ApiProperty({ example: 'john.doe@any-email.com', description: 'email' })
+  email: string;
 
   @IsString()
   @IsNotEmpty()

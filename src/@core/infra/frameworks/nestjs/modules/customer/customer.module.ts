@@ -1,4 +1,4 @@
-import { UpdatePropertyDataUsecase } from './../../../../../application/use-cases/customer/personal-data/property-data/update-property.usecase';
+import { UpdatePropertyDataUsecase } from '../../../../../application/use-cases/customer/property-data/update-property.usecase';
 import { AccessLogRepository } from '../../../../databases/mongodb/repositories/access-logs/access-log.repository';
 import { Module } from '@nestjs/common';
 import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
@@ -15,7 +15,7 @@ import { UpdatePersonalDataUsecase } from '../../../../../application/use-cases/
 import { PropertyDataController } from 'src/@core/presentation/controllers/customer/property-data.controller';
 import { PropertyDataRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/property-data.repository';
 import { PropertyDataService } from 'src/@core/application/services/customer/property-data/property-data.service';
-import { GetPropertyDataUsecase } from 'src/@core/application/use-cases/customer/personal-data/property-data/get-property.usecase';
+import { GetPropertyDataUsecase } from 'src/@core/application/use-cases/customer/property-data/get-property.usecase';
 
 @Module({
   imports: [

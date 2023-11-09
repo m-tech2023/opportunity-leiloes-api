@@ -20,10 +20,6 @@ export class PersonalDataService {
     return await this.personalDataRepository.update(userId, data);
   }
 
-  // async findByEmail(email: string, userId: string) {
-  //   return await this.personalDataRepository.findByEmail(email, userId);
-  // }
-
   // async findByDocument(document: Document) {
   //   return await this.personalDataRepository.findByDocument(document);
   // }

@@ -6,23 +6,24 @@ import { LoginUseCase } from 'src/@core/application/use-cases/login/login.usecas
 
 @Injectable()
 export class AuthenticationStrategy extends PassportStrategy(Strategy) {
-	constructor(
-		private loginUseCase: LoginUseCase, 
-	) {
-		super({
-			usernameField: 'username',
-			passwordField: 'password',
-		});
-	}
+  constructor(private loginUseCase: LoginUseCase) {
+    super({
+      usernameField: 'username',
+      passwordField: 'password',
+    });
+  }
 
-	async validate(username: string, password: string): Promise<any> {
-		// validar essa parte
-		let user = await this.loginUseCase.execute({username, password} as UserLoginDto);
+  async validate(username: string, password: string): Promise<any> {
+    // validar essa parte
+    const user = await this.loginUseCase.execute({
+      username,
+      password,
+    } as UserLoginDto);
 
-		if (!user) {
-			throw new UnauthorizedException();
-		}
+    if (!user) {
+      throw new UnauthorizedException('Incorrect email address or password');
+    }
 
-		return user;
-	}
+    return user;
+  }
 }

@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
+import { passwordHash } from 'src/@core/infra/utils/password-hash/password-hash.util';
 
 type CustomerProps = {
   id?: string;
-  preRegistrationId: string;
-  isValidCustomer: boolean;
+  isValidCustomer?: boolean;
+  isRestricted?: boolean;
   roleId: string;
   createdAt?: Date;
   confirmedAt?: Date;
@@ -57,7 +58,10 @@ type CustomerProps = {
       state?: string;
     };
   };
-  accessData?: {};
+  accessData: {
+    email: string;
+    password: string;
+  };
   myFavorites?: {};
   myBids?: {};
 };
@@ -83,8 +87,9 @@ export class Customer {
   get isValidCustomer() {
     return this.props.isValidCustomer;
   }
-  get preRegistrationId() {
-    return this.props.preRegistrationId;
+
+  get isRestricted() {
+    return this.props.isRestricted;
   }
 
   get updatedAt() {
@@ -124,14 +129,17 @@ export class Customer {
   }
 
   get accessData() {
-    return this.props.accessData;
+    return {
+      email: this.props.accessData.email.toLowerCase(),
+      password: passwordHash(this.props.accessData.password),
+    };
   }
 
-  getAccountDetails() {
+  getCustomer() {
     return {
       id: this.id,
-      preRegistrationId: this.preRegistrationId,
       isValidCustomer: this.isValidCustomer,
+      isRestricted: this.isRestricted,
       roleId: this.roleId,
       createdAt: this.createdAt,
       confirmedAt: this.confirmedAt,
@@ -145,7 +153,7 @@ export class Customer {
     };
   }
 
-  getAccountDetailsJson() {
-    return JSON.stringify(this.getAccountDetails());
+  getCustomerJson() {
+    return JSON.stringify(this.getCustomer());
   }
 }

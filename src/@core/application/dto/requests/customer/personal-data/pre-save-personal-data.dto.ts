@@ -4,6 +4,7 @@ export class PreSaveCustomerPersonalDataDto {
   personalData: {
     registrationData: {
       fullName: string;
+      // deixar sem ??
       document?: {
         cpf?: string;
         cnpj?: string;

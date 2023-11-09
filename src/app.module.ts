@@ -5,14 +5,15 @@ import { AuthModule } from './@core/infra/frameworks/nestjs/modules/auth/auth.mo
 import { DeletedAtMiddleware } from './@core/infra/frameworks/nestjs/modules/users/middlewares/deleted-at/deleted-at-middleware';
 import { UsersModule } from './@core/infra/frameworks/nestjs/modules/users/users.module';
 import { CustomerDataModule } from './@core/infra/frameworks/nestjs/modules/customer/customer.module';
+import { ManagerModule } from './@core/infra/frameworks/nestjs/modules/manager/manager.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.MONGO_URI),
-    // AccessLogModule,
     UsersModule,
     AuthModule,
     CustomerDataModule,
+    ManagerModule,
   ],
   controllers: [],
   providers: [],

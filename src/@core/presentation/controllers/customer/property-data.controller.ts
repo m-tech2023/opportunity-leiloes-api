@@ -1,12 +1,12 @@
 import { HttpStatus } from '@nestjs/common/enums';
 import { ApiOperation, ApiBearerAuth, ApiTags, ApiBody } from '@nestjs/swagger';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
-import { UpdatePropertyDataUsecase } from './../../../application/use-cases/customer/personal-data/property-data/update-property.usecase';
+import { UpdatePropertyDataUsecase } from '../../../application/use-cases/customer/property-data/update-property.usecase';
 import { Controller, Res, Put, Get, UseGuards, Body } from '@nestjs/common';
 import { Response } from 'express';
 import { PropertyDataDto } from 'src/@core/application/dto/requests/customer/property-data/update-property.dto';
 import { User } from 'src/@core/infra/frameworks/nestjs/modules/users/decorators/user.decorator';
-import { GetPropertyDataUsecase } from 'src/@core/application/use-cases/customer/personal-data/property-data/get-property.usecase';
+import { GetPropertyDataUsecase } from 'src/@core/application/use-cases/customer/property-data/get-property.usecase';
 
 @Controller('account')
 export class PropertyDataController {
