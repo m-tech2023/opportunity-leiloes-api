@@ -1,3 +1,4 @@
+import { Document } from 'src/@core/application/use-cases/login/types/document.type';
 import { PreSaveCustomerPersonalDataDto } from '../../../../../application/dto/requests/customer/personal-data/pre-save-personal-data.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
@@ -34,6 +35,13 @@ export class CustomerRepository {
       .findOne()
       .select('accessData')
       .where({ email })
+      .exec();
+  }
+  async findByDocument(document: string) {
+    return await this.customer
+      .findOne()
+      .select('accessData')
+      .where({ 'personalData.registrationData.document': document })
       .exec();
   }
 

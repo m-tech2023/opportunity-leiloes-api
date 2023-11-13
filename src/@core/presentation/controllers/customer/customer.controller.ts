@@ -3,6 +3,7 @@ import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateCustomerDto } from 'src/@core/application/dto/requests/customer/create-customer.dto';
 import { Response } from 'express';
 import { HttpStatus } from '@nestjs/common/enums';
+import { CreateCustomerUseCase } from 'src/@core/application/use-cases/customer/create-customer.usecase';
 
 @Controller('customer')
 export class CustomerController {

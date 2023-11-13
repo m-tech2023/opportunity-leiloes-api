@@ -24,6 +24,11 @@ export class CreateCustomerUseCase {
       cnpj.isValid(
         createCustomerDto.personalData.registrationData.document.cnpj,
       );
+
+    if (!validDocument) {
+      throw new Error('Document invalid');
+    }
+
     const data = {
       document: customer.personalData.registrationData.document,
     };

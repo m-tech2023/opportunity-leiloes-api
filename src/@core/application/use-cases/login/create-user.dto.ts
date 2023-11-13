@@ -5,7 +5,7 @@ import {
   IsOptional,
   IsString,
   MaxLength,
-  MinLength
+  MinLength,
 } from 'class-validator';
 import { EmailAlreadyUsed } from 'src/@core/infra/validations/decorators/email-already-used';
 
@@ -15,14 +15,14 @@ export class CreateUserDto {
   @MinLength(2)
   @MaxLength(255)
   @ApiProperty({ example: 'John', description: 'name' })
-  name: string;
+  fullName: string;
 
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(2)
-  @MaxLength(255)
-  @ApiProperty({ example: 'Doe', description: 'lastname' })
-  lastname: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // @MinLength(2)
+  // @MaxLength(255)
+  // @ApiProperty({ example: 'Doe', description: 'lastname' })
+  // lastname: string;
 
   @IsString()
   @IsNotEmpty()
@@ -42,21 +42,31 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: '60925616036', description: 'Provide a valid CPF, CNPJ or PASSPORT.' })
+  @ApiProperty({
+    example: '60925616036',
+    description: 'Provide a valid CPF, CNPJ or PASSPORT.',
+  })
   document: string;
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: 'CPF', description: 'Acceptable values: CPF, CNPJ or PASSPORT.' })
+  @ApiProperty({
+    example: 'CPF',
+    description: 'Acceptable values: CPF, CNPJ or PASSPORT.',
+  })
   documentName: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ example: '653be12f48b886867f4647589', description: 'roleId' })
-  roleId: String;
+  roleId: string;
 
   @IsOptional()
-  @ApiProperty({ example: Date.now(), required: false, description: 'Optional' })
+  @ApiProperty({
+    example: Date.now(),
+    required: false,
+    description: 'Optional',
+  })
   confirmedAt?: Date;
 
   @IsOptional()

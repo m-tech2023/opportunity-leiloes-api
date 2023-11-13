@@ -11,4 +11,7 @@ export class CustomerService {
   async findByEmail(email: string) {
     return await this.customerRepository.findByEmail(email);
   }
+  async findByDocument(document: string) {
+    return await this.customerRepository.findByDocument(document);
+  }
 }

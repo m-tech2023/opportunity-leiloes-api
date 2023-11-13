@@ -3,17 +3,15 @@ import { objectId } from 'src/@core/infra/utils/uuid/uuid.util';
 
 type UserProps = {
   id?: string;
-  name: string;
-  lastname: string;
+  fullName: string;
+  // lastname: string;
   email: string;
   password: string;
   document: string;
   documentName: string;
   roleId: string;
   createdAt?: Date;
-  confirmedAt?: Date;
   updatedAt?: Date;
-  deletedAt?: Date;
 };
 
 export class User {
@@ -35,19 +33,19 @@ export class User {
     return this.props.id;
   }
 
-  get name() {
+  get fullName() {
     return (
-      this.props.name.charAt(0).toUpperCase() +
-      this.props.name.toLowerCase().slice(1)
+      this.props.fullName.charAt(0).toUpperCase() +
+      this.props.fullName.toLowerCase().slice(1)
     );
   }
 
-  get lastname() {
-    return (
-      this.props.lastname.charAt(0).toUpperCase() +
-      this.props.lastname.toLowerCase().slice(1)
-    );
-  }
+  // get lastname() {
+  //   return (
+  //     this.props.lastname.charAt(0).toUpperCase() +
+  //     this.props.lastname.toLowerCase().slice(1)
+  //   );
+  // }
 
   get email() {
     return this.props.email.toLowerCase();
@@ -73,32 +71,22 @@ export class User {
     return this.props.createdAt;
   }
 
-  get confirmedAt() {
-    return this.props.confirmedAt;
-  }
-
   get updatedAt() {
     return this.props.updatedAt;
-  }
-
-  get deletedAt() {
-    return this.props.deletedAt;
   }
 
   getUser() {
     return {
       id: this.id,
-      name: this.name,
-      lastname: this.lastname,
+      fullName: this.fullName,
+      // lastname: this.lastname,
       email: this.email,
       password: this.password,
       document: this.document,
       documentName: this.documentName,
       roleId: this.roleId,
       createdAt: this.createdAt,
-      confirmedAt: this.confirmedAt,
       updatedAt: this.updatedAt,
-      deletedAt: this.deletedAt,
     } as User;
   }
 
