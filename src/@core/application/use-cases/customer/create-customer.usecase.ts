@@ -33,11 +33,12 @@ export class CreateCustomerUseCase {
       document: customer.personalData.registrationData.document,
     };
 
-    const findUserByDocument = await this.customerService.findByDocument(data);
-    if (findUserByDocument) {
-      throw new Error('User already registered with this document.');
-    }
+    //   const findUserByDocument = await this.customerService.findByDocument(data);
+    //   if (findUserByDocument) {
+    //     throw new Error('User already registered with this document.');
+    //   }
 
-    return await this.customerService.create(customer);
+    //   return await this.customerService.create(customer);
+    // }
   }
 }

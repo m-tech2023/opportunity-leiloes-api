@@ -12,7 +12,6 @@ import { FindByEmailUseCase } from 'src/@core/application/use-cases/users/find-b
 import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-id.usecase';
 import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.usecase';
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
-import { UserRepository } from 'src/@core/infra/databases/mongodb/repositories/users/user.repository';
 import User from 'src/@core/infra/databases/mongodb/schemas/users/user.schema';
 import { EmailAlreadyUsedRule } from 'src/@core/infra/validations/rules/email-already-used';
 import { UsersController } from 'src/@core/presentation/controllers/users/users.controller';
@@ -21,6 +20,8 @@ import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/cust
 import { PersonalDataRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/personal-data.repository';
 import { PersonalDataService } from 'src/@core/application/services/customer/personal-data/personal-data.service';
 import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
+import { UserRepository } from 'src/@core/infra/databases/prisma/repositories/users/user.repository';
+import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
 
 @Module({
   imports: [
@@ -37,8 +38,10 @@ import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/custome
   ],
   controllers: [UsersController],
   providers: [
+    PrismaService,
     FindUserMiddleware,
     PersonalDataRepository,
+    UserRepository,
     {
       provide: GetAllUseCase,
       useFactory: (userRepository: UserRepository) => {
@@ -90,7 +93,7 @@ import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/custome
       },
       inject: [PersonalDataRepository],
     },
-    UserRepository,
+
     EmailAlreadyUsedRule,
   ],
   exports: [

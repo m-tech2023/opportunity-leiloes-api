@@ -6,9 +6,11 @@ import { DeletedAtMiddleware } from './@core/infra/frameworks/nestjs/modules/use
 import { UsersModule } from './@core/infra/frameworks/nestjs/modules/users/users.module';
 import { CustomerDataModule } from './@core/infra/frameworks/nestjs/modules/customer/customer.module';
 import { ManagerModule } from './@core/infra/frameworks/nestjs/modules/manager/manager.module';
+import { PrismaService } from './@core/infra/databases/prisma/prisma.service';
 
 @Module({
   imports: [
+    PrismaService,
     MongooseModule.forRoot(process.env.MONGO_URI),
     UsersModule,
     AuthModule,
@@ -16,7 +18,7 @@ import { ManagerModule } from './@core/infra/frameworks/nestjs/modules/manager/m
     ManagerModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [PrismaService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

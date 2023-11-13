@@ -8,45 +8,45 @@ import { UserResponseDto } from '../../dto/responses/users/user.dto';
 import { UserService } from '../../services/users/user.service';
 
 export class LoginByDocumentUseCase {
-	constructor(
-		private readonly userService: UserService,
-		private readonly jwtService: JwtService,
-	) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+  ) {}
 
-	async execute(userLoginDto: UserLoginDto): Promise<any> {
-		const username = onlyNumbers(userLoginDto.username);
-		
-		const user = await this.userService.findByDocument({
-			document: username
-		});
-		
-		if (!user) {
-			return null;
-		}
+  async execute(userLoginDto: UserLoginDto): Promise<any> {
+    const username = onlyNumbers(userLoginDto.username);
 
-		const validatedPassword = comparePassword(userLoginDto.password, user.password);
-		if (!validatedPassword) {
-			return null;
-		}
+    const user = await this.userService.findByDocument(username);
 
-		delete user.password;
-		
-		return this.getAccessToken(user);
-	}
+    if (!user) {
+      return null;
+    }
 
-	private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
-		user = {
-			_id: user._id,
-			name: user.name,
-			lastname: user.lastname,
-			email: user.email,
-			roleId: user.roleId,
-			confirmedAt: user.confirmedAt,
-		}
+    const validatedPassword = comparePassword(
+      userLoginDto.password,
+      user.password,
+    );
+    if (!validatedPassword) {
+      return null;
+    }
 
-		return {
-			access_token: this.jwtService.sign(user),
-			expires_in: env.JWT_EXPIRES_IN,
-		};
-	}
+    delete user.password;
+
+    return this.getAccessToken(user);
+  }
+
+  private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
+    user = {
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      roleId: user.roleId,
+      confirmedAt: user.confirmedAt,
+    };
+
+    return {
+      access_token: this.jwtService.sign(user),
+      expires_in: env.JWT_EXPIRES_IN,
+    };
+  }
 }

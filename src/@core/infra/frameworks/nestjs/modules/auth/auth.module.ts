@@ -8,7 +8,6 @@ import { LoginByDocumentUseCase } from 'src/@core/application/use-cases/login/lo
 import { LoginByEmailUseCase } from 'src/@core/application/use-cases/login/login-by-email.usecase';
 import { LoginUseCase } from 'src/@core/application/use-cases/login/login.usecase';
 import { FindByEmailUseCase } from 'src/@core/application/use-cases/users/find-by-email.usecase';
-import { UserRepository } from 'src/@core/infra/databases/mongodb/repositories/users/user.repository';
 import User from 'src/@core/infra/databases/mongodb/schemas/users/user.schema';
 import { AuthController } from 'src/@core/presentation/controllers/auth/auth.controller';
 import { AuthenticationStrategy } from './strategies/authentication/authentication.strategy';
@@ -18,6 +17,8 @@ import { CreateAccessLogUsecase } from '../../../../../application/use-cases/acc
 import { AccessLogService } from '../../../../../application/services/access-log/access-log.service';
 import { AccessLogRepository } from '../../../../databases/mongodb/repositories/access-logs/access-log.repository';
 import accessLog from 'src/@core/infra/databases/mongodb/schemas/access-logs/access-log.schema';
+import { UserRepository } from 'src/@core/infra/databases/prisma/repositories/users/user.repository';
+import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import accessLog from 'src/@core/infra/databases/mongodb/schemas/access-logs/acc
   ],
   controllers: [AuthController],
   providers: [
+    PrismaService,
     AuthenticationStrategy,
     AuthorizationStrategy,
     UserRepository,

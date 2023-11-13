@@ -5,15 +5,23 @@ import { CreateUserDto } from 'src/@core/application/dto/requests/users/create-u
 import { PrismaService } from '../../prisma.service';
 
 @Injectable()
-export class UsersRepository {
+export class UserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createUser(createUserDto: CreateUserDto) {
-    return this.prisma.user.create({
+  async create(createUserDto: CreateUserDto) {
+    const user = await this.prisma.user.create({
       data: {
-        username: createUserDto.fullName,
+        fullName: createUserDto.fullName,
         email: createUserDto.email,
         password: createUserDto.password,
+        document: createUserDto.document,
+        documentName: createUserDto.documentName,
+      },
+    });
+    await this.prisma.userRole.create({
+      data: {
+        fkIdUser: user.id,
+        fkIdRole: parseInt(createUserDto.roleId),
       },
     });
   }
@@ -21,6 +29,18 @@ export class UsersRepository {
   async findUserById(id: number) {
     return this.prisma.user.findUnique({
       where: { id },
+    });
+  }
+
+  async findUserByEmail(email: string) {
+    return this.prisma.user.findUnique({
+      where: { email },
+    });
+  }
+
+  async findUserByDocument(document: string) {
+    return this.prisma.user.findUnique({
+      where: { document },
     });
   }
 

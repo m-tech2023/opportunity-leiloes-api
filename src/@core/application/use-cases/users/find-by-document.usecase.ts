@@ -1,10 +1,9 @@
 import { UserService } from '../../services/users/user.service';
-import { Document } from '../login/types/document.type';
 
 export class FindByDocumentUseCase {
   constructor(private readonly userService: UserService) {}
 
-  async execute(document: Document) {
+  async execute(document: string) {
     return await this.userService.findByDocument(document);
   }
 }

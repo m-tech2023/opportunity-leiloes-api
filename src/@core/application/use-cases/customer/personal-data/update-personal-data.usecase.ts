@@ -6,7 +6,7 @@ export class UpdatePersonalDataUsecase {
   constructor(private readonly personalDataService: PersonalDataService) {}
 
   async execute(userId: string, customerDto: UpdateCustomerPersonalDataDto) {
-    const customer = Customer.create(customerDto as any).getAccountDetails();
+    const customer = Customer.create(customerDto as any).getCustomer();
 
     const cpfValue = customerDto.personalData.registrationData.document.cpf;
     const cnpjValue = customerDto.personalData.registrationData.document.cnpj;

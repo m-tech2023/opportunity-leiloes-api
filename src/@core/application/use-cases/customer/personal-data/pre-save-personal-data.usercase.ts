@@ -8,7 +8,7 @@ export class PreSavePersonalDataUsecase {
   async execute(preSavePersonalDataDto: PreSaveCustomerPersonalDataDto) {
     const personalData = Customer.create(
       preSavePersonalDataDto as any,
-    ).getAccountDetails();
+    ).getCustomer();
     return await this.personalDataService.createPreSave(personalData);
   }
 }

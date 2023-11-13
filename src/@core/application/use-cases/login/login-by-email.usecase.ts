@@ -31,17 +31,16 @@ export class LoginByEmailUseCase {
     return this.getAccessToken(user);
   }
 
-	private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
-		return {
-			access_token: this.jwtService.sign({
-				_id: user._id,
-				name: user.name,
-				lastname: user.lastname,
-				email: user.email,
-				roleId: user.roleId,
-				confirmedAt: user.confirmedAt,
-			}),
-			expires_in: env.JWT_EXPIRES_IN,
-		};
-	}
+  private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
+    return {
+      access_token: this.jwtService.sign({
+        _id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        roleId: user.roleId,
+        confirmedAt: user.confirmedAt,
+      }),
+      expires_in: env.JWT_EXPIRES_IN,
+    };
+  }
 }
