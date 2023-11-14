@@ -49,8 +49,8 @@ export class UpdateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: '1', description: 'roleId' })
-  roleId: string;
+  @ApiProperty({ example: '1', description: 'roleName' })
+  roleName: string;
 
   @IsOptional()
   @ApiProperty({

@@ -8,7 +8,7 @@ type UserProps = {
   password: string;
   document: string;
   documentName: string;
-  roleId: string;
+  roleName: string;
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -61,8 +61,8 @@ export class User {
     return this.props.documentName;
   }
 
-  get roleId() {
-    return this.props.roleId;
+  get roleName() {
+    return this.props.roleName;
   }
 
   get createdAt() {
@@ -82,7 +82,7 @@ export class User {
       password: this.password,
       document: this.document,
       documentName: this.documentName,
-      roleId: this.roleId,
+      roleName: this.roleName,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
     } as User;

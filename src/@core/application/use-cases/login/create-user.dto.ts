@@ -58,8 +58,8 @@ export class CreateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: '653be12f48b886867f4647589', description: 'roleId' })
-  roleId: string;
+  @ApiProperty({ example: 'customer', description: 'roleName' })
+  roleName: string;
 
   @IsOptional()
   @ApiProperty({

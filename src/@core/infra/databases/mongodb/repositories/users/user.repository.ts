@@ -10,7 +10,7 @@ const columns = {
   name: true,
   lastname: true,
   email: true,
-  roleId: true,
+  roleName: true,
   confirmedAt: true,
   document: true,
   documentName: true,

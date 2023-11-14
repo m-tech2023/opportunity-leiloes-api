@@ -7,7 +7,7 @@ export class UpdateCustomerPersonalDataDto {
   id?: string;
   preRegistrationId?: string;
   isValidCustomer: boolean;
-  roleId?: string;
+  roleName?: string;
   createdAt?: Date;
   confirmedAt?: Date;
   deletedAt?: Date;

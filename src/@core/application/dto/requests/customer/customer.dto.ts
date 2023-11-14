@@ -9,7 +9,7 @@ export class CustomerDto {
   id?: string;
   isValidCustomer?: boolean;
   isRestricted?: boolean;
-  roleId?: string;
+  roleName?: string;
   createdAt?: Date;
   confirmedAt?: Date;
   updatedAt?: Date;

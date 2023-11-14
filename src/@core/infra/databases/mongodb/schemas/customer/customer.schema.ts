@@ -16,7 +16,7 @@ const customerSchema = new Schema({
     required: false,
     default: false,
   },
-  roleId: {
+  roleName: {
     type: String,
     ref: 'Roles',
     required: false,

@@ -19,7 +19,7 @@ export class UserRepository {
     await this.prisma.userRole.create({
       data: {
         fkIdUser: user.id,
-        fkIdRole: data.roleId,
+        fkIdRole: data.roleName,
       },
     });
   }

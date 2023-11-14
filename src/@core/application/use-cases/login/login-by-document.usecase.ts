@@ -40,7 +40,7 @@ export class LoginByDocumentUseCase {
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
-      roleId: user.roleId,
+      roleName: user.roleName,
       confirmedAt: user.confirmedAt,
     };
 

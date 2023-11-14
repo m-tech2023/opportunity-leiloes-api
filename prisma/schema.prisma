@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,36 +8,24 @@ datasource db {
 }
 
 model User {
-  id           String      @id @default(uuid())
-  fullName     String      @map("full_name") @db.VarChar(255)
-  email        String      @unique
+  id           String    @id @default(uuid())
+  fullName     String    @map("full_name") @db.VarChar(255)
+  email        String    @unique
   password     String
-  document     String      @unique
-  documentName String      @map("document_name")
-  updatedAt    DateTime?   @updatedAt @map("updated_at")
-  createdAt    DateTime    @default(now()) @map("created_at")
-  UserRole     UserRole[]
-  AccessLog    AccessLog[]
+  document     String    @unique
+  documentName String    @map("document_name")
+  updatedAt    DateTime? @updatedAt @map("updated_at")
+  createdAt    DateTime  @default(now()) @map("created_at")
+
+  UserRole  UserRole[]
+  AccessLog AccessLog[]
+  // UserAccessLog UserAccessLog[]
 
   @@map("users")
 }
 
-model UserRole {
-  id        String    @id @default(uuid())
-  createdAt DateTime? @default(now()) @map("created_at")
-
-  user     User   @relation(fields: [fkIdUser], references: [id])
-  fkIdUser String @map("fk_id_user")
-
-  role     Role   @relation(fields: [fkIdRole], references: [id])
-  fkIdRole String @map("fk_id_role")
-
-  @@map("users_roles")
-}
-
 model Role {
-  id       String     @id @default(uuid())
-  roleName String     @map("role_name") @db.VarChar(50)
+  roleName String     @id @map("role_name") @db.VarChar(50)
   UserRole UserRole[]
 
   @@map("roles")
@@ -56,6 +41,33 @@ model AccessLog {
   updatedAt       DateTime? @updatedAt @map("updated_at")
 
   user User @relation(fields: [userId], references: [id])
+  // UserAccessLog UserAccessLog[]
 
   @@map("access_log")
+}
+
+// model UserAccessLog {
+//   id        String    @id @default(uuid())
+//   createdAt DateTime? @default(now()) @map("created_at")
+
+//   user     User   @relation(fields: [fkIdUser], references: [id])
+//   fkIdUser String @map("fk_id_user")
+
+//   accessLog     AccessLog @relation(fields: [fkIdAccessLog], references: [id])
+//   fkIdAccessLog String    @map("fk_id_access_log")
+
+//   @@map("users_access_log")
+// }
+
+model UserRole {
+  id        String    @id @default(uuid())
+  createdAt DateTime? @default(now()) @map("created_at")
+
+  user     User   @relation(fields: [fkIdUser], references: [id])
+  fkIdUser String @map("fk_id_user")
+
+  role     Role   @relation(fields: [fkIdRole], references: [roleName])
+  fkIdRole String @map("fk_id_role")
+
+  @@map("users_roles")
 }

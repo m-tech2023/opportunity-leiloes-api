@@ -5,7 +5,7 @@ export class UserResponseDto {
   password?: string;
   document?: string;
   documentName?: string;
-  roleId?: string;
+  roleName?: string;
   confirmedAt?: Date;
   iat?: number;
   exp?: number;

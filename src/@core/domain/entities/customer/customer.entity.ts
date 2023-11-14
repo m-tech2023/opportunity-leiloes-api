@@ -5,7 +5,7 @@ type CustomerProps = {
   id?: string;
   isValidCustomer?: boolean;
   isRestricted?: boolean;
-  roleId: string;
+  roleName: string;
   createdAt?: Date;
   confirmedAt?: Date;
   updatedAt?: Date;
@@ -96,8 +96,8 @@ export class Customer {
     return this.props.updatedAt;
   }
 
-  get roleId() {
-    return this.props.roleId;
+  get roleName() {
+    return this.props.roleName;
   }
 
   get createdAt() {
@@ -140,7 +140,7 @@ export class Customer {
       id: this.id,
       isValidCustomer: this.isValidCustomer,
       isRestricted: this.isRestricted,
-      roleId: this.roleId,
+      roleName: this.roleName,
       createdAt: this.createdAt,
       confirmedAt: this.confirmedAt,
       updatedAt: this.updatedAt,

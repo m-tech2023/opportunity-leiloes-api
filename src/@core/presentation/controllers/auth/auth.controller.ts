@@ -44,7 +44,7 @@ export class AuthController {
 
     const userId = (
       (await this.findByUsernameUseCase.execute(userLoginDto.username)) as any
-    )._id;
+    ).id;
     await this.createAccessLogUseCase.execute({
       userId,
       ip: req.ip,

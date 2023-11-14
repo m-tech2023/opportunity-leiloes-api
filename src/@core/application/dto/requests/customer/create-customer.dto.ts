@@ -13,8 +13,8 @@ import { AccessDataDto } from './access-data/access-data.dto';
 export class CreateCustomerDto {
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: '653be12f48b886867f464758', description: 'roleId' })
-  roleId: string;
+  @ApiProperty({ example: 'admin', description: 'roleName' })
+  roleName: string;
 
   @IsString()
   @IsNotEmpty()

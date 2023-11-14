@@ -35,7 +35,7 @@ const userSchema = new Schema({
     required: true,
     trim: true,
   },
-  roleId: {
+  roleName: {
     type: String,
     required: true,
     trim: true,

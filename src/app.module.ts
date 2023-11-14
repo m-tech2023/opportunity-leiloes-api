@@ -1,6 +1,5 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-// import { AccessLogModule } from './@core/infra/frameworks/nestjs/modules/access-log/access-log.module';
 import { AuthModule } from './@core/infra/frameworks/nestjs/modules/auth/auth.module';
 import { DeletedAtMiddleware } from './@core/infra/frameworks/nestjs/modules/users/middlewares/deleted-at/deleted-at-middleware';
 import { UsersModule } from './@core/infra/frameworks/nestjs/modules/users/users.module';
