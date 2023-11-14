@@ -1,5 +1,5 @@
+import { CustomerRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/customer.repository';
 import { CustomerDto } from '../../dto/requests/customer/customer.dto';
-import { CustomerRepository } from './../../../infra/databases/mongodb/repositories/customer/customer.repository';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

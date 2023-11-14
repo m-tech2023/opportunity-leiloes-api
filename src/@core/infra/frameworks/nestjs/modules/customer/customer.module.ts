@@ -1,5 +1,4 @@
 import { UpdatePropertyDataUsecase } from '../../../../../application/use-cases/customer/property-data/update-property.usecase';
-import { AccessLogRepository } from '../../../../databases/mongodb/repositories/access-logs/access-log.repository';
 import { Module } from '@nestjs/common';
 import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -16,6 +15,8 @@ import { PropertyDataController } from 'src/@core/presentation/controllers/custo
 import { PropertyDataRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/property-data.repository';
 import { PropertyDataService } from 'src/@core/application/services/customer/property-data/property-data.service';
 import { GetPropertyDataUsecase } from 'src/@core/application/use-cases/customer/property-data/get-property.usecase';
+import { AccessLogRepository } from 'src/@core/infra/databases/prisma/repositories/access-log/access-log.repository';
+import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { GetPropertyDataUsecase } from 'src/@core/application/use-cases/customer
     PropertyDataController,
   ],
   providers: [
+    PrismaService,
     AccessLogRepository,
     PersonalDataRepository,
     PropertyDataRepository,

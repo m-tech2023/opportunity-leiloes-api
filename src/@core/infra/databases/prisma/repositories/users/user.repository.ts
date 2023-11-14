@@ -1,48 +1,68 @@
-// src/users/users.repository.ts
-
 import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from 'src/@core/application/dto/requests/users/create-user.dto';
 import { PrismaService } from '../../prisma.service';
+import { User } from 'src/@core/domain/entities/users/user.entity';
 
 @Injectable()
 export class UserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(createUserDto: CreateUserDto) {
+  async create(data: User) {
     const user = await this.prisma.user.create({
       data: {
-        fullName: createUserDto.fullName,
-        email: createUserDto.email,
-        password: createUserDto.password,
-        document: createUserDto.document,
-        documentName: createUserDto.documentName,
+        fullName: data.fullName,
+        email: data.email,
+        password: data.password,
+        document: data.document,
+        documentName: data.documentName,
       },
     });
     await this.prisma.userRole.create({
       data: {
         fkIdUser: user.id,
-        fkIdRole: parseInt(createUserDto.roleId),
+        fkIdRole: data.roleId,
       },
     });
   }
 
-  async findUserById(id: number) {
-    return this.prisma.user.findUnique({
+  async updateUser(id: string, updatedData: User) {
+    await this.prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        fullName: updatedData.fullName,
+        email: updatedData.email,
+        password: updatedData.password,
+        document: updatedData.document,
+        documentName: updatedData.documentName,
+      },
+    });
+  }
+  async getAllUsers() {
+    return await this.prisma.user.findMany();
+  }
+
+  async findUserById(id: string) {
+    return await this.prisma.user.findUnique({
       where: { id },
     });
   }
 
   async findUserByEmail(email: string) {
-    return this.prisma.user.findUnique({
+    return await this.prisma.user.findUnique({
       where: { email },
     });
   }
 
   async findUserByDocument(document: string) {
-    return this.prisma.user.findUnique({
+    return await this.prisma.user.findUnique({
       where: { document },
     });
   }
 
-  // Add other methods as needed
+  async deleteUserById(id: string) {
+    return await this.prisma.user.delete({
+      where: { id },
+    });
+  }
 }

@@ -11,36 +11,51 @@ datasource db {
 }
 
 model User {
-  id           Int        @id @default(autoincrement())
-  fullName     String     @map("full_name") @db.VarChar(255)
-  email        String     @unique
+  id           String      @id @default(uuid())
+  fullName     String      @map("full_name") @db.VarChar(255)
+  email        String      @unique
   password     String
-  document     String     @unique
-  documentName String     @map("document_name")
-  updatedAt    DateTime?  @default(now()) @map("updated_at")
-  createdAt    DateTime?  @default(now()) @map("created_at")
+  document     String      @unique
+  documentName String      @map("document_name")
+  updatedAt    DateTime?   @updatedAt @map("updated_at")
+  createdAt    DateTime    @default(now()) @map("created_at")
   UserRole     UserRole[]
+  AccessLog    AccessLog[]
 
   @@map("users")
 }
 
+model UserRole {
+  id        String    @id @default(uuid())
+  createdAt DateTime? @default(now()) @map("created_at")
+
+  user     User   @relation(fields: [fkIdUser], references: [id])
+  fkIdUser String @map("fk_id_user")
+
+  role     Role   @relation(fields: [fkIdRole], references: [id])
+  fkIdRole String @map("fk_id_role")
+
+  @@map("users_roles")
+}
+
 model Role {
-  id       Int        @id @default(autoincrement())
+  id       String     @id @default(uuid())
   roleName String     @map("role_name") @db.VarChar(50)
   UserRole UserRole[]
 
   @@map("roles")
 }
 
-model UserRole {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime? @default(now()) @map("created_at")
+model AccessLog {
+  id              String    @id @default(uuid())
+  userId          String    @map("user_id")
+  ip              String    @map("ip") @db.VarChar(255)
+  browser         String    @map("browser") @db.VarChar(255)
+  geolocalization String?   @map("geolocalization") @db.VarChar(255)
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime? @updatedAt @map("updated_at")
 
-  user     User @relation(fields: [fkIdUser], references: [id])
-  fkIdUser Int  @map("fk_id_user")
+  user User @relation(fields: [userId], references: [id])
 
-  role     Role @relation(fields: [fkIdRole], references: [id])
-  fkIdRole Int  @map("fk_id_role")
-
-  @@map("users_roles")
+  @@map("access_log")
 }

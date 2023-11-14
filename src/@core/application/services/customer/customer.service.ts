@@ -1,5 +1,5 @@
-import { CustomerRepository } from './../../../infra/databases/mongodb/repositories/customer/customer.repository';
 import { Injectable } from '@nestjs/common';
+import { CustomerRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/customer.repository';
 @Injectable()
 export class CustomerService {
   constructor(private readonly customerRepository: CustomerRepository) {}

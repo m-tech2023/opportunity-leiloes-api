@@ -2,9 +2,8 @@ import { passwordHash } from 'src/@core/infra/utils/password-hash/password-hash.
 import { objectId } from 'src/@core/infra/utils/uuid/uuid.util';
 
 type UserProps = {
-  id?: string;
+  id?: number;
   fullName: string;
-  // lastname: string;
   email: string;
   password: string;
   document: string;
@@ -32,7 +31,6 @@ export class User {
 
     return this.props.id;
   }
-
   get fullName() {
     return (
       this.props.fullName.charAt(0).toUpperCase() +

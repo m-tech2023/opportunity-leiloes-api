@@ -8,11 +8,11 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   async getAll() {
-    // return await this.userRepository.getAll();
+    return await this.userRepository.getAllUsers();
   }
 
   async findById(id: string) {
-    // return await this.userRepository.findById(id);
+    return await this.userRepository.findUserById(id);
   }
 
   async findByEmail(email: string) {
@@ -28,10 +28,10 @@ export class UserService {
   }
 
   async update(id: string, data: User) {
-    // return await this.userRepository.update(id, data);
+    return await this.userRepository.updateUser(id, data);
   }
 
   async deleteById(id: string) {
-    // return await this.userRepository.deleteById(id);
+    return await this.userRepository.deleteUserById(id);
   }
 }

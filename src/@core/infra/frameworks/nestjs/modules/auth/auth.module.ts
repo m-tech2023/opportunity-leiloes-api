@@ -15,13 +15,14 @@ import { AuthorizationStrategy } from './strategies/authorization/authorization.
 import { FindByUsernameUseCase } from '../../../../../application/use-cases/users/find-by-username.usecase';
 import { CreateAccessLogUsecase } from '../../../../../application/use-cases/access-log/create-access-log.usecase';
 import { AccessLogService } from '../../../../../application/services/access-log/access-log.service';
-import { AccessLogRepository } from '../../../../databases/mongodb/repositories/access-logs/access-log.repository';
 import accessLog from 'src/@core/infra/databases/mongodb/schemas/access-logs/access-log.schema';
 import { UserRepository } from 'src/@core/infra/databases/prisma/repositories/users/user.repository';
 import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
+import { AccessLogRepository } from 'src/@core/infra/databases/prisma/repositories/access-log/access-log.repository';
 
 @Module({
   imports: [
+    PrismaService,
     MongooseModule.forFeature([
       {
         name: 'User',
