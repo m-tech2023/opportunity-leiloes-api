@@ -8,18 +8,21 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(uuid())
-  fullName     String    @map("full_name") @db.VarChar(255)
-  email        String    @unique
-  password     String
-  document     String    @unique
-  documentName String    @map("document_name")
-  updatedAt    DateTime? @updatedAt @map("updated_at")
-  createdAt    DateTime  @default(now()) @map("created_at")
+  id        String    @id @default(uuid())
+  fullName  String    @map("full_name") @db.VarChar(255)
+  email     String    @unique
+  password  String
+  updatedAt DateTime? @updatedAt @map("updated_at")
+  createdAt DateTime  @default(now()) @map("created_at")
 
   UserRole  UserRole[]
   AccessLog AccessLog[]
-  // UserAccessLog UserAccessLog[]
+  Document  Document[]
+
+  Address          Address?
+  StudFarm         StudFarm?
+  Contact          Contact?
+  RegistrationData RegistrationData?
 
   @@map("users")
 }
@@ -30,34 +33,6 @@ model Role {
 
   @@map("roles")
 }
-
-model AccessLog {
-  id              String    @id @default(uuid())
-  userId          String    @map("user_id")
-  ip              String    @map("ip") @db.VarChar(255)
-  browser         String    @map("browser") @db.VarChar(255)
-  geolocalization String?   @map("geolocalization") @db.VarChar(255)
-  createdAt       DateTime  @default(now()) @map("created_at")
-  updatedAt       DateTime? @updatedAt @map("updated_at")
-
-  user User @relation(fields: [userId], references: [id])
-  // UserAccessLog UserAccessLog[]
-
-  @@map("access_log")
-}
-
-// model UserAccessLog {
-//   id        String    @id @default(uuid())
-//   createdAt DateTime? @default(now()) @map("created_at")
-
-//   user     User   @relation(fields: [fkIdUser], references: [id])
-//   fkIdUser String @map("fk_id_user")
-
-//   accessLog     AccessLog @relation(fields: [fkIdAccessLog], references: [id])
-//   fkIdAccessLog String    @map("fk_id_access_log")
-
-//   @@map("users_access_log")
-// }
 
 model UserRole {
   id        String    @id @default(uuid())
@@ -70,4 +45,96 @@ model UserRole {
   fkIdRole String @map("fk_id_role")
 
   @@map("users_roles")
+}
+
+model Address {
+  id     String  @id @default(uuid())
+  userId String? @unique
+
+  zipCode      String? @map("zip_code")
+  address      String?
+  number       String?
+  neighborhood String?
+  city         String?
+  state        String?
+
+  user     User?     @relation(fields: [userId], references: [id])
+  StudFarm StudFarm?
+
+  @@map("address")
+}
+
+model Contact {
+  id     String  @id @default(uuid())
+  userId String? @unique
+
+  email     String? @unique
+  telephone String? @unique
+  cellphone String? @unique
+
+  user     User?     @relation(fields: [userId], references: [id])
+  StudFarm StudFarm?
+
+  @@map("contacts")
+}
+
+model RegistrationData {
+  id     String @id @default(uuid())
+  userId String? @unique
+
+  nationality    String?
+  maritalStatus  String? @map("marital_status")
+  motherName     String? @map("mother_name")
+  fatherName     String? @map("father_name")
+  occupation     String?
+  company        String?
+  companyWebsite String? @map("company_website")
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("registration_data")
+}
+
+model StudFarm {
+  id        String  @id @default(uuid())
+  userId    String? @unique
+  addressId String? @unique
+  contactId String? @unique
+
+  farmName String? @map("farm_name")
+
+  address Address? @relation(fields: [addressId], references: [id])
+  contact Contact? @relation(fields: [contactId], references: [id])
+  user    User?    @relation(fields: [userId], references: [id])
+
+  @@map("stud_farm")
+}
+
+model Document {
+  id     String  @id @default(uuid())
+  userId String? @unique
+
+  cnpj     String?
+  ie       String?
+  cpf      String?
+  rg       String?
+  passport String?
+
+  User User? @relation(fields: [userId], references: [id])
+
+  @@map("documents")
+}
+
+model AccessLog {
+  id              String    @id @default(uuid())
+  userId          String    @unique
+  ip              String    @map("ip") @db.VarChar(255)
+  browser         String    @map("browser") @db.VarChar(255)
+  geolocalization String?   @map("geolocalization") @db.VarChar(255)
+  createdAt       DateTime  @default(now()) @map("created_at")
+  updatedAt       DateTime? @updatedAt @map("updated_at")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("access_log")
 }
