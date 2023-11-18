@@ -1,10 +1,9 @@
 import { Document } from 'src/@core/application/use-cases/login/types/document.type';
-import { PreSaveCustomerPersonalDataDto } from '../../../../../application/dto/requests/customer/personal-data/pre-save-personal-data.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { PersonalDataDto } from 'src/@core/application/dto/requests/customer/personal-data/personal-data.dto';
-import { UpdateCustomerPersonalDataDto } from 'src/@core/application/dto/requests/customer/personal-data/update-personal-data.dto';
+import { UpdatePersonalDataDto } from 'src/@core/application/dto/requests/customer/personal-data/update-personal-data.dto';
 import { CustomerDto } from 'src/@core/application/dto/requests/customer/customer.dto';
 import { Customer } from 'src/@core/domain/entities/customer/customer.entity';
 import { PropertyDataDto } from 'src/@core/application/dto/requests/customer/property-data/update-property.dto';
@@ -16,9 +15,9 @@ export class CustomerRepository {
     private readonly customer: Model<Customer>,
   ) {}
 
-  async create(preSavePersonalData: PreSaveCustomerPersonalDataDto) {
-    return await this.customer.create(preSavePersonalData);
-  }
+  // async create(preSavePersonalData: PreSaveCustomerPersonalDataDto) {
+  //   return await this.customer.create(preSavePersonalData);
+  // }
 
   // TEM QUE VER O APONTAMENTO CERTO DPS
   // QUANDO O USUÁRIO FIZER LOGIN APONTAR O ID DO CUSTOMER PRO TOKEN
@@ -37,6 +36,7 @@ export class CustomerRepository {
       .where({ email })
       .exec();
   }
+
   async findByDocument(document: string) {
     return await this.customer
       .findOne()

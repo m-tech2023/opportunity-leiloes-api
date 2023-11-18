@@ -9,11 +9,11 @@ datasource db {
 
 model User {
   id        String    @id @default(uuid())
-  fullName  String    @map("full_name") @db.VarChar(255)
+  fullName  String    @db.VarChar(255)
   email     String    @unique
   password  String
-  updatedAt DateTime? @updatedAt @map("updated_at")
-  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime? @updatedAt
+  createdAt DateTime  @default(now())
 
   UserRole  UserRole[]
   AccessLog AccessLog[]
@@ -28,7 +28,7 @@ model User {
 }
 
 model Role {
-  roleName String     @id @map("role_name") @db.VarChar(50)
+  roleName String     @id @db.VarChar(50)
   UserRole UserRole[]
 
   @@map("roles")
@@ -36,13 +36,13 @@ model Role {
 
 model UserRole {
   id        String    @id @default(uuid())
-  createdAt DateTime? @default(now()) @map("created_at")
+  createdAt DateTime? @default(now())
 
-  user     User   @relation(fields: [fkIdUser], references: [id])
-  fkIdUser String @map("fk_id_user")
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String 
 
-  role     Role   @relation(fields: [fkIdRole], references: [roleName])
-  fkIdRole String @map("fk_id_role")
+  role   Role   @relation(fields: [roleId], references: [roleName])
+  roleId String 
 
   @@map("users_roles")
 }
@@ -51,15 +51,14 @@ model Address {
   id     String  @id @default(uuid())
   userId String? @unique
 
-  zipCode      String? @map("zip_code")
+  zipCode      String?
   address      String?
   number       String?
   neighborhood String?
   city         String?
   state        String?
 
-  user     User?     @relation(fields: [userId], references: [id])
-  StudFarm StudFarm?
+  user User? @relation(fields: [userId], references: [id])
 
   @@map("address")
 }
@@ -72,23 +71,22 @@ model Contact {
   telephone String? @unique
   cellphone String? @unique
 
-  user     User?     @relation(fields: [userId], references: [id])
-  StudFarm StudFarm?
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("contacts")
 }
 
 model RegistrationData {
-  id     String @id @default(uuid())
+  id     String  @id @default(uuid())
   userId String? @unique
 
   nationality    String?
-  maritalStatus  String? @map("marital_status")
-  motherName     String? @map("mother_name")
-  fatherName     String? @map("father_name")
+  maritalStatus  String?
+  motherName     String?
+  fatherName     String?
   occupation     String?
   company        String?
-  companyWebsite String? @map("company_website")
+  companyWebsite String?
 
   user User? @relation(fields: [userId], references: [id])
 
@@ -96,16 +94,25 @@ model RegistrationData {
 }
 
 model StudFarm {
-  id        String  @id @default(uuid())
-  userId    String? @unique
-  addressId String? @unique
-  contactId String? @unique
+  id     String  @id @default(uuid())
+  userId String? @unique
 
-  farmName String? @map("farm_name")
+  farmName String?
 
-  address Address? @relation(fields: [addressId], references: [id])
-  contact Contact? @relation(fields: [contactId], references: [id])
-  user    User?    @relation(fields: [userId], references: [id])
+  email     String? @unique
+  telephone String? @unique
+  cellphone String? @unique
+
+  zipCode      String?
+  address      String?
+  number       String?
+  neighborhood String?
+  city         String?
+  state        String?
+
+  updatedAt DateTime? @updatedAt
+
+  user User? @relation(fields: [userId], references: [id])
 
   @@map("stud_farm")
 }
@@ -120,21 +127,21 @@ model Document {
   rg       String?
   passport String?
 
-  User User? @relation(fields: [userId], references: [id])
+  User User? @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("documents")
 }
 
 model AccessLog {
   id              String    @id @default(uuid())
-  userId          String    @unique
-  ip              String    @map("ip") @db.VarChar(255)
-  browser         String    @map("browser") @db.VarChar(255)
-  geolocalization String?   @map("geolocalization") @db.VarChar(255)
-  createdAt       DateTime  @default(now()) @map("created_at")
-  updatedAt       DateTime? @updatedAt @map("updated_at")
+  userId          String
+  ip              String    @db.VarChar(255)
+  browser         String    @db.VarChar(255)
+  geolocalization String?   @db.VarChar(255)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime? @updatedAt
 
-  user User @relation(fields: [userId], references: [id])
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("access_log")
 }

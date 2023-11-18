@@ -24,5 +24,5 @@ export class ContactDetails {
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ example: '(11) 98765-4321', description: 'Cellphone' })
-  cellPhone?: string;
+  cellphone?: string;
 }

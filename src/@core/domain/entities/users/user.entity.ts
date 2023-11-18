@@ -2,7 +2,7 @@ import { passwordHash } from 'src/@core/infra/utils/password-hash/password-hash.
 import { objectId } from 'src/@core/infra/utils/uuid/uuid.util';
 
 type UserProps = {
-  id?: number;
+  id?: string;
   fullName: string;
   email: string;
   password: string;

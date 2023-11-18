@@ -24,20 +24,20 @@ export class LoginByDocumentUseCase {
 
     const validatedPassword = comparePassword(
       userLoginDto.password,
-      user.password,
+      user.User.password,
     );
     if (!validatedPassword) {
       return null;
     }
 
-    delete user.password;
+    delete user.User.password;
 
-    return this.getAccessToken(user);
+    return this.getAccessToken(user.User);
   }
 
   private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
     user = {
-      _id: user._id,
+      id: user.id,
       fullName: user.fullName,
       email: user.email,
       roleName: user.roleName,

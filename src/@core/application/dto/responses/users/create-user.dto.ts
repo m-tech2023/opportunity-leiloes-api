@@ -1,5 +1,5 @@
 export class CreateUserResponseDto {
-  _id?: string;
+  id?: string;
   name: string;
   lastname: string;
   email: string;

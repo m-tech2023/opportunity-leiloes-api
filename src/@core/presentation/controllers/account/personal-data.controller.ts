@@ -1,6 +1,6 @@
-import { UpdatePersonalDataUsecase } from '../../../application/use-cases/customer/personal-data/update-personal-data.usecase';
+import { UpdatePersonalDataUsecase } from '../../../application/use-cases/account/personal-data/update-personal-data.usecase';
 import { User } from 'src/@core/infra/frameworks/nestjs/modules/users/decorators/user.decorator';
-import { GetPersonalDataUsecase } from '../../../application/use-cases/customer/personal-data/get-personal-data.usecase';
+import { GetPersonalDataUsecase } from '../../../application/use-cases/account/personal-data/get-personal-data.usecase';
 import {
   Controller,
   HttpStatus,
@@ -13,7 +13,7 @@ import {
 import { Response } from 'express';
 import { ApiBearerAuth, ApiOperation, ApiBody, ApiTags } from '@nestjs/swagger';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
-import { UpdateCustomerPersonalDataDto } from 'src/@core/application/dto/requests/customer/personal-data/update-personal-data.dto';
+import { UpdatePersonalDataDto } from 'src/@core/application/dto/requests/customer/account/update-personal-data.dto';
 
 @Controller('account')
 export class PersonalDataController {
@@ -29,9 +29,9 @@ export class PersonalDataController {
   @ApiBearerAuth()
   @ApiTags('Account')
   @UseGuards(AuthorizationGuard)
-  async index(@User() { _id }, @Res() res: Response) {
+  async index(@User() { id }, @Res() res: Response) {
     try {
-      const data = await this.getPersonalDataUsecase.execute(_id);
+      const data = await this.getPersonalDataUsecase.execute(id);
       return res.status(HttpStatus.OK).json({ data });
     } catch ({ message }) {
       return res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({ message });
@@ -45,14 +45,14 @@ export class PersonalDataController {
   })
   @ApiBearerAuth()
   @ApiTags('Account')
-  @ApiBody({ type: UpdateCustomerPersonalDataDto })
+  @ApiBody({ type: UpdatePersonalDataDto })
   async update(
-    @Body() updatePersonalDataDto: UpdateCustomerPersonalDataDto,
-    @User() { _id },
+    @Body() updatePersonalDataDto: UpdatePersonalDataDto,
+    @User() { id },
     @Res() res: Response,
   ) {
     try {
-      await this.updatePersonalDataUsecase.execute(_id, updatePersonalDataDto);
+      await this.updatePersonalDataUsecase.execute(id, updatePersonalDataDto);
       return res.status(HttpStatus.OK).json({
         message: 'Personal data updated successfully!',
       });

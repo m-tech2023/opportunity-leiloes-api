@@ -27,14 +27,14 @@ export class LoginByEmailUseCase {
     }
 
     user.password = null;
-    user.document = null;
+    user.Document = null;
     return this.getAccessToken(user);
   }
 
   private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
     return {
       access_token: this.jwtService.sign({
-        _id: user._id,
+        id: user.id,
         fullName: user.fullName,
         email: user.email,
         roleName: user.roleName,

@@ -1,4 +1,4 @@
-import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/customer/personal-data/pre-save-personal-data.usercase';
+import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/account/personal-data/pre-save-personal-data.usercase';
 import { Controller } from '@nestjs/common';
 import {
   Body,
@@ -27,7 +27,6 @@ import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-i
 import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.usecase';
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
-import { PreSaveCustomerPersonalDataDto } from 'src/@core/application/dto/requests/customer/personal-data/pre-save-personal-data.dto';
 
 @Controller('users')
 export class UsersController {

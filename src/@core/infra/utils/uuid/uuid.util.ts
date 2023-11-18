@@ -1,5 +1,6 @@
-import mongoose from 'mongoose';
+import { v4 as uuidv4 } from 'uuid';
 
 export function objectId() {
-  return new mongoose.Types.ObjectId().toString();
+  const uuid: string = uuidv4();
+  return uuid;
 }
