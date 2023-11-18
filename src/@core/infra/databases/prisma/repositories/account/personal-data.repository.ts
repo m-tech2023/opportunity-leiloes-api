@@ -10,7 +10,7 @@ export class PersonalDataRepository {
     // NAO FAZER NADA
   }
 
-  async get(userId: string) {
+  async getUserPersonalData(userId: string) {
     return await this.prisma.user.findUnique({
       where: { id: userId },
       select: {
@@ -22,54 +22,73 @@ export class PersonalDataRepository {
       },
     });
   }
-
-  async update(userId: string, updatedData: UpdatePersonalDataDto) {
-    await this.prisma.document.update({
+  async updateUserDocument(userId: string, documentData: any) {
+    return await this.prisma.document.update({
       where: {
         userId,
       },
       data: {
-        ...updatedData.document,
+        ...documentData,
       },
     });
+  }
 
-    await this.prisma.registrationData.upsert({
+  async upsertUserRegistrationData(userId: string, registrationData: any) {
+    return await this.prisma.registrationData.upsert({
       where: {
         userId,
       },
       update: {
-        ...updatedData.registrationData,
+        ...registrationData,
       },
       create: {
         userId,
-        ...updatedData.registrationData,
+        ...registrationData,
       },
     });
+  }
 
-    await this.prisma.contact.upsert({
+  async upsertUserContactDetails(userId: string, contactDetails: any) {
+    return await this.prisma.contact.upsert({
       where: {
         userId,
       },
       update: {
-        ...updatedData.contactDetails,
+        ...contactDetails,
       },
       create: {
         userId,
-        ...updatedData.contactDetails,
+        ...contactDetails,
       },
     });
+  }
 
-    await this.prisma.address.upsert({
+  async upsertUserAddress(userId: string, address: any) {
+    return await this.prisma.address.upsert({
       where: {
         userId,
       },
       update: {
-        ...updatedData.address,
+        ...address,
       },
       create: {
         userId,
-        ...updatedData.address,
+        ...address,
       },
     });
+  }
+
+  async updateUserPersonalData(
+    userId: string,
+    updatedData: UpdatePersonalDataDto,
+  ) {
+    const { document, registrationData, contactDetails, address } = updatedData;
+
+    await this.updateUserDocument(userId, document);
+    await this.upsertUserRegistrationData(userId, registrationData);
+    await this.upsertUserContactDetails(userId, contactDetails);
+    await this.upsertUserAddress(userId, address);
+
+    //return this.getUserPersonalData(userId);
   }
 }

@@ -9,14 +9,17 @@ export class PersonalDataService {
   ) {}
 
   async createPreSave(dto) {
-    return await this.personalDataRepository.create(dto);
+    // return await this.personalDataRepository.create(dto);
   }
 
   async get(userId: string) {
-    return await this.personalDataRepository.get(userId);
+    return await this.personalDataRepository.getUserPersonalData(userId);
   }
 
   async update(userId: string, data: UpdatePersonalDataDto) {
-    return await this.personalDataRepository.update(userId, data);
+    return await this.personalDataRepository.updateUserPersonalData(
+      userId,
+      data,
+    );
   }
 }

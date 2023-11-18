@@ -36,28 +36,31 @@ export class UserRepository {
     return user;
   }
 
-  async updateUser(id: string, updatedData: User) {
+  async updateUser(userId: string, updatedData: User) {
+    console.log(await this.getUserRole(userId));
     await this.prisma.document.update({
       where: {
-        userId: id,
+        userId,
       },
       data: {
         [updatedData.documentName.toLowerCase()]: updatedData.document,
       },
     });
 
-    await this.prisma.userRole.update({
-      where: {
-        id,
-      },
-      data: {
-        userId: updatedData.roleName,
-      },
-    });
+    // O userRole exige que seja um where pelo ID pq se for pelo
+    // userId ele vai atualizar todos os roles igualemente daquele user
+    // await this.prisma.userRole.update({
+    //   where: {
+    //     id: (await this.getUserRole(userId)).id,
+    //   },
+    //   data: {
+    //     roleId: updatedData.roleName,
+    //   },
+    // });
 
     await this.prisma.user.update({
       where: {
-        id,
+        id: userId,
       },
       data: {
         fullName: updatedData.fullName,
@@ -67,13 +70,36 @@ export class UserRepository {
     });
   }
 
+  async getUserRole(userId: string) {
+    return await this.prisma.userRole.findFirstOrThrow({
+      where: {
+        userId: userId,
+      },
+    });
+  }
+
   async getAllUsers() {
-    return await this.prisma.user.findMany();
+    return await this.prisma.user.findMany({
+      include: {
+        UserRole: {
+          select: {
+            roleId: true,
+          },
+        },
+      },
+    });
   }
 
   async findUserById(id: string) {
     return await this.prisma.user.findUniqueOrThrow({
       where: { id },
+      include: {
+        UserRole: {
+          select: {
+            roleId: true,
+          },
+        },
+      },
     });
   }
 
