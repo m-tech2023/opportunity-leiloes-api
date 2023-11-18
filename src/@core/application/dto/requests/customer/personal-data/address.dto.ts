@@ -9,7 +9,7 @@ import { ApiProperty } from '@nestjs/swagger';
 
 export class Address {
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @MinLength(5)
   @MaxLength(10)
   @IsOptional()
@@ -17,7 +17,7 @@ export class Address {
   zipCode?: string;
 
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @MinLength(2)
   @MaxLength(255)
   @IsOptional()
@@ -25,7 +25,7 @@ export class Address {
   address?: string;
 
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @MinLength(1)
   @MaxLength(10)
   @IsOptional()
@@ -33,7 +33,7 @@ export class Address {
   number?: string;
 
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @MinLength(2)
   @MaxLength(255)
   @IsOptional()
@@ -45,12 +45,12 @@ export class Address {
   @MinLength(2)
   @MaxLength(255)
   @ApiProperty({ example: 'Cityville', description: 'City' })
-  city?: string;
+  city: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(2)
   @MaxLength(255)
   @ApiProperty({ example: 'Stateville', description: 'State' })
-  state?: string;
+  state: string;
 }

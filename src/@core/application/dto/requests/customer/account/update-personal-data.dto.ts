@@ -23,6 +23,12 @@ export class UpdatePersonalDataDto {
   fullName: string;
 
   @ValidateNested()
+  @IsNotEmpty()
+  @Type(() => Document)
+  @ApiProperty({ type: Document, description: 'Document' })
+  document: Document;
+
+  @ValidateNested()
   @Type(() => RegistrationData)
   // @IsNotEmpty()
   @ApiProperty({ type: RegistrationData, description: 'Registration data' })
@@ -33,12 +39,6 @@ export class UpdatePersonalDataDto {
   @Type(() => ContactDetails)
   @ApiProperty({ type: ContactDetails, description: 'ContactDetails' })
   contactDetails?: ContactDetails;
-
-  @ValidateNested()
-  @IsNotEmpty()
-  @Type(() => Document)
-  @ApiProperty({ type: Document, description: 'Document' })
-  document?: Document;
 
   @ValidateNested()
   // @IsNotEmpty()
