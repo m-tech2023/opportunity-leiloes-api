@@ -12,7 +12,6 @@ export class UserLoginDto {
   @IsNotEmpty()
   @MinLength(4)
   @MaxLength(255)
-  @IsEmail()
   @ApiProperty({
     example: 'john.doe@server.com',
     description: 'Provide a valid E-mail, CPF, CNPJ or PASSPORT.',

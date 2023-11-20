@@ -13,10 +13,10 @@ export class ManagerController {
     private readonly findUserById: FindByIdUseCase,
   ) {}
 
-  @Put('restrict-customers/:id')
+  @Put('restrict-user-auction/:id')
   @ApiOperation({ summary: 'Route for the manager to restrict a customer' })
   @ApiBearerAuth()
-  @ApiTags('Users')
+  @ApiTags('Manager')
   @UseGuards(AuthorizationGuard)
   async restrictUserInTheAuction(
     @Param('id') id: string,

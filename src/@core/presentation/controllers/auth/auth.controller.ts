@@ -1,3 +1,4 @@
+// import { User as UserDB } from '@prisma/client';
 import {
   Body,
   Controller,
@@ -44,7 +45,8 @@ export class AuthController {
 
     const userId = (
       (await this.findByUsernameUseCase.execute(userLoginDto.username)) as any
-    ).id;
+    ).userId;
+    console.log(userId, 'xxxxxxxxxxxxxxxxxx');
     await this.createAccessLogUseCase.execute({
       userId,
       ip: req.ip,
