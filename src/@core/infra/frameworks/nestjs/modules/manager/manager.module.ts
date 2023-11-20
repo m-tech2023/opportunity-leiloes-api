@@ -1,43 +1,34 @@
-import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
 import { ManagerController } from 'src/@core/presentation/controllers/manager/manager.controller';
 import { ManagerService } from 'src/@core/application/services/manager/manager.service';
-import { FindCustomerByIdUseCase } from 'src/@core/application/use-cases/customer/find-by-id.usecase';
-import { CustomerService } from 'src/@core/application/services/customer/customer.service';
-import { CustomerRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/customer.repository';
-import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
 import { RestrictUserInTheAuctionUsecase } from 'src/@core/application/use-cases/manager/restrict-user-in-the-auction.usecase';
+import { UserRepository } from 'src/@core/infra/databases/prisma/repositories/users/user.repository';
+import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-id.usecase';
+import { UserService } from 'src/@core/application/services/users/user.service';
+import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      {
-        name: 'Customer',
-        schema: Customer,
-      },
-    ]),
-  ],
+  imports: [],
   controllers: [ManagerController],
 
   providers: [
-    CustomerRepository,
+    PrismaService,
+    UserRepository,
     {
       provide: RestrictUserInTheAuctionUsecase,
-      useFactory: (customerRepository: CustomerRepository) => {
+      useFactory: (userRepository: UserRepository) => {
         return new RestrictUserInTheAuctionUsecase(
-          new ManagerService(customerRepository),
+          new ManagerService(userRepository),
         );
       },
-      inject: [CustomerRepository],
+      inject: [UserRepository],
     },
     {
-      provide: FindCustomerByIdUseCase,
-      useFactory: (customerRepository: CustomerRepository) => {
-        return new FindCustomerByIdUseCase(
-          new CustomerService(customerRepository),
-        );
+      provide: FindByIdUseCase,
+      useFactory: (userRepository: UserRepository) => {
+        return new FindByIdUseCase(new UserService(userRepository));
       },
-      inject: [CustomerRepository],
+      inject: [UserRepository],
     },
   ],
 })

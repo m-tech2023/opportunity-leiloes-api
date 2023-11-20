@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../prisma.service';
 import { User } from 'src/@core/domain/entities/users/user.entity';
+import { UpdateUserDto } from 'src/@core/application/dto/requests/users/update-user.dto';
 
 @Injectable()
 export class UserRepository {
@@ -37,7 +38,6 @@ export class UserRepository {
   }
 
   async updateUser(userId: string, updatedData: User) {
-    console.log(await this.getUserRole(userId));
     await this.prisma.document.update({
       where: {
         userId,
@@ -66,10 +66,19 @@ export class UserRepository {
         fullName: updatedData.fullName,
         email: updatedData.email,
         password: updatedData.password,
+        // restrictedForAuction: updatedData.restrictedForAuction,
       },
     });
   }
 
+  async restrictedForAuction(userId: string, updateUserDto: UpdateUserDto) {
+    return await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        restrictedForAuction: updateUserDto.restrictedForAuction,
+      },
+    });
+  }
   async getUserRole(userId: string) {
     return await this.prisma.userRole.findFirstOrThrow({
       where: {

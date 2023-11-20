@@ -1,12 +1,12 @@
-import { CustomerRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/customer.repository';
-import { CustomerDto } from '../../dto/requests/customer/customer.dto';
+import { UserRepository } from 'src/@core/infra/databases/prisma/repositories/users/user.repository';
 import { Injectable } from '@nestjs/common';
+import { UpdateUserDto } from '../../dto/requests/users/update-user.dto';
 
 @Injectable()
 export class ManagerService {
-  constructor(private readonly customerRepository: CustomerRepository) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
-  async restrictUserInTheAuction(CustomerId: string, updatedData: CustomerDto) {
-    return await this.customerRepository.update(CustomerId, updatedData);
+  async restrictUserInTheAuction(userId: string, updatedData: UpdateUserDto) {
+    return await this.userRepository.restrictedForAuction(userId, updatedData);
   }
 }

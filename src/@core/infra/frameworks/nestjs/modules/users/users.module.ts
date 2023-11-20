@@ -19,23 +19,9 @@ import { PersonalDataService } from 'src/@core/application/services/customer/per
 import { UserRepository } from 'src/@core/infra/databases/prisma/repositories/users/user.repository';
 import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
 import { PersonalDataRepository } from 'src/@core/infra/databases/prisma/repositories/account/personal-data.repository';
-import { MongooseModule } from '@nestjs/mongoose';
-import User from 'src/@core/infra/databases/mongodb/schemas/users/user.schema';
-import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      {
-        name: 'User',
-        schema: User,
-      },
-      {
-        name: 'Customer',
-        schema: Customer,
-      },
-    ]),
-  ],
+  imports: [],
   controllers: [UsersController],
   providers: [
     PrismaService,

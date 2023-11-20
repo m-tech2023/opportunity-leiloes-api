@@ -14,7 +14,7 @@ export class UpdateUserDto {
   @MinLength(2)
   @MaxLength(255)
   @ApiProperty({ example: 'John', description: 'name' })
-  fullName: string;
+  fullName?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -22,14 +22,14 @@ export class UpdateUserDto {
   @MaxLength(255)
   @IsEmail()
   @ApiProperty({ example: 'john.doe@any-email.com', description: 'email' })
-  email: string;
+  email?: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(8)
   @MaxLength(255)
   @ApiProperty({ example: '12345678', description: 'password' })
-  password: string;
+  password?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -37,7 +37,7 @@ export class UpdateUserDto {
     example: '60925616036',
     description: 'Provide a valid CPF, CNPJ or PASSPORT.',
   })
-  document: string;
+  document?: string;
 
   @IsString()
   @IsNotEmpty()
@@ -45,14 +45,14 @@ export class UpdateUserDto {
     example: 'CPF',
     description: 'Acceptable values: CPF, CNPJ or PASSPORT.',
   })
-  documentName: string;
+  documentName?: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ example: 'manager', description: 'roleName' })
-  roleName: string;
+  roleName?: string;
 
-  restrictedForAuction: boolean;
+  restrictedForAuction?: boolean;
 
   @IsOptional()
   @ApiProperty({

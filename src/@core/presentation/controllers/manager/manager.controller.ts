@@ -1,20 +1,10 @@
 import { HttpStatus } from '@nestjs/common/enums';
-import {
-  Controller,
-  Get,
-  Param,
-  Post,
-  UseGuards,
-  Put,
-  Res,
-} from '@nestjs/common';
+import { Controller, Param, UseGuards, Put, Res } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 import { Response } from 'express';
-import { Customer } from 'src/@core/domain/entities/customer/customer.entity';
 import { RestrictUserInTheAuctionUsecase } from 'src/@core/application/use-cases/manager/restrict-user-in-the-auction.usecase';
 import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-id.usecase';
-import { User } from 'src/@core/domain/entities/users/user.entity';
 
 @Controller('manager')
 export class ManagerController {
@@ -33,14 +23,16 @@ export class ManagerController {
     @Res() res: Response,
   ) {
     try {
-      const user = await this.findUserById.execute(id);
+      const user: any = await this.findUserById.execute(id);
+
       if (!user) {
         return res.status(HttpStatus.BAD_REQUEST).json({
           message: 'Customer not found',
         });
       }
-      const isRestricted = user.restrictedForAuction ? false : true;
-      await this.restrictUserInTheAuctionUsecase.execute(id, { isRestricted });
+
+      await this.restrictUserInTheAuctionUsecase.execute(id, user);
+
       return res.status(HttpStatus.OK).json({
         message: 'Client successfully restricted!',
       });

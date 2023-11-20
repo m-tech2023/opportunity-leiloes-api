@@ -3,7 +3,7 @@ import { PropertyDataService } from 'src/@core/application/services/customer/pro
 export class UpdatePropertyDataUsecase {
   constructor(private readonly propertyDataService: PropertyDataService) {}
 
-  async execute(userId: string, customerDto: PropertyDataDto) {
-    return await this.propertyDataService.update(userId, customerDto);
+  async execute(userId: string, propertyDto: PropertyDataDto) {
+    return await this.propertyDataService.update(userId, propertyDto);
   }
 }

@@ -1,11 +1,8 @@
 import { UpdatePropertyDataUsecase } from '../../../../../application/use-cases/account/property-data/update-property.usecase';
 import { Module } from '@nestjs/common';
-import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
-import { MongooseModule } from '@nestjs/mongoose';
 import { AccessLogController } from 'src/@core/presentation/controllers/account/access-log.controller';
 import { GetAllLogsAuthenticatedUserUsecase } from 'src/@core/application/use-cases/access-log/get-all-logs-authenticated -user.usecase';
 import { AccessLogService } from 'src/@core/application/services/access-log/access-log.service';
-import accessLogSchema from 'src/@core/infra/databases/mongodb/schemas/access-logs/access-log.schema';
 import { PersonalDataController } from 'src/@core/presentation/controllers/account/personal-data.controller';
 import { GetPersonalDataUsecase } from 'src/@core/application/use-cases/account/personal-data/get-personal-data.usecase';
 import { PersonalDataRepository } from 'src/@core/infra/databases/prisma/repositories/account/personal-data.repository';
@@ -19,18 +16,7 @@ import { AccessLogRepository } from 'src/@core/infra/databases/prisma/repositori
 import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      {
-        name: 'Customer',
-        schema: Customer,
-      },
-      {
-        name: 'AccessLog',
-        schema: accessLogSchema,
-      },
-    ]),
-  ],
+  imports: [],
   controllers: [
     AccessLogController,
     PersonalDataController,
