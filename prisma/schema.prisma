@@ -8,12 +8,13 @@ datasource db {
 }
 
 model User {
-  id        String    @id @default(uuid())
-  fullName  String    @db.VarChar(255)
-  email     String    @unique
-  password  String
-  updatedAt DateTime? @updatedAt
-  createdAt DateTime  @default(now())
+  id                   String    @id @default(uuid())
+  fullName             String    @db.VarChar(255)
+  email                String    @unique
+  password             String
+  restrictedForAuction Boolean?  @default(true)
+  updatedAt            DateTime? @updatedAt
+  createdAt            DateTime  @default(now())
 
   UserRole  UserRole[]
   AccessLog AccessLog[]
@@ -39,10 +40,10 @@ model UserRole {
   createdAt DateTime? @default(now())
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId String 
+  userId String
 
   role   Role   @relation(fields: [roleId], references: [roleName])
-  roleId String 
+  roleId String
 
   @@map("users_roles")
 }

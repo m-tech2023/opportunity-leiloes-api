@@ -1,5 +1,4 @@
 import { HttpStatus } from '@nestjs/common/enums';
-import { FindCustomerByIdUseCase } from './../../../application/use-cases/customer/find-by-id.usecase';
 import {
   Controller,
   Get,
@@ -10,16 +9,18 @@ import {
   Res,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { RestrictCustomerUsecase } from 'src/@core/application/use-cases/manager/restrict-customer.usecase';
 import { AuthorizationGuard } from 'src/@core/infra/frameworks/nestjs/modules/auth/guards/authorization/authorization.guard';
 import { Response } from 'express';
 import { Customer } from 'src/@core/domain/entities/customer/customer.entity';
+import { RestrictUserInTheAuctionUsecase } from 'src/@core/application/use-cases/manager/restrict-user-in-the-auction.usecase';
+import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-id.usecase';
+import { User } from 'src/@core/domain/entities/users/user.entity';
 
 @Controller('manager')
 export class ManagerController {
   constructor(
-    private readonly restrictCustomerUsecase: RestrictCustomerUsecase,
-    private readonly findCustomerByIdUseCase: FindCustomerByIdUseCase,
+    private readonly restrictUserInTheAuctionUsecase: RestrictUserInTheAuctionUsecase,
+    private readonly findUserById: FindByIdUseCase,
   ) {}
 
   @Put('restrict-customers/:id')
@@ -27,16 +28,19 @@ export class ManagerController {
   @ApiBearerAuth()
   @ApiTags('Users')
   @UseGuards(AuthorizationGuard)
-  async restrictCustomer(@Param('id') id: string, @Res() res: Response) {
+  async restrictUserInTheAuction(
+    @Param('id') id: string,
+    @Res() res: Response,
+  ) {
     try {
-      const customer: Customer = await this.findCustomerByIdUseCase.execute(id);
-      if (!customer) {
+      const user = await this.findUserById.execute(id);
+      if (!user) {
         return res.status(HttpStatus.BAD_REQUEST).json({
           message: 'Customer not found',
         });
       }
-      const isRestricted = customer.isRestricted ? false : true;
-      await this.restrictCustomerUsecase.execute(id, { isRestricted });
+      const isRestricted = user.restrictedForAuction ? false : true;
+      await this.restrictUserInTheAuctionUsecase.execute(id, { isRestricted });
       return res.status(HttpStatus.OK).json({
         message: 'Client successfully restricted!',
       });

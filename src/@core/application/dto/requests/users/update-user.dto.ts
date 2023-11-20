@@ -49,8 +49,10 @@ export class UpdateUserDto {
 
   @IsString()
   @IsNotEmpty()
-  @ApiProperty({ example: '1', description: 'roleName' })
+  @ApiProperty({ example: 'manager', description: 'roleName' })
   roleName: string;
+
+  restrictedForAuction: boolean;
 
   @IsOptional()
   @ApiProperty({

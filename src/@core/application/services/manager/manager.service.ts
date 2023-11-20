@@ -6,7 +6,7 @@ import { Injectable } from '@nestjs/common';
 export class ManagerService {
   constructor(private readonly customerRepository: CustomerRepository) {}
 
-  async restrictCustomer(CustomerId: string, updatedData: CustomerDto) {
+  async restrictUserInTheAuction(CustomerId: string, updatedData: CustomerDto) {
     return await this.customerRepository.update(CustomerId, updatedData);
   }
 }

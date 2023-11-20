@@ -9,6 +9,7 @@ type UserProps = {
   document: string;
   documentName: string;
   roleName: string;
+  restrictedForAuction: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -38,13 +39,6 @@ export class User {
     );
   }
 
-  // get lastname() {
-  //   return (
-  //     this.props.lastname.charAt(0).toUpperCase() +
-  //     this.props.lastname.toLowerCase().slice(1)
-  //   );
-  // }
-
   get email() {
     return this.props.email.toLowerCase();
   }
@@ -73,6 +67,10 @@ export class User {
     return this.props.updatedAt;
   }
 
+  get restrictedForAuction() {
+    return this.props.restrictedForAuction;
+  }
+
   getUser() {
     return {
       id: this.id,
@@ -85,6 +83,7 @@ export class User {
       roleName: this.roleName,
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
+      restrictedForAuction: this.props.restrictedForAuction,
     } as User;
   }
 

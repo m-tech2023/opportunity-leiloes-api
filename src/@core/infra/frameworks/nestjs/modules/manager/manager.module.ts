@@ -1,14 +1,12 @@
-// import { CustomerRepository } from './../../../../databases/mongodb/repositories/customer/customer.repository';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Module } from '@nestjs/common';
-// import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
 import { ManagerController } from 'src/@core/presentation/controllers/manager/manager.controller';
-import { RestrictCustomerUsecase } from 'src/@core/application/use-cases/manager/restrict-customer.usecase';
 import { ManagerService } from 'src/@core/application/services/manager/manager.service';
 import { FindCustomerByIdUseCase } from 'src/@core/application/use-cases/customer/find-by-id.usecase';
 import { CustomerService } from 'src/@core/application/services/customer/customer.service';
 import { CustomerRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/customer.repository';
 import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
+import { RestrictUserInTheAuctionUsecase } from 'src/@core/application/use-cases/manager/restrict-user-in-the-auction.usecase';
 
 @Module({
   imports: [
@@ -24,9 +22,9 @@ import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/custome
   providers: [
     CustomerRepository,
     {
-      provide: RestrictCustomerUsecase,
+      provide: RestrictUserInTheAuctionUsecase,
       useFactory: (customerRepository: CustomerRepository) => {
-        return new RestrictCustomerUsecase(
+        return new RestrictUserInTheAuctionUsecase(
           new ManagerService(customerRepository),
         );
       },

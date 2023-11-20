@@ -88,4 +88,4 @@ import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
     },
   ],
 })
-export class CustomerDataModule {}
+export class AccountModule {}
