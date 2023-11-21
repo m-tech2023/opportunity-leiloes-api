@@ -1,0 +1,154 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+  // url      = env("DATABASE_URL") 
+}
+
+model User {
+  id       String @id @default(uuid())
+  fullName String
+
+  email                String    @unique
+  password             String
+  restrictedForAuction Boolean?  @default(true)
+  isPreRegistration    Boolean?  @default(true)
+  updatedAt            DateTime? @updatedAt
+  createdAt            DateTime  @default(now())
+
+  UserRole  UserRole[]
+  AccessLog AccessLog[]
+  Document  Document[]
+
+  Address          Address?
+  StudFarm         StudFarm?
+  Contact          Contact?
+  RegistrationData RegistrationData?
+
+  @@map("users")
+}
+
+model Role {
+  roleName String     @id
+  UserRole UserRole[]
+
+  @@map("roles")
+}
+
+model UserRole {
+  id        String    @id @default(uuid())
+  createdAt DateTime? @default(now())
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+
+  role   Role   @relation(fields: [roleId], references: [roleName])
+  roleId String
+
+  @@map("users_roles")
+}
+
+model Address {
+  id     String  @id @default(uuid())
+  userId String? @unique
+
+  zipCode      String?
+  address      String?
+  number       String?
+  neighborhood String?
+  city         String?
+  state        String?
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("address")
+}
+
+model Contact {
+  id     String  @id @default(uuid())
+  userId String? @unique
+
+  email     String? @unique
+  telephone String? @unique
+  cellphone String? @unique
+
+  user User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("contacts")
+}
+
+model RegistrationData {
+  id     String  @id @default(uuid())
+  userId String? @unique
+
+  nationality    String?
+  maritalStatus  String?
+  motherName     String?
+  fatherName     String?
+  occupation     String?
+  company        String?
+  companyWebsite String?
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("registration_data")
+}
+
+model StudFarm {
+  id     String  @id @default(uuid())
+  userId String? @unique
+
+  farmName String?
+
+  email     String? @unique
+  telephone String? @unique
+  cellphone String? @unique
+
+  zipCode      String?
+  address      String?
+  number       String?
+  neighborhood String?
+  city         String?
+  state        String?
+
+  updatedAt DateTime? @updatedAt
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("stud_farm")
+}
+
+model Document {
+  id     String  @id @default(uuid())
+  userId String? @unique
+
+  cnpj     String?
+  ie       String?
+  cpf      String?
+  rg       String?
+  passport String?
+
+  User User? @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("documents")
+}
+
+model AccessLog {
+  id     String @id @default(uuid())
+  userId String
+  ip     String
+
+  browser String
+
+  geolocalization String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("access_log")
+}

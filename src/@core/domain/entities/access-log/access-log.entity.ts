@@ -1,12 +1,11 @@
-import { hash } from 'src/@core/infra/utils/uuid/uuid.util';
+import { objectId } from 'src/@core/infra/utils/uuid/uuid.util';
 
-type AccessLogProps = {
-  uuid?: string;
+export type AccessLogProps = {
+  id?: string;
   userId: string;
   ip: string;
-  geolocalization: string;
-  accessedAt: Date;
   browser: string;
+  geolocalization?: string;
 };
 
 export class AccessLog {
@@ -20,12 +19,12 @@ export class AccessLog {
     return new AccessLog(props);
   }
 
-  get uuid() {
-    if (!this.props.uuid) {
-      return hash();
+  get id() {
+    if (!this.props.id) {
+      return objectId();
     }
 
-    return this.props.uuid;
+    return this.props.id;
   }
 
   get userId() {
@@ -40,20 +39,16 @@ export class AccessLog {
     return this.props.geolocalization;
   }
 
-  get accessedAt() {
-    return this.props.accessedAt;
-  }
-
   get browser() {
     return this.props.browser;
   }
+
   getLog() {
     return {
-      uuid: this.uuid,
+      id: this.id,
       userId: this.userId,
       ip: this.ip,
       geolocalization: this.geolocalization,
-      accessedAt: this.accessedAt,
       browser: this.browser,
     } as AccessLog;
   }

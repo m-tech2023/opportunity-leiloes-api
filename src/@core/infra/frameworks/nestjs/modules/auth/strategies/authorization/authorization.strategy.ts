@@ -5,15 +5,15 @@ import 'dotenv/config';
 
 @Injectable()
 export class AuthorizationStrategy extends PassportStrategy(Strategy) {
-	constructor() {
-		super({
-			jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-			ignoreExpiration: false,
-			secretOrKey: process.env.JWT_SECRET,
-		});
-	}
+  constructor() {
+    super({
+      jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ignoreExpiration: false,
+      secretOrKey: process.env.JWT_SECRET,
+    });
+  }
 
-	async validate(payload: object) {
-		return payload;
-	}
+  async validate(payload: object) {
+    return payload;
+  }
 }

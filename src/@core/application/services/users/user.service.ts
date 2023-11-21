@@ -1,34 +1,37 @@
 import { Injectable } from '@nestjs/common';
 import { User } from 'src/@core/domain/entities/users/user.entity';
-import { UserRepository } from 'src/@core/infra/databases/mongodb/repositories/users/user.repository';
+import { Document } from '../../use-cases/login/types/document.type';
+import { UserRepository } from 'src/@core/infra/databases/prisma/repositories/users/user.repository';
 
 @Injectable()
 export class UserService {
-  constructor(
-    private readonly userRepository: UserRepository,
-  ) {}
+  constructor(private readonly userRepository: UserRepository) {}
 
   async getAll() {
-    return await this.userRepository.getAll();
+    return await this.userRepository.getAllUsers();
   }
 
   async findById(id: string) {
-    return await this.userRepository.findById(id);
+    return await this.userRepository.findUserById(id);
   }
 
   async findByEmail(email: string) {
-    return await this.userRepository.findByEmail(email);
+    return await this.userRepository.findUserByEmail(email);
   }
 
-    async create(data: User) {
-      return await this.userRepository.create(data);
-    }
+  async findByDocument(document: string) {
+    return await this.userRepository.findUserByDocument(document);
+  }
 
-    async update(id: string, data: User) {
-      return await this.userRepository.update(id, data);
-    }
+  async create(data: User) {
+    return await this.userRepository.create(data);
+  }
 
-    async destroy(id: string) {
-      return await this.userRepository.destroy(id);
-    }
+  async update(id: string, data: User) {
+    return await this.userRepository.updateUser(id, data);
+  }
+
+  async deleteById(id: string) {
+    return await this.userRepository.deleteUserById(id);
+  }
 }

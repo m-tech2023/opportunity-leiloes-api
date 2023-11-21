@@ -1,9 +1,12 @@
 export class UserResponseDto {
-  _id?: string;
-  name: string;
-  lastname: string;
+  id?: string;
+  fullName: string;
   email: string;
   password?: string;
+  document?: string;
+  documentName?: string;
+  roleName?: string;
+  confirmedAt?: Date;
   iat?: number;
   exp?: number;
 }

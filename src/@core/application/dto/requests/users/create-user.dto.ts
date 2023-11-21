@@ -1,58 +1,62 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
   IsOptional,
   IsString,
   MaxLength,
-  MinLength
+  MinLength,
 } from 'class-validator';
-import { EmailAlreadyUsed } from 'src/@core/infra/validations/decorators/email-already-used';
 
 export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(2)
   @MaxLength(255)
-  name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(2)
-  @MaxLength(255)
-  lastname: string;
+  @ApiProperty({ example: 'John', description: 'name' })
+  fullName: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(4)
   @MaxLength(255)
   @IsEmail()
-  @EmailAlreadyUsed()
+  @ApiProperty({ example: 'john.doe@any-email.com', description: 'email' })
   email: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(8)
   @MaxLength(255)
+  @ApiProperty({ example: '12345678', description: 'password' })
   password: string;
 
   @IsString()
   @IsNotEmpty()
+  @ApiProperty({
+    example: '60925616036',
+    description: 'Provide a valid CPF, CNPJ or PASSPORT.',
+  })
   document: string;
 
   @IsString()
   @IsNotEmpty()
+  @ApiProperty({
+    example: 'CPF',
+    description: 'Acceptable values: CPF, CNPJ or PASSPORT.',
+  })
   documentName: string;
 
   @IsString()
   @IsNotEmpty()
-  roleId: String;
+  @ApiProperty({ example: 'manager', description: 'roleName' })
+  roleName: string;
 
   @IsOptional()
-  confirmed?: Date;
-
-  @IsOptional()
+  @ApiProperty({
+    example: Date.now(),
+    required: false,
+    description: 'Optional',
+  })
   updatedAt?: Date;
-
-  @IsOptional()
-  deletedAt?: Date;
 }

@@ -1,58 +1,68 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
   IsOptional,
   IsString,
   MaxLength,
-  MinLength
+  MinLength,
 } from 'class-validator';
-import { EmailAlreadyUsed } from 'src/@core/infra/validations/decorators/email-already-used';
 
 export class UpdateUserDto {
   @IsString()
   @IsNotEmpty()
   @MinLength(2)
   @MaxLength(255)
-  name: string;
-
-  @IsString()
-  @IsNotEmpty()
-  @MinLength(2)
-  @MaxLength(255)
-  lastname: string;
+  @ApiProperty({ example: 'John', description: 'name' })
+  fullName?: string;
 
   @IsString()
   @IsNotEmpty()
   @MinLength(4)
   @MaxLength(255)
   @IsEmail()
-  @EmailAlreadyUsed()
-  email: string;
+  @ApiProperty({ example: 'john.doe@any-email.com', description: 'email' })
+  email?: string;
 
   @IsString()
-  @IsOptional()
+  @IsNotEmpty()
   @MinLength(8)
   @MaxLength(255)
+  @ApiProperty({ example: '12345678', description: 'password' })
   password?: string;
 
   @IsString()
   @IsNotEmpty()
-  document: string;
+  @ApiProperty({
+    example: '60925616036',
+    description: 'Provide a valid CPF, CNPJ or PASSPORT.',
+  })
+  document?: string;
 
   @IsString()
   @IsNotEmpty()
-  documentName: string;
+  @ApiProperty({
+    example: 'CPF',
+    description: 'Acceptable values: CPF, CNPJ or PASSPORT.',
+  })
+  documentName?: string;
 
   @IsString()
   @IsNotEmpty()
-  roleId: String;
+  @ApiProperty({ example: 'manager', description: 'roleName' })
+  roleName?: string;
+
+  @ApiProperty({ example: 'true', description: 'restrictedForAuction' })
+  restrictedForAuction?: boolean;
+
+  @ApiProperty({ example: 'false', description: 'isPreRegistration' })
+  isPreRegistration?: boolean;
 
   @IsOptional()
-  confirmed?: Date;
-
-  @IsOptional()
+  @ApiProperty({
+    example: Date.now(),
+    required: false,
+    description: 'Optional',
+  })
   updatedAt?: Date;
-
-  @IsOptional()
-  deletedAt?: Date;
 }

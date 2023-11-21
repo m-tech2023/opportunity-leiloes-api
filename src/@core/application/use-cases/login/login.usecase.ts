@@ -1,38 +1,34 @@
-import { JwtService } from '@nestjs/jwt';
-import { env } from 'process';
+import { cnpj, cpf } from 'cpf-cnpj-validator';
+import * as emailValidator from 'email-validator';
+import { UserLoginDto } from '../../dto/requests/auth/user-login.dto';
 import { AccessTokenResponseDto } from '../../dto/responses/jwt/access-token-response.dto';
-import { UserResponseDto } from '../../dto/responses/users/user.dto';
-import { comparePassword } from 'src/@core/infra/utils/password-hash/password-hash.util';
-import { UserService } from '../../services/users/user.service';
+import { LoginByDocumentUseCase } from './login-by-document.usecase';
+import { LoginByEmailUseCase } from './login-by-email.usecase';
 
 export class LoginUseCase {
-	constructor(
-		private readonly userService: UserService,
-		private readonly jwtService: JwtService,
-	) {}
+  constructor(
+    private readonly loginByEmailUseCase: LoginByEmailUseCase,
+    private readonly loginByDocumentUseCase: LoginByDocumentUseCase,
+  ) {}
 
-	async execute(
-		email: string,
-		password: string,
-	): Promise<AccessTokenResponseDto> {
-		const user = await this.userService.findByEmail(email);
-		if (!user) {
-			return null;
-		}
+  async execute(userLoginDto: UserLoginDto): Promise<AccessTokenResponseDto> {
+    const data = {
+      username: userLoginDto.username,
+      password: userLoginDto.password,
+    } as UserLoginDto;
 
-		const validatedPassword = comparePassword(password, user.password);
-		if (!validatedPassword) {
-			return null;
-		}
+    const validEmail = emailValidator.validate(data.username);
+    if (validEmail) {
+      return await this.loginByEmailUseCase.execute(data);
+    }
 
-		delete user.password;
-		return this.getAccessToken(user);
-	}
+    const validDocument =
+      cpf.isValid(data.username) || cnpj.isValid(data.username);
+    if (validDocument) {
+      return await this.loginByDocumentUseCase.execute(data);
+    }
 
-	private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
-		return {
-			access_token: this.jwtService.sign(user),
-			expires_in: env.JWT_EXPIRES_IN,
-		};
-	}
+    // passporte
+    return await this.loginByDocumentUseCase.execute(data);
+  }
 }
