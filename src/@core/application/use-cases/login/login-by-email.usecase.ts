@@ -27,21 +27,20 @@ export class LoginByEmailUseCase {
     }
 
     user.password = null;
-    user.document = null;
+    user.Document = null;
     return this.getAccessToken(user);
   }
 
-	private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
-		return {
-			access_token: this.jwtService.sign({
-				_id: user._id,
-				name: user.name,
-				lastname: user.lastname,
-				email: user.email,
-				roleId: user.roleId,
-				confirmedAt: user.confirmedAt,
-			}),
-			expires_in: env.JWT_EXPIRES_IN,
-		};
-	}
+  private getAccessToken(user: UserResponseDto): AccessTokenResponseDto {
+    return {
+      access_token: this.jwtService.sign({
+        id: user.id,
+        fullName: user.fullName,
+        email: user.email,
+        roleName: user.roleName,
+        confirmedAt: user.confirmedAt,
+      }),
+      expires_in: env.JWT_EXPIRES_IN,
+    };
+  }
 }

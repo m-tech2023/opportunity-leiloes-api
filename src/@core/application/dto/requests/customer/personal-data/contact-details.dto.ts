@@ -14,15 +14,15 @@ export class ContactDetails {
   @MaxLength(255)
   @IsEmail()
   @ApiProperty({ example: 'john@email.com', description: 'E-mail' })
-  email?: string;
+  email: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ example: '(11) 1234-5678', description: 'Telephone' })
-  telephone?: string;
+  telephone: string;
 
   @IsString()
   @IsNotEmpty()
   @ApiProperty({ example: '(11) 98765-4321', description: 'Cellphone' })
-  cellPhone?: string;
+  cellphone: string;
 }

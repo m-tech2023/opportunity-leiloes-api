@@ -1,11 +1,11 @@
-import mongoose from 'mongoose';
+import { objectId } from 'src/@core/infra/utils/uuid/uuid.util';
 
 export type AccessLogProps = {
   id?: string;
-  userId?: string;
-  ip?: string;
-  geolocalization?: string;
+  userId: string;
+  ip: string;
   browser: string;
+  geolocalization?: string;
 };
 
 export class AccessLog {
@@ -21,7 +21,7 @@ export class AccessLog {
 
   get id() {
     if (!this.props.id) {
-      return new mongoose.Types.ObjectId().toString();
+      return objectId();
     }
 
     return this.props.id;

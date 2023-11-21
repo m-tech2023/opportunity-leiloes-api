@@ -1,10 +1,11 @@
 import mongoose from 'mongoose';
+import { passwordHash } from 'src/@core/infra/utils/password-hash/password-hash.util';
 
 type CustomerProps = {
   id?: string;
-  preRegistrationId: string;
-  isValidCustomer: boolean;
-  roleId: string;
+  isValidCustomer?: boolean;
+  isRestricted?: boolean;
+  roleName: string;
   createdAt?: Date;
   confirmedAt?: Date;
   updatedAt?: Date;
@@ -57,7 +58,10 @@ type CustomerProps = {
       state?: string;
     };
   };
-  accessData?: {};
+  accessData: {
+    email: string;
+    password: string;
+  };
   myFavorites?: {};
   myBids?: {};
 };
@@ -83,16 +87,17 @@ export class Customer {
   get isValidCustomer() {
     return this.props.isValidCustomer;
   }
-  get preRegistrationId() {
-    return this.props.preRegistrationId;
+
+  get isRestricted() {
+    return this.props.isRestricted;
   }
 
   get updatedAt() {
     return this.props.updatedAt;
   }
 
-  get roleId() {
-    return this.props.roleId;
+  get roleName() {
+    return this.props.roleName;
   }
 
   get createdAt() {
@@ -124,15 +129,18 @@ export class Customer {
   }
 
   get accessData() {
-    return this.props.accessData;
+    return {
+      email: this.props.accessData.email.toLowerCase(),
+      password: passwordHash(this.props.accessData.password),
+    };
   }
 
-  getAccountDetails() {
+  getCustomer() {
     return {
       id: this.id,
-      preRegistrationId: this.preRegistrationId,
       isValidCustomer: this.isValidCustomer,
-      roleId: this.roleId,
+      isRestricted: this.isRestricted,
+      roleName: this.roleName,
       createdAt: this.createdAt,
       confirmedAt: this.confirmedAt,
       updatedAt: this.updatedAt,
@@ -145,7 +153,7 @@ export class Customer {
     };
   }
 
-  getAccountDetailsJson() {
-    return JSON.stringify(this.getAccountDetails());
+  getCustomerJson() {
+    return JSON.stringify(this.getCustomer());
   }
 }

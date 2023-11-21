@@ -5,14 +5,11 @@ import { ContactDetails } from '../personal-data/contact-details.dto';
 import { Address } from '../personal-data/address.dto';
 export class PropertyDataDto {
   id?: string;
-  preRegistrationId?: string;
+  userId?: string;
 
   @IsNotEmpty()
   @MaxLength(255)
   farmName?: string;
-
-  @IsNotEmpty()
-  updatedAt: Date;
 
   @ValidateNested()
   @IsNotEmpty()

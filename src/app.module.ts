@@ -1,21 +1,21 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
-// import { AccessLogModule } from './@core/infra/frameworks/nestjs/modules/access-log/access-log.module';
 import { AuthModule } from './@core/infra/frameworks/nestjs/modules/auth/auth.module';
 import { DeletedAtMiddleware } from './@core/infra/frameworks/nestjs/modules/users/middlewares/deleted-at/deleted-at-middleware';
 import { UsersModule } from './@core/infra/frameworks/nestjs/modules/users/users.module';
-import { CustomerDataModule } from './@core/infra/frameworks/nestjs/modules/customer/customer.module';
+import { AccountModule } from './@core/infra/frameworks/nestjs/modules/account/account.module';
+import { ManagerModule } from './@core/infra/frameworks/nestjs/modules/manager/manager.module';
+import { PrismaService } from './@core/infra/databases/prisma/prisma.service';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(process.env.MONGO_URI),
-    // AccessLogModule,
+    PrismaService,
     UsersModule,
     AuthModule,
-    CustomerDataModule,
+    AccountModule,
+    ManagerModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [PrismaService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

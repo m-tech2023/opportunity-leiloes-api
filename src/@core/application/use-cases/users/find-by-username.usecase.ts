@@ -6,7 +6,7 @@ export class FindByUsernameUseCase {
   async execute(username: string) {
     return (
       (await this.userService.findByEmail(username)) ??
-      (await this.userService.findByDocument({ document: username }))
+      (await this.userService.findByDocument(username))
     );
   }
 }

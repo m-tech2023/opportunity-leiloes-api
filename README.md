@@ -47,7 +47,7 @@ $ npm run start:prod
 
 ## How to open Swagger
 
-http://localhost:3000/api/
+http://localhost:5500/api/
 
 
 ## Test

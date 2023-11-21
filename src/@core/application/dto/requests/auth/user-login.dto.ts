@@ -4,17 +4,18 @@ import {
   IsNotEmpty,
   IsString,
   MaxLength,
-  MinLength
+  MinLength,
 } from 'class-validator';
 
 export class UserLoginDto {
-
   @IsString()
   @IsNotEmpty()
   @MinLength(4)
   @MaxLength(255)
-  @IsEmail()
-  @ApiProperty({ example: 'john.doe@server.com', description: 'Provide a valid E-mail, CPF, CNPJ or PASSPORT.' })
+  @ApiProperty({
+    example: 'john.doe@server.com',
+    description: 'Provide a valid E-mail, CPF, CNPJ or PASSPORT.',
+  })
   username: string;
 
   @IsString()

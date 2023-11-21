@@ -4,7 +4,6 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
-import { MongooseModule } from '@nestjs/mongoose';
 import { UserService } from 'src/@core/application/services/users/user.service';
 import { CreateUserUseCase } from 'src/@core/application/use-cases/users/create-user.usecase';
 import { DestroyUserUseCase } from 'src/@core/application/use-cases/users/destroy-user.usecase';
@@ -12,33 +11,21 @@ import { FindByEmailUseCase } from 'src/@core/application/use-cases/users/find-b
 import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-id.usecase';
 import { GetAllUseCase } from 'src/@core/application/use-cases/users/get-all.usecase';
 import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-user.usecase';
-import { UserRepository } from 'src/@core/infra/databases/mongodb/repositories/users/user.repository';
-import User from 'src/@core/infra/databases/mongodb/schemas/users/user.schema';
 import { EmailAlreadyUsedRule } from 'src/@core/infra/validations/rules/email-already-used';
 import { UsersController } from 'src/@core/presentation/controllers/users/users.controller';
 import { FindUserMiddleware } from './middlewares/find-user/find-user.middleware';
-import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/customer/personal-data/pre-save-personal-data.usercase';
-import { PersonalDataRepository } from 'src/@core/infra/databases/mongodb/repositories/customer/personal-data.repository';
-import { PersonalDataService } from 'src/@core/application/services/customer/personal-data/personal-data.service';
-import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/customer.schema';
+import { UserRepository } from 'src/@core/infra/databases/prisma/repositories/users/user.repository';
+import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
+import { PersonalDataRepository } from 'src/@core/infra/databases/prisma/repositories/account/personal-data.repository';
 
 @Module({
-  imports: [
-    MongooseModule.forFeature([
-      {
-        name: 'User',
-        schema: User,
-      },
-      {
-        name: 'Customer',
-        schema: Customer,
-      },
-    ]),
-  ],
+  imports: [],
   controllers: [UsersController],
   providers: [
+    PrismaService,
     FindUserMiddleware,
     PersonalDataRepository,
+    UserRepository,
     {
       provide: GetAllUseCase,
       useFactory: (userRepository: UserRepository) => {
@@ -81,16 +68,7 @@ import Customer from 'src/@core/infra/databases/mongodb/schemas/customer/custome
       },
       inject: [UserRepository],
     },
-    {
-      provide: PreSavePersonalDataUsecase,
-      useFactory: (personalDataRepository: PersonalDataRepository) => {
-        return new PreSavePersonalDataUsecase(
-          new PersonalDataService(personalDataRepository),
-        );
-      },
-      inject: [PersonalDataRepository],
-    },
-    UserRepository,
+
     EmailAlreadyUsedRule,
   ],
   exports: [

@@ -1,28 +1,7 @@
-import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  MaxLength,
-  MinLength,
-  ValidateNested,
-} from 'class-validator';
-import { Document } from './document.dto';
+import { IsOptional, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class RegistrationData {
-  @IsString()
-  @IsNotEmpty()
-  @MaxLength(255)
-  @ApiProperty({ example: 'John', description: 'Full name' })
-  fullName: string;
-
-  @ValidateNested()
-  @Type(() => Document)
-  @IsNotEmpty()
-  @ApiProperty({ type: Document, description: 'Document data' })
-  document: Document;
-
   @IsString()
   @MinLength(3)
   @IsOptional()

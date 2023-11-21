@@ -3,17 +3,16 @@ import { objectId } from 'src/@core/infra/utils/uuid/uuid.util';
 
 type UserProps = {
   id?: string;
-  name: string;
-  lastname: string;
+  fullName: string;
   email: string;
   password: string;
   document: string;
   documentName: string;
-  roleId: string;
+  roleName: string;
+  isPreRegistration?: boolean;
+  restrictedForAuction?: boolean;
   createdAt?: Date;
-  confirmedAt?: Date;
   updatedAt?: Date;
-  deletedAt?: Date;
 };
 
 export class User {
@@ -34,18 +33,10 @@ export class User {
 
     return this.props.id;
   }
-
-  get name() {
+  get fullName() {
     return (
-      this.props.name.charAt(0).toUpperCase() +
-      this.props.name.toLowerCase().slice(1)
-    );
-  }
-
-  get lastname() {
-    return (
-      this.props.lastname.charAt(0).toUpperCase() +
-      this.props.lastname.toLowerCase().slice(1)
+      this.props.fullName.charAt(0).toUpperCase() +
+      this.props.fullName.toLowerCase().slice(1)
     );
   }
 
@@ -65,40 +56,40 @@ export class User {
     return this.props.documentName;
   }
 
-  get roleId() {
-    return this.props.roleId;
+  get roleName() {
+    return this.props.roleName;
   }
 
   get createdAt() {
     return this.props.createdAt;
   }
 
-  get confirmedAt() {
-    return this.props.confirmedAt;
-  }
-
   get updatedAt() {
     return this.props.updatedAt;
   }
 
-  get deletedAt() {
-    return this.props.deletedAt;
+  get restrictedForAuction() {
+    return this.props.restrictedForAuction;
+  }
+
+  get isPreRegistration() {
+    return this.props.isPreRegistration;
   }
 
   getUser() {
     return {
       id: this.id,
-      name: this.name,
-      lastname: this.lastname,
+      fullName: this.fullName,
+      // lastname: this.lastname,
       email: this.email,
       password: this.password,
       document: this.document,
       documentName: this.documentName,
-      roleId: this.roleId,
+      roleName: this.roleName,
       createdAt: this.createdAt,
-      confirmedAt: this.confirmedAt,
       updatedAt: this.updatedAt,
-      deletedAt: this.deletedAt,
+      restrictedForAuction: this.props.restrictedForAuction,
+      isPreRegistration: this.props.isPreRegistration,
     } as User;
   }
 
