@@ -14,8 +14,6 @@ import { UpdateUserUseCase } from 'src/@core/application/use-cases/users/update-
 import { EmailAlreadyUsedRule } from 'src/@core/infra/validations/rules/email-already-used';
 import { UsersController } from 'src/@core/presentation/controllers/users/users.controller';
 import { FindUserMiddleware } from './middlewares/find-user/find-user.middleware';
-import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/account/personal-data/pre-save-personal-data.usercase';
-import { PersonalDataService } from 'src/@core/application/services/customer/personal-data/personal-data.service';
 import { UserRepository } from 'src/@core/infra/databases/prisma/repositories/users/user.repository';
 import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
 import { PersonalDataRepository } from 'src/@core/infra/databases/prisma/repositories/account/personal-data.repository';
@@ -69,15 +67,6 @@ import { PersonalDataRepository } from 'src/@core/infra/databases/prisma/reposit
         return new DestroyUserUseCase(new UserService(userRepository));
       },
       inject: [UserRepository],
-    },
-    {
-      provide: PreSavePersonalDataUsecase,
-      useFactory: (personalDataRepository: PersonalDataRepository) => {
-        return new PreSavePersonalDataUsecase(
-          new PersonalDataService(personalDataRepository),
-        );
-      },
-      inject: [PersonalDataRepository],
     },
 
     EmailAlreadyUsedRule,

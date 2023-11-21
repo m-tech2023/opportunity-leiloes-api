@@ -9,4 +9,13 @@ export class ManagerService {
   async restrictUserInTheAuction(userId: string, updatedData: UpdateUserDto) {
     return await this.userRepository.restrictedForAuction(userId, updatedData);
   }
+  async changeUserStatusToRegistered(
+    userId: string,
+    updateData: UpdateUserDto,
+  ) {
+    return await this.userRepository.changeUserStatusToRegistered(
+      userId,
+      updateData,
+    );
+  }
 }

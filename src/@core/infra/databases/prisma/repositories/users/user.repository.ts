@@ -79,6 +79,19 @@ export class UserRepository {
       },
     });
   }
+
+  async changeUserStatusToRegistered(
+    userId: string,
+    updateUserDto: UpdateUserDto,
+  ) {
+    return await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        isPreRegistration: updateUserDto.isPreRegistration,
+      },
+    });
+  }
+
   async getUserRole(userId: string) {
     return await this.prisma.userRole.findFirstOrThrow({
       where: {
@@ -100,7 +113,7 @@ export class UserRepository {
   }
 
   async findUserById(id: string) {
-    return await this.prisma.user.findUniqueOrThrow({
+    return await this.prisma.user.findUnique({
       where: { id },
       include: {
         UserRole: {

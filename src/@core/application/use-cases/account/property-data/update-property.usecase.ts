@@ -1,5 +1,5 @@
 import { PropertyDataDto } from 'src/@core/application/dto/requests/customer/property-data/update-property.dto';
-import { PropertyDataService } from 'src/@core/application/services/customer/property-data/property-data.service';
+import { PropertyDataService } from 'src/@core/application/services/account/property-data/property-data.service';
 export class UpdatePropertyDataUsecase {
   constructor(private readonly propertyDataService: PropertyDataService) {}
 

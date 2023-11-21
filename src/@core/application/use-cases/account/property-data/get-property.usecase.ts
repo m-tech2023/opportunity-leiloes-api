@@ -1,4 +1,4 @@
-import { PropertyDataService } from 'src/@core/application/services/customer/property-data/property-data.service';
+import { PropertyDataService } from 'src/@core/application/services/account/property-data/property-data.service';
 
 export class GetPropertyDataUsecase {
   constructor(private readonly propertyDataService: PropertyDataService) {}

@@ -1,4 +1,4 @@
-import { PersonalDataService } from 'src/@core/application/services/customer/personal-data/personal-data.service';
+import { PersonalDataService } from 'src/@core/application/services/account/personal-data/personal-data.service';
 export class GetPersonalDataUsecase {
   constructor(private readonly personalDataService: PersonalDataService) {}
 

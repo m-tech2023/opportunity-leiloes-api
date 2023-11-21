@@ -1,4 +1,3 @@
-import { PreSavePersonalDataUsecase } from 'src/@core/application/use-cases/account/personal-data/pre-save-personal-data.usercase';
 import { Controller } from '@nestjs/common';
 import {
   Body,
@@ -36,7 +35,6 @@ export class UsersController {
     private readonly createUserUseCase: CreateUserUseCase,
     private readonly updateUserUseCase: UpdateUserUseCase,
     private readonly destroyUserUseCase: DestroyUserUseCase,
-    private readonly preSavePersonalDataUsecase: PreSavePersonalDataUsecase,
   ) {}
 
   @Get()

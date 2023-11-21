@@ -9,7 +9,8 @@ type UserProps = {
   document: string;
   documentName: string;
   roleName: string;
-  restrictedForAuction: boolean;
+  isPreRegistration?: boolean;
+  restrictedForAuction?: boolean;
   createdAt?: Date;
   updatedAt?: Date;
 };
@@ -71,6 +72,10 @@ export class User {
     return this.props.restrictedForAuction;
   }
 
+  get isPreRegistration() {
+    return this.props.isPreRegistration;
+  }
+
   getUser() {
     return {
       id: this.id,
@@ -84,6 +89,7 @@ export class User {
       createdAt: this.createdAt,
       updatedAt: this.updatedAt,
       restrictedForAuction: this.props.restrictedForAuction,
+      isPreRegistration: this.props.isPreRegistration,
     } as User;
   }
 

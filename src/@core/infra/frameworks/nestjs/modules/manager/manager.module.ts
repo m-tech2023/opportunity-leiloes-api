@@ -6,6 +6,7 @@ import { UserRepository } from 'src/@core/infra/databases/prisma/repositories/us
 import { FindByIdUseCase } from 'src/@core/application/use-cases/users/find-by-id.usecase';
 import { UserService } from 'src/@core/application/services/users/user.service';
 import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
+import { ChangeUserStatusToRegisteredUseCase } from 'src/@core/application/use-cases/manager/change-user-status-to-registered.usecase';
 
 @Module({
   imports: [],
@@ -18,6 +19,15 @@ import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
       provide: RestrictUserInTheAuctionUsecase,
       useFactory: (userRepository: UserRepository) => {
         return new RestrictUserInTheAuctionUsecase(
+          new ManagerService(userRepository),
+        );
+      },
+      inject: [UserRepository],
+    },
+    {
+      provide: ChangeUserStatusToRegisteredUseCase,
+      useFactory: (userRepository: UserRepository) => {
+        return new ChangeUserStatusToRegisteredUseCase(
           new ManagerService(userRepository),
         );
       },

@@ -1,4 +1,4 @@
-import { PersonalDataService } from 'src/@core/application/services/customer/personal-data/personal-data.service';
+import { PersonalDataService } from 'src/@core/application/services/account/personal-data/personal-data.service';
 import { cnpj, cpf } from 'cpf-cnpj-validator';
 import { UpdatePersonalDataDto } from 'src/@core/application/dto/requests/customer/account/update-personal-data.dto';
 

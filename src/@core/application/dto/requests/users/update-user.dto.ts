@@ -52,7 +52,11 @@ export class UpdateUserDto {
   @ApiProperty({ example: 'manager', description: 'roleName' })
   roleName?: string;
 
+  @ApiProperty({ example: 'true', description: 'restrictedForAuction' })
   restrictedForAuction?: boolean;
+
+  @ApiProperty({ example: 'false', description: 'isPreRegistration' })
+  isPreRegistration?: boolean;
 
   @IsOptional()
   @ApiProperty({

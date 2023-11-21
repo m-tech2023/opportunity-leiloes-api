@@ -6,11 +6,11 @@ import { AccessLogService } from 'src/@core/application/services/access-log/acce
 import { PersonalDataController } from 'src/@core/presentation/controllers/account/personal-data.controller';
 import { GetPersonalDataUsecase } from 'src/@core/application/use-cases/account/personal-data/get-personal-data.usecase';
 import { PersonalDataRepository } from 'src/@core/infra/databases/prisma/repositories/account/personal-data.repository';
-import { PersonalDataService } from 'src/@core/application/services/customer/personal-data/personal-data.service';
+import { PersonalDataService } from 'src/@core/application/services/account/personal-data/personal-data.service';
 import { UpdatePersonalDataUsecase } from '../../../../../application/use-cases/account/personal-data/update-personal-data.usecase';
 import { PropertyDataController } from 'src/@core/presentation/controllers/account/property-data.controller';
 import { PropertyDataRepository } from 'src/@core/infra/databases/prisma/repositories/account/property-data.repository';
-import { PropertyDataService } from 'src/@core/application/services/customer/property-data/property-data.service';
+import { PropertyDataService } from 'src/@core/application/services/account/property-data/property-data.service';
 import { GetPropertyDataUsecase } from 'src/@core/application/use-cases/account/property-data/get-property.usecase';
 import { AccessLogRepository } from 'src/@core/infra/databases/prisma/repositories/access-log/access-log.repository';
 import { PrismaService } from 'src/@core/infra/databases/prisma/prisma.service';
